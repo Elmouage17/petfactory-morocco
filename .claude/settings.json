@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd /home/user/petfactory-morocco && pip install -q google-auth google-auth-httplib2 google-api-python-client 2>/dev/null && python3 scripts/send_report_email.py"
+            "command": "echo '[hook] Executive summary generated — Claude will send email via Gmail MCP next session.'"
           }
         ]
       }

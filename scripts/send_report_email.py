@@ -36,6 +36,13 @@ PetFactory Maroc
 SCOPES      = ["https://www.googleapis.com/auth/gmail.send"]
 REPO_DIR    = Path(__file__).resolve().parent.parent
 
+# OAuth credentials — loaded from environment variables (never hardcoded)
+# Set these in your shell profile or CI environment:
+#   export PETFACTORY_GMAIL_CLIENT_ID="..."
+#   export PETFACTORY_GMAIL_CLIENT_SECRET="..."
+#   export PETFACTORY_GMAIL_REFRESH_TOKEN="..."
+CREDS_FILE  = Path.home() / ".petfactory" / "gmail_oauth.json"
+
 
 def find_latest_pdf():
     """Return the most recently generated executive summary PDF."""
@@ -45,29 +52,42 @@ def find_latest_pdf():
     return pdfs[0]
 
 
-def load_service_account():
-    """Load service account credentials from env var or fallback file."""
-    raw = os.environ.get("PETFACTORY_SERVICE_ACCOUNT_JSON")
-    if raw:
-        return json.loads(raw)
-    fallback = Path.home() / ".petfactory" / "service_account.json"
-    if fallback.exists():
-        return json.loads(fallback.read_text())
-    sys.exit(
-        "ERROR: No service account credentials found.\n"
-        "Set PETFACTORY_SERVICE_ACCOUNT_JSON env var or place the key at "
-        "~/.petfactory/service_account.json"
-    )
+def load_oauth_creds():
+    """Load OAuth credentials from env vars or fallback file."""
+    client_id     = os.environ.get("PETFACTORY_GMAIL_CLIENT_ID")
+    client_secret = os.environ.get("PETFACTORY_GMAIL_CLIENT_SECRET")
+    refresh_token = os.environ.get("PETFACTORY_GMAIL_REFRESH_TOKEN")
+
+    if not all([client_id, client_secret, refresh_token]):
+        if CREDS_FILE.exists():
+            data = json.loads(CREDS_FILE.read_text())
+            client_id     = data.get("client_id")
+            client_secret = data.get("client_secret")
+            refresh_token = data.get("refresh_token")
+
+    if not all([client_id, client_secret, refresh_token]):
+        sys.exit(
+            "ERROR: Gmail OAuth credentials not found.\n"
+            "Set env vars PETFACTORY_GMAIL_CLIENT_ID, PETFACTORY_GMAIL_CLIENT_SECRET, "
+            "PETFACTORY_GMAIL_REFRESH_TOKEN\n"
+            f"or place credentials at {CREDS_FILE}"
+        )
+    return client_id, client_secret, refresh_token
 
 
-def build_gmail_service(sa_info):
-    from google.oauth2 import service_account
+def build_gmail_service():
+    from google.oauth2.credentials import Credentials
     from googleapiclient.discovery import build
 
-    creds = service_account.Credentials.from_service_account_info(
-        sa_info, scopes=SCOPES
-    ).with_subject(SENDER)  # impersonate sender via domain-wide delegation
-
+    client_id, client_secret, refresh_token = load_oauth_creds()
+    creds = Credentials(
+        token=None,
+        refresh_token=refresh_token,
+        token_uri="https://oauth2.googleapis.com/token",
+        client_id=client_id,
+        client_secret=client_secret,
+        scopes=SCOPES,
+    )
     return build("gmail", "v1", credentials=creds, cache_discovery=False)
 
 
@@ -93,8 +113,7 @@ def main():
     pdf = find_latest_pdf()
     print(f"Attaching: {pdf.name}")
 
-    sa_info = load_service_account()
-    service = build_gmail_service(sa_info)
+    service = build_gmail_service()
 
     encoded = build_message(pdf)
     result  = service.users().messages().send(

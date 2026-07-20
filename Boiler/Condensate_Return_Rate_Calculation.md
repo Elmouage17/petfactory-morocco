@@ -82,7 +82,51 @@ Installing a flash vessel on the condensate header would:
 
 ---
 
-## 6. References
+---
+
+## 6. P&ID Analysis — Condensate Return Line (from FAMSUN PLAN VAPEUR)
+
+### Condensate return schematic (as-drawn)
+
+```
+[Dryer DN100] ── steam trap (ST-01) ──┐
+[Preconditioner DN60] ── steam trap (ST-02) ──┤──► DN25 condensate header ──► Boiler feedwater
+[Fat tanks DN32] ── steam trap (ST-03) ──┘
+         ↑
+   φ219×1800 sub-steam cylinder
+   (bottom drain: DN25, position ④)
+```
+
+### Instrumentation confirmed in drawings
+
+| Tag | Type | Location |
+|---|---|---|
+| ST-01 to ST-03 | Steam traps (疏水阀) | At each equipment condensate outlet |
+| ④ | Drain/isolation valve | Bottom of steam distribution cylinder |
+| ⑤ ⑥ ⑦ | Condensate isolation valves | Condensate header |
+| DN25 | Condensate return pipe | Main header back to boiler |
+
+### P&ID gaps — items missing from FAMSUN drawings
+
+| Missing element | Risk if not added |
+|---|---|
+| **Condensate receiver tank** (1–2 m³) | No buffer vessel shown — risk of water hammer at boiler inlet |
+| **Flow transmitter (FT)** on condensate return | Cannot measure actual return rate in operation |
+| **Temperature sensor (TT)** on condensate header | Cannot verify sub-cooling at traps or detect trap failure |
+| **Check valve** on return line before boiler | Risk of backflow contaminating condensate |
+| **Level control** on boiler feedwater tank | Not shown in these drawings |
+| **Flash steam recovery vessel** | 0.308 t/h of flash steam currently vented to atmosphere |
+
+### Action required — Items to request from FAMSUN
+
+1. Condensate receiver tank with level gauge, overflow, and condensate pump
+2. Flow transmitter (FT) + temperature transmitter (TT) on condensate return header
+3. Check valve (non-return valve) before boiler feedwater inlet
+4. Revised P&ID showing complete condensate loop with all instrumentation
+
+---
+
+## 7. References
 - FAMSUN Drawing: 蒸汽图纸（摩洛哥Pet Factory）_t3.dwg (Drawing No. A3-SH-01, dated 2024-09-19)
-- FAMSUN PLAN VAPEUR PDF — Floor plans ±0.00M and +8.50M
+- FAMSUN PLAN VAPEUR PDF — Steam cylinder diagram, MYGL165 piping system, Floor plans ±0.00M and +8.50M
 - Steam tables: saturated steam properties at 1 MPa and 0.1 MPa

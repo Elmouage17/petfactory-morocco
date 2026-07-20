@@ -84,45 +84,102 @@ Installing a flash vessel on the condensate header would:
 
 ---
 
-## 6. P&ID Analysis — Condensate Return Line (from FAMSUN PLAN VAPEUR)
+## 6. P&ID Analysis — Condensate Return Lines (Extracted from DWG file via LibreDWG)
 
-### Condensate return schematic (as-drawn)
+> Source: Direct text extraction from 蒸汽图纸（摩洛哥Pet Factory）_t3.dwg using LibreDWG 0.13.3
 
-```
-[Dryer DN100] ── steam trap (ST-01) ──┐
-[Preconditioner DN60] ── steam trap (ST-02) ──┤──► DN25 condensate header ──► Boiler feedwater
-[Fat tanks DN32] ── steam trap (ST-03) ──┘
-         ↑
-   φ219×1800 sub-steam cylinder
-   (bottom drain: DN25, position ④)
-```
+### Condensate pipe inventory — as labelled in DWG
 
-### Instrumentation confirmed in drawings
+**From Extruder body (MYGL165 machine piping — 机身管路):**
 
-| Tag | Type | Location |
+| Qty | Size | Label in DWG | Description |
+|---|---|---|---|
+| 3 | DN15 | 高压冷凝水 / high pressure condensed | Extrusion barrel condensate — 3 barrel sections |
+| 3 | DN15 | 中压冷凝水 / medium pressure condensed | Jacket condensate — 3 sections |
+| 1 | DN20 | 高压冷凝水 / high pressure condensed | HP collection pipe (collects 3×DN15 HP) |
+| 1 | DN20 | 中压冷凝水 / medium pressure condensed | MP collection pipe (collects 3×DN15 MP) |
+| 1 | DN25 | 中压冷凝水 / low pressure condensed | Main condensate from extruder (collects DN20 HP + DN20 MP) |
+
+**From Dryer (烘干机) — 4 heat exchanger zones:**
+
+| Zone | Label in DWG | Steam trap |
 |---|---|---|
-| ST-01 to ST-03 | Steam traps (疏水阀) | At each equipment condensate outlet |
-| ④ | Drain/isolation valve | Bottom of steam distribution cylinder |
-| ⑤ ⑥ ⑦ | Condensate isolation valves | Condensate header |
-| DN25 | Condensate return pipe | Main header back to boiler |
+| 干燥一区 (Zone 1) | 冷凝水 | Float trap FT43-10 DN25 |
+| 干燥二区Ⅰ (Zone 2-I) | 冷凝水 | Float trap (DN25) |
+| 干燥二区Ⅱ (Zone 2-II) | 冷凝水 | Float trap (DN25) |
+| 干燥三区 (Zone 3) | 冷凝水 | Float trap FT14-10 DN25 |
+
+> Technical requirement in DWG: "每台干燥机有其独立的疏水管道" — each dryer has its own independent condensate pipe.
+
+**From main steam distribution (分气缸 / steam header):**
+
+| Qty | Label in DWG | Purpose |
+|---|---|---|
+| 2 | 疏水 Condensate | Drainage/steam trap points on the main steam supply line |
+
+### Total condensate return pipe count
+
+| Return stream | Size | Notes |
+|---|---|---|
+| Extruder DN25 main | DN25 | Collects all extruder body condensate |
+| Dryer Zone 1 | DN25 (trap outlet) | Via float trap FT43-10 |
+| Dryer Zone 2-I | DN25 (trap outlet) | Via float trap |
+| Dryer Zone 2-II | DN25 (trap outlet) | Via float trap |
+| Dryer Zone 3 | DN25 (trap outlet) | Via float trap FT14-10 |
+| Steam line drain 1 | DN15 | Main supply pipe trap |
+| Steam line drain 2 | DN15 | Main supply pipe trap |
+| **Main return header** | **DN50** | **Single line back to boiler, with check valve (止回阀)** |
+
+**Total confirmed condensate return connections: 7 individual pipes → 1 main DN50 return header**
+
+### Condensate return schematic (from DWG data)
+
+```
+EXTRUDER (MYGL165):
+  Barrel section 1 ──DN15 HP──┐
+  Barrel section 2 ──DN15 HP──┤──► DN20 HP ──┐
+  Barrel section 3 ──DN15 HP──┘              │
+  Jacket section 1 ──DN15 MP──┐              ├──► DN25 main ──┐
+  Jacket section 2 ──DN15 MP──┤──► DN20 MP ──┘               │
+  Jacket section 3 ──DN15 MP──┘                               │
+                                                               ├──► DN50 check valve ──► Boiler feedwater
+DRYER:                                                         │
+  Zone 1 (DN25 FT43-10) ──────────────────────────────────────┤
+  Zone 2-I (DN25 trap) ───────────────────────────────────────┤
+  Zone 2-II (DN25 trap) ──────────────────────────────────────┤
+  Zone 3 (DN25 FT14-10) ──────────────────────────────────────┤
+                                                               │
+STEAM LINE DRAINS (×2, DN15) ───────────────────────────────►─┘
+```
+
+### Confirmed instrumentation (from DWG BOM — 表1)
+
+| Item | Size | Description | Qty |
+|---|---|---|---|
+| Float steam trap 浮球疏水阀 FT43-10 | DN25 | Dryer condensate trap | 1 |
+| Float steam trap 浮球疏水阀 FT14-10 | DN25 | Dryer condensate trap | 1 |
+| Check valve 止回阀 | DN50 | Main condensate return (BOM item 8) | 1 |
+| Globe valve 波纹管密封截止阀 | DN25 | Condensate isolation valves (BOM item 4) | 4 |
+| Y-filter 过滤器 Y型 | DN25 | Condensate strainer | 1 |
 
 ### P&ID gaps — items missing from FAMSUN drawings
 
 | Missing element | Risk if not added |
 |---|---|
 | **Condensate receiver tank** (1–2 m³) | No buffer vessel shown — risk of water hammer at boiler inlet |
-| **Flow transmitter (FT)** on condensate return | Cannot measure actual return rate in operation |
-| **Temperature sensor (TT)** on condensate header | Cannot verify sub-cooling at traps or detect trap failure |
-| **Check valve** on return line before boiler | Risk of backflow contaminating condensate |
+| **Flow transmitter (FT)** on DN50 return | Cannot measure actual return rate in operation |
+| **Temperature transmitter (TT)** on condensate header | Cannot verify sub-cooling at traps or detect trap failure |
 | **Level control** on boiler feedwater tank | Not shown in these drawings |
 | **Flash steam recovery vessel** | 0.308 t/h of flash steam currently vented to atmosphere |
+| **Steam traps for Zone 2-I and 2-II** | Only FT43-10 and FT14-10 labelled — 2 intermediate dryer traps unnamed |
 
 ### Action required — Items to request from FAMSUN
 
-1. Condensate receiver tank with level gauge, overflow, and condensate pump
-2. Flow transmitter (FT) + temperature transmitter (TT) on condensate return header
-3. Check valve (non-return valve) before boiler feedwater inlet
-4. Revised P&ID showing complete condensate loop with all instrumentation
+1. Confirm steam trap model/rating for dryer zones 2-I and 2-II (not labelled in DWG)
+2. Condensate receiver tank with level gauge, overflow, and condensate pump
+3. Flow transmitter (FT) on DN50 main condensate return header
+4. Temperature transmitter (TT) on condensate header upstream of check valve
+5. Revised P&ID showing complete condensate loop with all 7 return branches and instrumentation
 
 ---
 

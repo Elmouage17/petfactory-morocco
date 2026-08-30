@@ -79,6 +79,12 @@
       "skillPath": "skills/cloud/agent-platform-tuning-management/SKILL.md",
       "computedHash": "10f9b8f2215fa88256cf9cb0dfc2496353bee9461349b8995d17c4af6f4a4317"
     },
+    "agent-reach": {
+      "source": "EdisonChenAI/agent-reach",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "2f7eccb7a53d9b1a7b700ff294f7f4b10f7fc6784c0910620d6a803588d97c0a"
+    },
     "alloydb-basics": {
       "source": "google/skills",
       "sourceType": "github",

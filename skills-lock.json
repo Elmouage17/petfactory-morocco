@@ -828,6 +828,12 @@
       "sourceType": "github",
       "skillPath": "skills/cloud/workload-manager-basics/SKILL.md",
       "computedHash": "a951d71a82f0d50a1e20f17bb868a41e126f97db9721dfd7374b5b9b56367d49"
+    },
+    "find-skill": {
+      "source": "fockus/claude-skill-find-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "5638a874713a5338dc9705bd0bd31e40bd6337df23c55a9d45c9691401fca0ee"
     }
   }
 }

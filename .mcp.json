@@ -46,6 +46,13 @@
       "env": {
         "COMPOSIO_API_KEY": "YOUR_COMPOSIO_API_KEY_HERE"
       }
+    },
+    "chatplace": {
+      "type": "url",
+      "url": "https://mcp.chatplace.io/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_CHATPLACE_API_KEY_HERE"
+      }
     }
   }
 }

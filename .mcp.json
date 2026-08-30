@@ -74,6 +74,10 @@
       "env": {
         "FIRECRAWL_API_KEY": "YOUR_FIRECRAWL_API_KEY_HERE"
       }
+    },
+    "blueticks-whatsapp": {
+      "type": "url",
+      "url": "https://api.blueticks.co/mcp"
     }
   }
 }

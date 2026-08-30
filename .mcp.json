@@ -6,6 +6,16 @@
         "-y",
         "@gongrzhe/server-gmail-autoauth-mcp"
       ]
+    },
+    "perplexity": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@perplexity-ai/mcp-server"
+      ],
+      "env": {
+        "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE"
+      }
     }
   }
 }

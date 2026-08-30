@@ -36,6 +36,16 @@
         "-y",
         "@playwright/mcp@latest"
       ]
+    },
+    "composio": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@composio/mcp@latest"
+      ],
+      "env": {
+        "COMPOSIO_API_KEY": "YOUR_COMPOSIO_API_KEY_HERE"
+      }
     }
   }
 }

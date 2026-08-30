@@ -271,6 +271,12 @@
       "skillPath": "skills/find-security-vulnerabilities-in-code/SKILL.md",
       "computedHash": "d6aaaf44bb35c4dedec775c47c7f814517356f534c374f15c884d94735b11d97"
     },
+    "find-skill": {
+      "source": "fockus/claude-skill-find-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "5638a874713a5338dc9705bd0bd31e40bd6337df23c55a9d45c9691401fca0ee"
+    },
     "finding-google-skills": {
       "source": "google/skills",
       "sourceType": "github",
@@ -805,6 +811,12 @@
       "skillPath": "skills/cloud/spanner-basics/SKILL.md",
       "computedHash": "1f30c39e0cdcb8cfaca52646f7e8c453141e36282ea41d799769d4c1a5a998f2"
     },
+    "stop-slop": {
+      "source": "hardikpandya/stop-slop",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "617bf97d33162a6bd0da4f40a97aac589de58e5a6c9cf011ed6108992210e7cb"
+    },
     "superdesign": {
       "source": "superdesigndev/superdesign-skill",
       "sourceType": "github",
@@ -828,12 +840,6 @@
       "sourceType": "github",
       "skillPath": "skills/cloud/workload-manager-basics/SKILL.md",
       "computedHash": "a951d71a82f0d50a1e20f17bb868a41e126f97db9721dfd7374b5b9b56367d49"
-    },
-    "find-skill": {
-      "source": "fockus/claude-skill-find-skill",
-      "sourceType": "github",
-      "skillPath": "SKILL.md",
-      "computedHash": "5638a874713a5338dc9705bd0bd31e40bd6337df23c55a9d45c9691401fca0ee"
     }
   }
 }

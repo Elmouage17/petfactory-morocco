@@ -16,6 +16,12 @@
       "env": {
         "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE"
       }
+    },
+    "skillspector": {
+      "command": "skillspector",
+      "args": [
+        "mcp"
+      ]
     }
   }
 }

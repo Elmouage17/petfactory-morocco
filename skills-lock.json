@@ -91,6 +91,12 @@
       "skillPath": "skills/cloud/alloydb-basics/SKILL.md",
       "computedHash": "ff432c0cbd7368d3d00160f274af3279f79a27c4e182932e9722e5fd7876b061"
     },
+    "ansys-simulation": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/integrations/ansys-simulation/SKILL.md",
+      "computedHash": "98b53a1a32c3d79703c1405f7940d10256cf915ec100a469c0accb09b809c9f5"
+    },
     "api-security-testing": {
       "source": "usestrix/strix",
       "sourceType": "github",
@@ -132,6 +138,24 @@
       "sourceType": "github",
       "skillPath": "skills/cloud/bigtable-basics/SKILL.md",
       "computedHash": "af872c189e25ae52463095b8d6a7ae5453a626e99e34eb27ebfbc173489cbd37"
+    },
+    "cavitation-analysis": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/pump-design/cavitation-analysis/SKILL.md",
+      "computedHash": "e7f0cc1f55e95a2024b6bcb69e15349cec36bad45db6c52d69af2e1292571321"
+    },
+    "cavitation-risk-db": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/databases/cavitation-risk-db/SKILL.md",
+      "computedHash": "bb98a3f5629049310a3e701f01df3e57087e333c081a1a6a8867bea4ed8a78fd"
+    },
+    "centrifugal-pump-design": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/pump-design/centrifugal-pumps/SKILL.md",
+      "computedHash": "82ba285629c8f40d12302f52351745292e71857d789843a277ccec4fa32761db"
     },
     "ci-security-scanning-with-strix": {
       "source": "usestrix/strix",
@@ -211,6 +235,18 @@
       "skillPath": "skills/cloud/cloud-sql-basics/SKILL.md",
       "computedHash": "7108becb6aa2e926e8294049ad641b266a2dbf86835ec3de8065c9d69ba68111"
     },
+    "comsol-multiphysics": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/integrations/comsol-multiphysics/SKILL.md",
+      "computedHash": "1006e6ef6c3cc5ff61690e38c2f13c1f8afa197ed5014c0cf8a359fdb91f8f03"
+    },
+    "coolprop-db": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/databases/coolprop-db/SKILL.md",
+      "computedHash": "d87d649894f49d9fd0d26e12c4a982d94f19c424ff498d4b3d4ab30fc38a9c9e"
+    },
     "data-manager-api-audience-ingestion": {
       "source": "google/skills",
       "sourceType": "github",
@@ -277,6 +313,18 @@
       "skillPath": "skills/cloud/genkit-python/SKILL.md",
       "computedHash": "a2c33c613520054bdc19c3778b5d38f9829fbda6397cb505d7a9ac59eb7c8a09"
     },
+    "engineering-context-init": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/helpers/engineering-context-init/SKILL.md",
+      "computedHash": "340eec6340842a54f0990fa0debe92727e882cd0898f3f8e9c6d6ce30f14dee0"
+    },
+    "error-handler-fluids": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/helpers/error-handler-fluids/SKILL.md",
+      "computedHash": "765bcfbf804c2c83a483c90236d34161f7fb4c07ca3927ae9d89cfafa3675872"
+    },
     "find-security-vulnerabilities-in-code": {
       "source": "usestrix/strix",
       "sourceType": "github",
@@ -307,6 +355,24 @@
       "skillPath": "skills/fix-security-vulnerabilities-with-strix/SKILL.md",
       "computedHash": "2bb121ea7c1843742ef9a3ae786034ec220f49f5865f165a29c1ab8fcbe79dc9"
     },
+    "fluid-dynamics-workflow": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/fluid-dynamics/SKILL.md",
+      "computedHash": "65c8360502035d031bedfadc0d3fd45b071bbc5a427409db8d6acadd2b130f05"
+    },
+    "fluid-property-calculator": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/helpers/fluid-property-calculator/SKILL.md",
+      "computedHash": "c48b2d6992c15bfea39957b6f3ef2d81931a35866eeb41f8bf5c6844284bb71d"
+    },
+    "fluids-package": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/fluids-package/SKILL.md",
+      "computedHash": "454301e17cf4c7d6ca584e0d6fd37acd7889a9469899aa99019a7bffda8c39aa"
+    },
     "gcloud": {
       "source": "google/skills",
       "sourceType": "github",
@@ -336,6 +402,12 @@
       "sourceType": "github",
       "skillPath": "skills/cloud/gemini-live-api/SKILL.md",
       "computedHash": "29cd4c824a8a4ef4eb2b4437ce222a2507261dc107b106f9e71c866076141ef2"
+    },
+    "get-available-resources": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/helpers/get-available-resources/SKILL.md",
+      "computedHash": "18d1d55536efce2df829a662ee900f76d8d5b80c8ec355d6b35c30fdda70ab13"
     },
     "gke-ai-troubleshooting-handle-disruption-gpu-tpu": {
       "source": "google/skills",
@@ -751,6 +823,12 @@
       "skillPath": "skills/ads/google-mobile-ads-rewarded/SKILL.md",
       "computedHash": "b246845cd8e357a94959787d9650e140c215b56352744591d62a02103c79cbb1"
     },
+    "hydraulic-components-db": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/databases/hydraulic-components-db/SKILL.md",
+      "computedHash": "262aeb037c6c1ca54bcd07242b27b6e436ffd8a569de43d8a3e585db6609a3a4"
+    },
     "iam-helper-for-policy-simulator": {
       "source": "google/skills",
       "sourceType": "github",
@@ -774,6 +852,156 @@
       "sourceType": "github",
       "skillPath": "skills/ads/ima-sdk-client-side/SKILL.md",
       "computedHash": "fc2f46850e05331ed63e3b4519a204f37d79dad72bd2689e903faa4c66754267"
+    },
+    "ln-11-plan-reviewer": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/review-suite/skills/ln-11-plan-reviewer/SKILL.md",
+      "computedHash": "d88212e7082791c25e494ce6809971d1c44e6a99b8be569d5f9b895427cc4a09"
+    },
+    "ln-12-delivery-reviewer": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/review-suite/skills/ln-12-delivery-reviewer/SKILL.md",
+      "computedHash": "28b0bb2429f225250bd0f998b3b8528c8a1508097f3556ae70ac48c45ae5d260"
+    },
+    "ln-21-documentation-auditor": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/codebase-audit-suite/skills/ln-21-documentation-auditor/SKILL.md",
+      "computedHash": "b992f162d15a7f2e1ab25f26f4243fb6d7f480ccbc24806d6fd6473dfed70097"
+    },
+    "ln-22-codebase-auditor": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/codebase-audit-suite/skills/ln-22-codebase-auditor/SKILL.md",
+      "computedHash": "f2a85e82cecd0fac3fcca29db0d5f40a4f235aae7a0d5dba812ff86552661982"
+    },
+    "ln-23-test-suite-auditor": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/codebase-audit-suite/skills/ln-23-test-suite-auditor/SKILL.md",
+      "computedHash": "ca282831933924032c19f0c42049c92c96f3cb398abd3c6c270c5b5116ed78d7"
+    },
+    "ln-24-architecture-auditor": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/codebase-audit-suite/skills/ln-24-architecture-auditor/SKILL.md",
+      "computedHash": "9000f5beeef7999a0090be42df48af2699cf690a40ba247932ede2549d90a7fd"
+    },
+    "ln-25-persistence-auditor": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/codebase-audit-suite/skills/ln-25-persistence-auditor/SKILL.md",
+      "computedHash": "27393b5d294b064ee5031ad824b10a4564a40d83bf8e19ac011cd5dfe8edd790"
+    },
+    "ln-31-performance-optimizer": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/optimization-suite/skills/ln-31-performance-optimizer/SKILL.md",
+      "computedHash": "eebe7262abcde8970e12a431a4eacbf13b0a048ec3c27701032d51ed4c65fb2a"
+    },
+    "ln-32-dependency-upgrader": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/optimization-suite/skills/ln-32-dependency-upgrader/SKILL.md",
+      "computedHash": "f621b5f142baef9341fd23828278ed71432c053ed4ee872287054f5809df687d"
+    },
+    "ln-33-code-modernizer": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/optimization-suite/skills/ln-33-code-modernizer/SKILL.md",
+      "computedHash": "985336e57164283736cbcf3fc66cc5b2a9fff8835cf5fc633c9544c616622029"
+    },
+    "ln-34-benchmark-comparator": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/optimization-suite/skills/ln-34-benchmark-comparator/SKILL.md",
+      "computedHash": "dfeabc42883305862c6c26bc62d2eef6b199e8213250b33a068013101c65b527"
+    },
+    "ln-35-surgical-change-implementer": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/optimization-suite/skills/ln-35-surgical-change-implementer/SKILL.md",
+      "computedHash": "6bce4852f47fafd6b19fad5cebbf8ef1abfbb3b196c5e27dcdec7edaeb31c7d7"
+    },
+    "ln-41-test-strategy-planner": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/testing-suite/skills/ln-41-test-strategy-planner/SKILL.md",
+      "computedHash": "4557116719ab2d4569506fd6795cd07e613fc1ef056d617539b16ecf5ba5bfa2"
+    },
+    "ln-42-acceptance-test-builder": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/testing-suite/skills/ln-42-acceptance-test-builder/SKILL.md",
+      "computedHash": "1bec612e3bbdd60b98236a5758cdc3823cf7cea524efdff49ad84bc5046e89db"
+    },
+    "ln-51-opportunity-evaluator": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/product-discovery-suite/skills/ln-51-opportunity-evaluator/SKILL.md",
+      "computedHash": "14448c50f32cf9f64d7e85d8381a7dfe2f135a6b4f298752d4e7bd0997cbb004"
+    },
+    "ln-61-skill-reviewer": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/maintainer-suite/skills/ln-61-skill-reviewer/SKILL.md",
+      "computedHash": "189507366bc25404840926aff7f5631e7db64ea96162fca4326f84f369e60b65"
+    },
+    "ln-62-repository-publisher": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/maintainer-suite/skills/ln-62-repository-publisher/SKILL.md",
+      "computedHash": "6e05ff9002c53fc7eb78116c7fef8283a3914933c92e1cc9aacf9cc216144a7f"
+    },
+    "ln-63-release-publisher": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/maintainer-suite/skills/ln-63-release-publisher/SKILL.md",
+      "computedHash": "459fd1249baec86629c1a1a6fd531515ece2a25cede84df964c862caab7b153d"
+    },
+    "ln-64-community-announcer": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/maintainer-suite/skills/ln-64-community-announcer/SKILL.md",
+      "computedHash": "b43120a6a7db5c7eaaf69a67e13200154eb53bd8f81b991d92f58a8ea5321e9c"
+    },
+    "ln-71-system-design-baseline-builder": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/architecture-suite/skills/ln-71-system-design-baseline-builder/SKILL.md",
+      "computedHash": "db3e726ae9a78ec83a83d8bb54553f79a25d980a7251d322b836760665eb2069"
+    },
+    "ln-72-current-architecture-documenter": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/architecture-suite/skills/ln-72-current-architecture-documenter/SKILL.md",
+      "computedHash": "6dd24d409b7a1dd595b90d37afd86991d44edc1ca7e9edba9fbfa3f3614aba09"
+    },
+    "ln-73-system-design-proposal-builder": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/architecture-suite/skills/ln-73-system-design-proposal-builder/SKILL.md",
+      "computedHash": "d1eb52cab4dfad5e1977f3f0c3d621120c8e472f2bc770398cfe7503b9afa989"
+    },
+    "ln-74-architecture-decision-recorder": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/architecture-suite/skills/ln-74-architecture-decision-recorder/SKILL.md",
+      "computedHash": "11249d3248c06404ddb68c7a6be7ad0c7914aca7805e4590ebaaf6db89810841"
+    },
+    "ln-75-architecture-diagram-builder": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/architecture-suite/skills/ln-75-architecture-diagram-builder/SKILL.md",
+      "computedHash": "e81dfffccb6b54412638ae7923072563e46c11ffa3d84382fb9c7d43dd6f73be"
+    },
+    "ln-76-architecture-migration-planner": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/architecture-suite/skills/ln-76-architecture-migration-planner/SKILL.md",
+      "computedHash": "5023fad48b5371cc2b8218430793946fc262492a67699931a680f6f6dcbd4b26"
     },
     "managed-airflow-dag-authoring": {
       "source": "google/skills",
@@ -799,6 +1027,48 @@
       "skillPath": "skills/managed-pentesting-with-strix/SKILL.md",
       "computedHash": "a95f715e62d91842511a85a5725417aaf9db08227ec7d7311bdfb7a51a04089f"
     },
+    "material-properties-db": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/databases/material-properties-db/SKILL.md",
+      "computedHash": "43e8ddd018cbc20d232cfb0d8abf8fbb3726320a529d36abc613c07c5cec5f68"
+    },
+    "matplotlib-visualization": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/matplotlib-visualization/SKILL.md",
+      "computedHash": "2a79102d6279afca9f52e0680cbd2eab33511142d0d6bf088114608765d98fe6"
+    },
+    "nasa-earthdata": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/databases/nasa-earthdata/SKILL.md",
+      "computedHash": "a6e8ba92c55359a6606d3921b16f629c50bb806a940271473941760cdb0570e4"
+    },
+    "networkx-flow-networks": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/networkx-flow-networks/SKILL.md",
+      "computedHash": "fb045add56ec28d26d41d9ee1101720403e5bc033141d52c2c055050801d7bc4"
+    },
+    "nist-refprop": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/databases/nist-refprop/SKILL.md",
+      "computedHash": "3ae4a822ac6fa3da25519413a5e02893fdba2d696bad94f9cd65fdee893d1d0a"
+    },
+    "numpy-numerics": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/numpy-numerics/SKILL.md",
+      "computedHash": "e5b1082541d45c073d88ad304e8e9a11264a04bc8e7ef74a3c860c9d7c9f8ea3"
+    },
+    "openfoam-cfd": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/integrations/openfoam-cfd/SKILL.md",
+      "computedHash": "e33a0507820f89020b8a4c576e5b998ad20ead97b8881f8847acacc411230240"
+    },
     "owasp-top-10-testing": {
       "source": "usestrix/strix",
       "sourceType": "github",
@@ -810,6 +1080,54 @@
       "sourceType": "github",
       "skillPath": "skills/penetration-testing-with-strix/SKILL.md",
       "computedHash": "9e6b38534b728c0c2ea7ceee52fb23357cba25a96da7b239ad7c2029270527eb"
+    },
+    "pint-units": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/pint-units/SKILL.md",
+      "computedHash": "30500936fc3cd3b7480414bc9e08350d1b68e59762e3f86c7004a64dede882ea"
+    },
+    "positive-displacement-pumps": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/pump-design/positive-displacement-pumps/SKILL.md",
+      "computedHash": "e2bc0ec767aeb07aaece1d1ff9f134a25eefcea2e5e0ac134db90d2cb4c5e9e1"
+    },
+    "pump-efficiency-optimization": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/pump-design/efficiency-optimization/SKILL.md",
+      "computedHash": "4fdbbf88a6a57c37aab9e28b3ffc8b539a156f8f2172ba1fdaf5d66a192c6599"
+    },
+    "pump-performance-curves": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/pump-design/performance-curves/SKILL.md",
+      "computedHash": "1ab58c2ad52005ff313d363bca213e68bef7f97117bcffd51f3e8aa0248bd522"
+    },
+    "pump-performance-db": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/databases/pump-performance-db/SKILL.md",
+      "computedHash": "e9b0fd000c1808734b4362993e24e33f8bf42f328a5d00f15ffbbabbacc2902a"
+    },
+    "pump-selection-helper": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/helpers/pump-selection-helper/SKILL.md",
+      "computedHash": "c1a7d75817be0a83648c936b0f06942c15c6edb86b8c9e15bf57b2f6efb71580"
+    },
+    "pump-system-integration": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/pump-design/system-integration/SKILL.md",
+      "computedHash": "e202736e462b17b661d98601d7c7da849f7dd8f69ba95c3b298a16f68c0c62ec"
+    },
+    "pyvista-visualization": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/pyvista-visualization/SKILL.md",
+      "computedHash": "13ca5956b39157262f868c53d5b2fa2627e70b388d18de74a6727b5a7be8beba"
     },
     "remove-ai-marks": {
       "source": "guillaumemeyer/watermarks-remover",
@@ -823,6 +1141,18 @@
       "skillPath": "skills/developers/retrieving-developer-knowledge/SKILL.md",
       "computedHash": "95115eeed5e94cc5f749dbb086315d7c4e8eb9296e601eebde2e1dbd9ddd93eb"
     },
+    "scipy-optimization": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/scipy-optimization/SKILL.md",
+      "computedHash": "a5412437e17753b47829839ccef96c48f7dd29961353db12eab8c2313552570b"
+    },
+    "solidworks-cad": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/integrations/solidworks-cad/SKILL.md",
+      "computedHash": "7ac4e624a500dcceb0a6337ff6800f2766342a42dc7510d604cd45aa2579733b"
+    },
     "spanner-basics": {
       "source": "google/skills",
       "sourceType": "github",
@@ -835,17 +1165,53 @@
       "skillPath": "SKILL.md",
       "computedHash": "617bf97d33162a6bd0da4f40a97aac589de58e5a6c9cf011ed6108992210e7cb"
     },
+    "structural-analysis-workflow": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/structural-analysis/SKILL.md",
+      "computedHash": "d51cc4166364501b7952c99aaf5e9b80c12c1b9d8c81816fa19d62a0c130d220"
+    },
     "superdesign": {
       "source": "superdesigndev/superdesign-skill",
       "sourceType": "github",
       "skillPath": "skills/superdesign/SKILL.md",
       "computedHash": "e98daea73371b2cdcc333025a993f6b0c2781c692382a9dcf132c7094a014fdf"
     },
+    "sympy-symbolic": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/sympy-symbolic/SKILL.md",
+      "computedHash": "752929614449db8e5fbcd554e916dc3adc9ff65e35772d5f199379d202fade3b"
+    },
     "task-observer": {
       "source": "rebelytics/one-skill-to-rule-them-all",
       "sourceType": "github",
       "skillPath": "SKILL.md",
       "computedHash": "625afba7a97cbebb8dee848e341f57f86e59be83d1ee5ab342748bca35162126"
+    },
+    "thermo-package": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/packages/thermo-package/SKILL.md",
+      "computedHash": "2e218b08fd9130f8148d1728f66ec9232af9f56b9d337e7bc8fe08ba2bc1d6e2"
+    },
+    "thermodynamics-workflow": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/thinking/thermodynamics/SKILL.md",
+      "computedHash": "c7a21aac6dc475f41edd7c1c74de738a6e43c7c0bf63a369b70a4a5bd521b311"
+    },
+    "turbulence-models-db": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/databases/turbulence-models-db/SKILL.md",
+      "computedHash": "990318664ffeb881f5222db4d6fabbf3626d39cdbe8813568d75216237f8c666"
+    },
+    "unit-converter": {
+      "source": "Soljourner/claude-engineering-skills",
+      "sourceType": "github",
+      "skillPath": "skills/helpers/unit-converter/SKILL.md",
+      "computedHash": "a3088281ea7892e2be6dfa4c6d254ba10dbb76219bbb374e966aacb7762ec38c"
     },
     "web-app-penetration-testing": {
       "source": "usestrix/strix",

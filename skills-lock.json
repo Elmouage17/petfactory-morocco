@@ -133,6 +133,12 @@
       "skillPath": "skills/ci-security-scanning-with-strix/SKILL.md",
       "computedHash": "1a9d9b999278fa24860eee4dcf3bb33994991ad55b6ea4b0e62e048e6a06417a"
     },
+    "clean-user-facing-text": {
+      "source": "guillaumemeyer/watermarks-remover",
+      "sourceType": "github",
+      "skillPath": "skills/clean-user-facing-text/SKILL.md",
+      "computedHash": "889c2f2e5e9f7867b845aa06660d48bbda0aac8c1413024bf739a828fac6faed"
+    },
     "cloud-build-basics": {
       "source": "google/skills",
       "sourceType": "github",
@@ -798,6 +804,12 @@
       "sourceType": "github",
       "skillPath": "skills/penetration-testing-with-strix/SKILL.md",
       "computedHash": "9e6b38534b728c0c2ea7ceee52fb23357cba25a96da7b239ad7c2029270527eb"
+    },
+    "remove-ai-marks": {
+      "source": "guillaumemeyer/watermarks-remover",
+      "sourceType": "github",
+      "skillPath": "skills/remove-ai-marks/SKILL.md",
+      "computedHash": "e2c4fe34a23fc5fa7233802c75ee4e1f7ff067c7d5732c1f65547aaf5aaedd3b"
     },
     "retrieving-developer-knowledge": {
       "source": "google/skills",

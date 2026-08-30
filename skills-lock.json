@@ -811,6 +811,12 @@
       "skillPath": "skills/superdesign/SKILL.md",
       "computedHash": "e98daea73371b2cdcc333025a993f6b0c2781c692382a9dcf132c7094a014fdf"
     },
+    "task-observer": {
+      "source": "rebelytics/one-skill-to-rule-them-all",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "625afba7a97cbebb8dee848e341f57f86e59be83d1ee5ab342748bca35162126"
+    },
     "web-app-penetration-testing": {
       "source": "usestrix/strix",
       "sourceType": "github",

@@ -53,6 +53,17 @@
       "headers": {
         "Authorization": "Bearer YOUR_CHATPLACE_API_KEY_HERE"
       }
+    },
+    "outstand-instagram": {
+      "type": "url",
+      "url": "https://mcp.outstand.so/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_OUTSTAND_API_KEY_HERE"
+      }
+    },
+    "porter-instagram": {
+      "type": "url",
+      "url": "https://mcp.portermetrics.com/mcp"
     }
   }
 }

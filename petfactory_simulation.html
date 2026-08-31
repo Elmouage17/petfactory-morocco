@@ -22,20 +22,23 @@ const C = {
   grain: '#D4A056', kibble: '#8B6914', orange: '#E67E22'
 };
 
-const DURATION = 25;
+const DURATION = 62;
 let startTime = null;
 
-const FLOOR_Y = 680;
+const FLOOR_Y = 570;
+const UTIL_Y = 600;
 const EQ = {
-  silos:    { x: 60,   y: 280, w: 160, h: 400 },
-  hammer:   { x: 250,  y: 430, w: 90,  h: 180 },
-  mixer:    { x: 370,  y: 440, w: 130, h: 100 },
-  precon:   { x: 530,  y: 400, w: 160, h: 110 },
-  extruder: { x: 720,  y: 390, w: 240, h: 140 },
-  dryer:    { x: 1000, y: 340, w: 260, h: 200 },
-  cooler:   { x: 1300, y: 300, w: 120, h: 340 },
-  coater:   { x: 1460, y: 420, w: 150, h: 120 },
-  packer:   { x: 1660, y: 380, w: 130, h: 260 },
+  silos:    { x: 60,   y: 200, w: 160, h: 370 },
+  hammer:   { x: 250,  y: 330, w: 90,  h: 170 },
+  mixer:    { x: 370,  y: 350, w: 130, h: 90 },
+  precon:   { x: 530,  y: 310, w: 160, h: 100 },
+  extruder: { x: 720,  y: 300, w: 240, h: 130 },
+  dryer:    { x: 1000, y: 260, w: 260, h: 180 },
+  cooler:   { x: 1300, y: 220, w: 120, h: 310 },
+  coater:   { x: 1460, y: 330, w: 150, h: 110 },
+  packer:   { x: 1660, y: 290, w: 130, h: 240 },
+  boiler:   { x: 450,  y: 600, w: 180, h: 140 },
+  compressor:{ x: 1100, y: 610, w: 160, h: 120 },
 };
 
 function lerp(a, b, t) { return a + (b - a) * t; }
@@ -448,6 +451,271 @@ function drawPacker(t) {
   ctx.restore();
 }
 
+function drawBoiler(t) {
+  const e = EQ.boiler;
+  ctx.save();
+  // Horizontal fire-tube boiler body
+  const bodyX = e.x + 20, bodyY = e.y + 15, bodyW = e.w - 40, bodyH = e.h - 40;
+  const bGrad = ctx.createLinearGradient(bodyX, bodyY, bodyX, bodyY + bodyH);
+  bGrad.addColorStop(0, '#8A3030'); bGrad.addColorStop(0.3, '#B04040'); bGrad.addColorStop(0.5, '#C04848');
+  bGrad.addColorStop(0.7, '#B04040'); bGrad.addColorStop(1, '#7A2828');
+  // Left endcap
+  ctx.beginPath(); ctx.ellipse(bodyX, bodyY + bodyH/2, 14, bodyH/2, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#8A3030'; ctx.fill(); ctx.strokeStyle = '#5A1818'; ctx.lineWidth = 2; ctx.stroke();
+  // Main body
+  ctx.fillStyle = bGrad; ctx.fillRect(bodyX, bodyY, bodyW, bodyH);
+  ctx.strokeStyle = '#5A1818'; ctx.strokeRect(bodyX, bodyY, bodyW, bodyH);
+  // Right endcap
+  ctx.beginPath(); ctx.ellipse(bodyX + bodyW, bodyY + bodyH/2, 14, bodyH/2, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#8A3030'; ctx.fill(); ctx.strokeStyle = '#5A1818'; ctx.stroke();
+  // Reinforcement bands
+  ctx.strokeStyle = '#6A2020'; ctx.lineWidth = 2;
+  for (let b = 0; b < 4; b++) {
+    const bx = bodyX + 25 + b * 35;
+    ctx.beginPath(); ctx.moveTo(bx, bodyY); ctx.lineTo(bx, bodyY + bodyH); ctx.stroke();
+  }
+  // Pressure gauge on top
+  ctx.beginPath(); ctx.arc(bodyX + bodyW * 0.3, bodyY - 5, 12, 0, Math.PI * 2);
+  ctx.fillStyle = '#222'; ctx.fill(); ctx.strokeStyle = '#555'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.beginPath(); ctx.arc(bodyX + bodyW * 0.3, bodyY - 5, 8, 0, Math.PI * 2);
+  ctx.fillStyle = '#EEE'; ctx.fill();
+  // Needle animated
+  const needleA = -Math.PI * 0.7 + Math.sin(t * 0.3) * 0.15 + Math.PI * 0.5;
+  ctx.strokeStyle = C.red; ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(bodyX + bodyW * 0.3, bodyY - 5);
+  ctx.lineTo(bodyX + bodyW * 0.3 + Math.cos(needleA) * 6, bodyY - 5 + Math.sin(needleA) * 6);
+  ctx.stroke();
+  // Safety valve on top
+  ctx.fillStyle = '#D4A020'; ctx.fillRect(bodyX + bodyW * 0.6, bodyY - 18, 12, 20);
+  ctx.strokeStyle = '#A08010'; ctx.strokeRect(bodyX + bodyW * 0.6, bodyY - 18, 12, 20);
+  // Steam outlet pipe (goes up)
+  ctx.fillStyle = '#8A3030'; ctx.fillRect(bodyX + bodyW * 0.8, bodyY - 30, 14, 32);
+  ctx.strokeStyle = '#5A1818'; ctx.strokeRect(bodyX + bodyW * 0.8, bodyY - 30, 14, 32);
+  // Flue/chimney at back
+  ctx.fillStyle = '#4A4A4A'; ctx.fillRect(bodyX + bodyW - 5, bodyY - 45, 20, 47);
+  ctx.strokeStyle = '#2A2A2A'; ctx.strokeRect(bodyX + bodyW - 5, bodyY - 45, 20, 47);
+  // Chimney cap
+  ctx.fillStyle = '#3A3A3A';
+  ctx.beginPath();
+  ctx.moveTo(bodyX + bodyW - 10, bodyY - 45); ctx.lineTo(bodyX + bodyW + 5, bodyY - 58);
+  ctx.lineTo(bodyX + bodyW + 20, bodyY - 45); ctx.closePath(); ctx.fill(); ctx.stroke();
+  // Fire glow at bottom
+  const fireGlow = 0.3 + 0.15 * Math.sin(t * 4);
+  ctx.fillStyle = `rgba(255, 120, 30, ${fireGlow})`;
+  ctx.fillRect(bodyX + 10, bodyY + bodyH - 8, bodyW - 20, 8);
+  // Burner inlet
+  ctx.fillStyle = '#5A5A5A'; ctx.fillRect(e.x, bodyY + bodyH/2 - 8, 22, 16);
+  ctx.strokeStyle = '#3A3A3A'; ctx.strokeRect(e.x, bodyY + bodyH/2 - 8, 22, 16);
+  // Flame animation in burner
+  for (let f = 0; f < 3; f++) {
+    const fx = e.x + 8 + f * 5;
+    const fh = 8 + Math.sin(t * 8 + f * 2) * 4;
+    ctx.fillStyle = `rgba(255, ${150 + f * 30}, 30, 0.7)`;
+    ctx.beginPath(); ctx.moveTo(fx, bodyY + bodyH/2 + 5); ctx.lineTo(fx + 3, bodyY + bodyH/2 - fh);
+    ctx.lineTo(fx + 6, bodyY + bodyH/2 + 5); ctx.closePath(); ctx.fill();
+  }
+  // Water level sight glass
+  ctx.fillStyle = 'rgba(60, 120, 200, 0.4)';
+  const wLevel = 0.55 + 0.05 * Math.sin(t * 0.4);
+  ctx.fillRect(bodyX + bodyW + 5, bodyY + bodyH * (1 - wLevel), 8, bodyH * wLevel);
+  ctx.strokeStyle = '#5A1818'; ctx.strokeRect(bodyX + bodyW + 5, bodyY, 8, bodyH);
+  // Support legs
+  ctx.fillStyle = '#4A3030';
+  ctx.fillRect(bodyX + 15, bodyY + bodyH, 10, 22); ctx.fillRect(bodyX + bodyW - 25, bodyY + bodyH, 10, 22);
+  // Smoke from chimney
+  for (let s = 0; s < 5; s++) {
+    const age = (t * 0.4 + s * 0.5) % 2;
+    if (age < 1.5) {
+      const sx = bodyX + bodyW + 5 + Math.sin(age * 2 + s) * 8;
+      const sy = bodyY - 58 - age * 30;
+      const alpha = (1 - age / 1.5) * 0.25;
+      ctx.fillStyle = `rgba(100, 100, 110, ${alpha})`;
+      ctx.beginPath(); ctx.arc(sx, sy, 4 + age * 6, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+  // Label
+  ctx.fillStyle = C.red; ctx.fillRect(e.x + 15, e.y - 25, e.w - 30, 28);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('CHAUDIERE A VAPEUR', e.x + e.w/2, e.y - 7);
+  ctx.fillStyle = '#FFB0B0'; ctx.font = '10px Arial';
+  ctx.fillText('4 T/h  |  10 bar  |  Gaz naturel', e.x + e.w/2, e.y + 7);
+  ctx.restore();
+}
+
+function drawCompressor(t) {
+  const e = EQ.compressor;
+  ctx.save();
+  // Air receiver tank (horizontal cylinder)
+  const tankX = e.x + 80, tankY = e.y + 20, tankW = 70, tankH = 55;
+  const tGrad = ctx.createLinearGradient(tankX, tankY, tankX, tankY + tankH);
+  tGrad.addColorStop(0, '#3A5A8A'); tGrad.addColorStop(0.3, '#5A7AAA'); tGrad.addColorStop(0.5, '#6A8ABA');
+  tGrad.addColorStop(0.7, '#5A7AAA'); tGrad.addColorStop(1, '#3A5A8A');
+  // Left cap
+  ctx.beginPath(); ctx.ellipse(tankX, tankY + tankH/2, 10, tankH/2, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#3A5A8A'; ctx.fill(); ctx.strokeStyle = '#1A3A6A'; ctx.lineWidth = 1.5; ctx.stroke();
+  // Tank body
+  ctx.fillStyle = tGrad; ctx.fillRect(tankX, tankY, tankW, tankH);
+  ctx.strokeStyle = '#1A3A6A'; ctx.strokeRect(tankX, tankY, tankW, tankH);
+  // Right cap
+  ctx.beginPath(); ctx.ellipse(tankX + tankW, tankY + tankH/2, 10, tankH/2, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#3A5A8A'; ctx.fill(); ctx.strokeStyle = '#1A3A6A'; ctx.stroke();
+  // Pressure gauge on tank
+  ctx.beginPath(); ctx.arc(tankX + tankW/2, tankY - 2, 10, 0, Math.PI * 2);
+  ctx.fillStyle = '#222'; ctx.fill(); ctx.strokeStyle = '#555'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.beginPath(); ctx.arc(tankX + tankW/2, tankY - 2, 7, 0, Math.PI * 2);
+  ctx.fillStyle = '#EEE'; ctx.fill();
+  const cNeedle = -Math.PI * 0.6 + Math.sin(t * 0.5) * 0.1 + Math.PI * 0.45;
+  ctx.strokeStyle = C.red; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(tankX + tankW/2, tankY - 2);
+  ctx.lineTo(tankX + tankW/2 + Math.cos(cNeedle) * 5, tankY - 2 + Math.sin(cNeedle) * 5); ctx.stroke();
+  // Compressor unit (motor + pump)
+  const compX = e.x + 5, compY = e.y + 25, compW = 70, compH = 60;
+  // Motor housing
+  const cmGrad = ctx.createLinearGradient(compX, compY, compX, compY + compH);
+  cmGrad.addColorStop(0, '#2A5A2A'); cmGrad.addColorStop(0.5, '#3A7A3A'); cmGrad.addColorStop(1, '#1A4A1A');
+  ctx.fillStyle = cmGrad; ctx.fillRect(compX, compY, compW * 0.6, compH);
+  ctx.strokeStyle = '#0A2A0A'; ctx.lineWidth = 1.5; ctx.strokeRect(compX, compY, compW * 0.6, compH);
+  // Motor cooling fins
+  ctx.strokeStyle = '#1A4A1A'; ctx.lineWidth = 1;
+  for (let f = 0; f < 5; f++) {
+    ctx.beginPath(); ctx.moveTo(compX + 5 + f * 7, compY + 3);
+    ctx.lineTo(compX + 5 + f * 7, compY + compH - 3); ctx.stroke();
+  }
+  // Pump head (cylinder)
+  const pumpX = compX + compW * 0.6, pumpW = compW * 0.45;
+  ctx.fillStyle = '#5A6A7A'; ctx.fillRect(pumpX, compY + 8, pumpW, compH - 16);
+  ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(pumpX, compY + 8, pumpW, compH - 16);
+  // Piston animation
+  const pistonOff = Math.sin(t * 6) * 5;
+  ctx.fillStyle = '#8A9AAA'; ctx.fillRect(pumpX + 5, compY + 20 + pistonOff, pumpW - 10, 8);
+  ctx.fillRect(pumpX + 5, compY + compH - 28 - pistonOff, pumpW - 10, 8);
+  // Connecting pipe to tank
+  ctx.fillStyle = '#4A5A6A'; ctx.fillRect(pumpX + pumpW - 2, compY + compH/2 - 5, tankX - pumpX - pumpW + 5, 10);
+  ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(pumpX + pumpW - 2, compY + compH/2 - 5, tankX - pumpX - pumpW + 5, 10);
+  // Air outlet pipe going up
+  ctx.fillStyle = '#4A6A8A'; ctx.fillRect(tankX + tankW/2 - 5, tankY - 30, 10, 30);
+  ctx.strokeStyle = '#2A4A6A'; ctx.strokeRect(tankX + tankW/2 - 5, tankY - 30, 10, 30);
+  // Vibration effect on compressor
+  const vib = Math.sin(t * 20) * 0.5;
+  // Motor label
+  ctx.fillStyle = '#AAD4AA'; ctx.font = 'bold 8px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('55 kW', compX + compW * 0.3, compY + compH/2 + 3);
+  // Base frame
+  ctx.fillStyle = '#3A4A5A';
+  ctx.fillRect(e.x, e.y + e.h - 15, e.w, 10);
+  // Support legs
+  ctx.fillRect(e.x + 10, e.y + e.h - 5, 8, 15);
+  ctx.fillRect(e.x + e.w - 20, e.y + e.h - 5, 8, 15);
+  // Drain valve at bottom of tank
+  ctx.fillStyle = '#4A6A8A'; ctx.fillRect(tankX + 20, tankY + tankH, 8, 12);
+  // Label
+  ctx.fillStyle = C.blue; ctx.fillRect(e.x + 10, e.y - 25, e.w - 20, 28);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('COMPRESSEUR D\'AIR', e.x + e.w/2, e.y - 7);
+  ctx.fillStyle = '#B0D0FF'; ctx.font = '10px Arial';
+  ctx.fillText('8 bar  |  55 kW  |  Vis rotative', e.x + e.w/2, e.y + 7);
+  ctx.restore();
+}
+
+function drawUtilityPipes(t) {
+  ctx.save();
+  // Steam pipe: boiler to preconditioner (red dashed)
+  const bSteamX = EQ.boiler.x + EQ.boiler.w * 0.8 + 7;
+  const bSteamY = EQ.boiler.y + 15 - 30;
+  const pSteamX = EQ.precon.x + 70;
+  const pSteamY = EQ.precon.y + EQ.precon.h + 5;
+  // Red steam pipe
+  ctx.strokeStyle = '#AA3030'; ctx.lineWidth = 6; ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(bSteamX, bSteamY);
+  ctx.lineTo(bSteamX, pSteamY + 30); ctx.lineTo(pSteamX, pSteamY + 30); ctx.lineTo(pSteamX, pSteamY); ctx.stroke();
+  ctx.strokeStyle = '#CC5050'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(bSteamX, bSteamY);
+  ctx.lineTo(bSteamX, pSteamY + 30); ctx.lineTo(pSteamX, pSteamY + 30); ctx.lineTo(pSteamX, pSteamY); ctx.stroke();
+  // Steam flow particles
+  const sDist = Math.abs(bSteamY - pSteamY - 30) + Math.abs(bSteamX - pSteamX) + 30;
+  for (let p = 0; p < 8; p++) {
+    const prog = ((p / 8 + t * 0.1) % 1);
+    const totalL = Math.abs(pSteamY + 30 - bSteamY) + Math.abs(pSteamX - bSteamX) + 30;
+    const leg1 = Math.abs(pSteamY + 30 - bSteamY) / totalL;
+    const leg2 = (Math.abs(pSteamX - bSteamX)) / totalL;
+    let px, py;
+    if (prog < leg1) { px = bSteamX; py = lerp(bSteamY, pSteamY + 30, prog / leg1); }
+    else if (prog < leg1 + leg2) { px = lerp(bSteamX, pSteamX, (prog - leg1) / leg2); py = pSteamY + 30; }
+    else { px = pSteamX; py = lerp(pSteamY + 30, pSteamY, (prog - leg1 - leg2) / (1 - leg1 - leg2)); }
+    ctx.fillStyle = 'rgba(255, 100, 80, 0.6)';
+    ctx.beginPath(); ctx.arc(px, py, 2.5, 0, Math.PI * 2); ctx.fill();
+  }
+  // Steam pipe label
+  ctx.fillStyle = 'rgba(170, 48, 48, 0.8)'; ctx.font = 'bold 9px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('VAPEUR 10 bar', (bSteamX + pSteamX) / 2, pSteamY + 26);
+
+  // Steam pipe: boiler to dryer
+  const dSteamX = EQ.dryer.x + 60;
+  const dSteamY = EQ.dryer.y + EQ.dryer.h + 5;
+  ctx.strokeStyle = '#AA3030'; ctx.lineWidth = 6; ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(bSteamX + 15, bSteamY + 10);
+  ctx.lineTo(bSteamX + 15, pSteamY + 45); ctx.lineTo(dSteamX, pSteamY + 45); ctx.lineTo(dSteamX, dSteamY); ctx.stroke();
+  ctx.strokeStyle = '#CC5050'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(bSteamX + 15, bSteamY + 10);
+  ctx.lineTo(bSteamX + 15, pSteamY + 45); ctx.lineTo(dSteamX, pSteamY + 45); ctx.lineTo(dSteamX, dSteamY); ctx.stroke();
+  ctx.fillStyle = 'rgba(170, 48, 48, 0.8)'; ctx.font = 'bold 9px Arial';
+  ctx.fillText('VAPEUR SECHOIR', (bSteamX + 15 + dSteamX) / 2, pSteamY + 41);
+  // Flow particles on dryer steam pipe
+  for (let p = 0; p < 6; p++) {
+    const prog = ((p / 6 + t * 0.08) % 1);
+    const seg1Y = pSteamY + 45, seg2X = dSteamX;
+    const l1 = Math.abs(seg1Y - bSteamY - 10), l2 = Math.abs(dSteamX - bSteamX - 15), l3 = Math.abs(dSteamY - seg1Y);
+    const total = l1 + l2 + l3;
+    let px, py;
+    if (prog < l1/total) { px = bSteamX + 15; py = lerp(bSteamY + 10, seg1Y, prog / (l1/total)); }
+    else if (prog < (l1+l2)/total) { px = lerp(bSteamX + 15, dSteamX, (prog - l1/total) / (l2/total)); py = seg1Y; }
+    else { px = dSteamX; py = lerp(seg1Y, dSteamY, (prog - (l1+l2)/total) / (l3/total)); }
+    ctx.fillStyle = 'rgba(255, 100, 80, 0.5)';
+    ctx.beginPath(); ctx.arc(px, py, 2, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // Air pipe: compressor to cooler (blue)
+  const cAirX = EQ.compressor.x + 115;
+  const cAirY = EQ.compressor.y + 20 - 30;
+  const coolerAirX = EQ.cooler.x - 25;
+  const coolerAirY = EQ.cooler.y + EQ.cooler.h - 100;
+  ctx.strokeStyle = '#2A5A9A'; ctx.lineWidth = 6;
+  ctx.beginPath(); ctx.moveTo(cAirX, cAirY);
+  ctx.lineTo(cAirX, coolerAirY); ctx.lineTo(coolerAirX + 25, coolerAirY); ctx.stroke();
+  ctx.strokeStyle = '#4A8ACA'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(cAirX, cAirY);
+  ctx.lineTo(cAirX, coolerAirY); ctx.lineTo(coolerAirX + 25, coolerAirY); ctx.stroke();
+  ctx.fillStyle = 'rgba(42, 90, 154, 0.8)'; ctx.font = 'bold 9px Arial';
+  ctx.fillText('AIR 8 bar', (cAirX + coolerAirX + 25) / 2, coolerAirY - 5);
+  // Flow particles
+  for (let p = 0; p < 5; p++) {
+    const prog = ((p / 5 + t * 0.12) % 1);
+    const l1 = Math.abs(coolerAirY - cAirY), l2 = Math.abs(coolerAirX + 25 - cAirX);
+    const total = l1 + l2;
+    let px, py;
+    if (prog < l1/total) { px = cAirX; py = lerp(cAirY, coolerAirY, prog / (l1/total)); }
+    else { px = lerp(cAirX, coolerAirX + 25, (prog - l1/total) / (l2/total)); py = coolerAirY; }
+    ctx.fillStyle = 'rgba(80, 150, 220, 0.6)';
+    ctx.beginPath(); ctx.arc(px, py, 2, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // Air pipe: compressor to packer (pneumatics)
+  const packAirX = EQ.packer.x + 20;
+  const packAirY = EQ.packer.y + EQ.packer.h - 20;
+  ctx.strokeStyle = '#2A5A9A'; ctx.lineWidth = 5;
+  ctx.beginPath(); ctx.moveTo(cAirX + 20, cAirY + 15);
+  ctx.lineTo(cAirX + 20, packAirY + 20); ctx.lineTo(packAirX, packAirY + 20); ctx.lineTo(packAirX, packAirY); ctx.stroke();
+  ctx.strokeStyle = '#4A8ACA'; ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.moveTo(cAirX + 20, cAirY + 15);
+  ctx.lineTo(cAirX + 20, packAirY + 20); ctx.lineTo(packAirX, packAirY + 20); ctx.lineTo(packAirX, packAirY); ctx.stroke();
+  ctx.fillStyle = 'rgba(42, 90, 154, 0.7)'; ctx.font = 'bold 8px Arial';
+  ctx.fillText('AIR PNEUMATIQUE', (cAirX + 20 + packAirX) / 2, packAirY + 16);
+
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
 function drawPipe(x1, y1, x2, y2, t, color) {
   ctx.save();
   const midX = (x1 + x2) / 2;
@@ -541,16 +809,22 @@ function drawBackground(t) {
   ctx.strokeStyle = 'rgba(30, 45, 74, 0.3)'; ctx.lineWidth = 0.5;
   for (let x = 0; x < W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
   for (let y = 0; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-  ctx.fillStyle = '#1a2236'; ctx.fillRect(0, FLOOR_Y, W, H - FLOOR_Y);
+  // Production floor
+  ctx.fillStyle = '#1a2236'; ctx.fillRect(0, FLOOR_Y, W, 25);
   ctx.strokeStyle = '#2A3A4A'; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(0, FLOOR_Y); ctx.lineTo(W, FLOOR_Y); ctx.stroke();
-  ctx.strokeStyle = 'rgba(46, 134, 171, 0.15)'; ctx.lineWidth = 1; ctx.setLineDash([10, 10]);
-  ctx.beginPath(); ctx.moveTo(40, FLOOR_Y + 15); ctx.lineTo(W - 40, FLOOR_Y + 15); ctx.stroke();
+  // Utility area label
+  ctx.fillStyle = 'rgba(26, 34, 54, 0.7)'; ctx.fillRect(0, FLOOR_Y + 25, W, H - FLOOR_Y - 25);
+  ctx.strokeStyle = 'rgba(46, 134, 171, 0.1)'; ctx.lineWidth = 1; ctx.setLineDash([10, 10]);
+  ctx.beginPath(); ctx.moveTo(40, FLOOR_Y + 12); ctx.lineTo(W - 40, FLOOR_Y + 12); ctx.stroke();
   ctx.setLineDash([]);
+  // "UTILITIES" zone label
+  ctx.fillStyle = 'rgba(136, 153, 170, 0.3)'; ctx.font = 'bold 11px Arial'; ctx.textAlign = 'left';
+  ctx.fillText('ZONE UTILITES', 50, FLOOR_Y + 22);
 }
 
 function drawDashboard(t) {
-  const dy = 710;
+  const dy = 770;
   ctx.fillStyle = 'rgba(17, 24, 39, 0.92)'; ctx.fillRect(0, dy, W, H - dy);
   ctx.strokeStyle = C.teal; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(0, dy); ctx.lineTo(W, dy); ctx.stroke();
@@ -566,23 +840,25 @@ function drawDashboard(t) {
   const stats = [
     { label: 'Debit', value: (4.2 + Math.sin(t * 0.5) * 0.3).toFixed(1), unit: 'T/h', color: C.teal },
     { label: 'Temp. Extrudeuse', value: Math.round(143 + Math.sin(t * 0.7) * 4), unit: '°C', color: C.amber },
-    { label: 'Vapeur', value: (0.72 + Math.sin(t * 0.3) * 0.05).toFixed(2), unit: 'T/h', color: C.blue },
+    { label: 'Chaudiere', value: (3.2 + Math.sin(t * 0.3) * 0.3).toFixed(1), unit: 'T/h vap', color: C.red },
+    { label: 'Pression Air', value: (7.8 + Math.sin(t * 0.5) * 0.3).toFixed(1), unit: 'bar', color: C.blue },
     { label: 'Humidite Sortie', value: (9.5 + Math.sin(t * 0.4) * 0.8).toFixed(1), unit: '%', color: C.green },
     { label: 'Activite Eau', value: (0.42 + Math.sin(t * 0.6) * 0.02).toFixed(2), unit: 'Aw', color: C.purple },
-    { label: 'Energie Spec.', value: Math.round(95 + Math.sin(t * 0.8) * 8), unit: 'kWh/T', color: C.orange },
+    { label: 'Energie Totale', value: Math.round(310 + Math.sin(t * 0.8) * 15), unit: 'kW', color: C.orange },
+    { label: 'Temp. Chaudiere', value: Math.round(182 + Math.sin(t * 0.4) * 3), unit: '°C', color: '#CC4444' },
   ];
-  const cardW = 150, cardH = 70, cardGap = 15, cardStartX = 40, cardY = dy + 65;
+  const cardW = 120, cardH = 60, cardGap = 10, cardStartX = 40, cardY = dy + 55;
   stats.forEach((s, i) => {
     const cx = cardStartX + i * (cardW + cardGap);
     ctx.fillStyle = C.cardBg; ctx.fillRect(cx, cardY, cardW, cardH);
     ctx.strokeStyle = s.color; ctx.lineWidth = 1; ctx.strokeRect(cx, cardY, cardW, cardH);
     ctx.fillStyle = s.color; ctx.fillRect(cx, cardY, cardW, 3);
-    ctx.fillStyle = s.color; ctx.font = '10px Arial'; ctx.textAlign = 'left'; ctx.fillText(s.label, cx + 10, cardY + 20);
-    ctx.fillStyle = '#FFF'; ctx.font = 'bold 26px Arial'; ctx.fillText(s.value, cx + 10, cardY + 50);
-    ctx.fillStyle = C.steel; ctx.font = '12px Arial';
-    ctx.fillText(s.unit, cx + 10 + ctx.measureText(s.value).width + 5, cardY + 50);
+    ctx.fillStyle = s.color; ctx.font = '9px Arial'; ctx.textAlign = 'left'; ctx.fillText(s.label, cx + 8, cardY + 16);
+    ctx.fillStyle = '#FFF'; ctx.font = 'bold 20px Arial'; ctx.fillText(s.value, cx + 8, cardY + 40);
+    ctx.fillStyle = C.steel; ctx.font = '10px Arial';
+    ctx.fillText(s.unit, cx + 8 + ctx.measureText(s.value).width + 4, cardY + 40);
   });
-  const chartX = 40, chartY2 = dy + 155, chartW = 900, chartH = 170;
+  const chartX = 40, chartY2 = dy + 130, chartW = 900, chartH = 155;
   ctx.fillStyle = C.cardBg; ctx.fillRect(chartX, chartY2, chartW, chartH);
   ctx.strokeStyle = C.gridLine; ctx.strokeRect(chartX, chartY2, chartW, chartH);
   ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'left';
@@ -659,7 +935,7 @@ function drawFlowArrows(t) {
   ctx.save();
   ctx.fillStyle = `rgba(46, 134, 171, ${0.3 + 0.15 * Math.sin(t * 2)})`;
   ctx.font = 'bold 20px Arial'; ctx.textAlign = 'center';
-  [200, 340, 480, 660, 880, 1160, 1380, 1580].forEach(ax => { ctx.fillText('→', ax, FLOOR_Y + 8); });
+  [200, 340, 480, 660, 880, 1160, 1380, 1580].forEach(ax => { ctx.fillText('→', ax, FLOOR_Y - 5); });
   ctx.restore();
 }
 
@@ -678,13 +954,19 @@ function render(timestamp) {
   drawHeader(t);
   const equipAlpha = getPhaseAlpha(t, 0.5, 1.5);
   const convAlpha = getPhaseAlpha(t, 1.5, 1);
-  const dashAlpha = getPhaseAlpha(t, 2.5, 1);
+  const utilAlpha = getPhaseAlpha(t, 3, 1.5);
+  const utilPipeAlpha = getPhaseAlpha(t, 4, 1);
+  const dashAlpha = getPhaseAlpha(t, 5, 1);
   const effectAlpha = getPhaseAlpha(t, 2, 1);
   ctx.globalAlpha = globalAlpha * equipAlpha;
   drawSilos(t); drawHammerMill(t); drawMixer(t); drawPreconditioner(t);
   drawExtruder(t); drawDryer(t); drawCooler(t); drawCoater(t); drawPacker(t);
   ctx.globalAlpha = globalAlpha * convAlpha;
   drawConveyors(t); drawFlowArrows(t);
+  ctx.globalAlpha = globalAlpha * utilAlpha;
+  drawBoiler(t); drawCompressor(t);
+  ctx.globalAlpha = globalAlpha * utilPipeAlpha;
+  drawUtilityPipes(t);
   ctx.globalAlpha = globalAlpha * effectAlpha;
   drawSteamEffects(t);
   ctx.globalAlpha = globalAlpha * dashAlpha;

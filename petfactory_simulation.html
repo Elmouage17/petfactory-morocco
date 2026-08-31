@@ -1,591 +1,698 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<html><head><meta charset="UTF-8">
+<title>PetFactory Morocco - Simulation Ligne de Production</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #0F1A2E; overflow: hidden; font-family: 'Arial', sans-serif; }
-canvas { display: block; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0e1a; overflow: hidden; }
+  canvas { display: block; }
 </style>
-</head>
-<body>
+</head><body>
 <canvas id="c"></canvas>
 <script>
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
-canvas.width = 1920;
-canvas.height = 1080;
+const W = 1920, H = 1080;
+canvas.width = W; canvas.height = H;
 
 const C = {
-  navy: '#1B2A4A', teal: '#2E86AB', amber: '#E8963E', white: '#FFFFFF',
-  green: '#27AE60', darkBg: '#0F1A2E', lightTeal: '#D6EFF8',
-  red: '#C0392B', orange: '#E67E22', darkTeal: '#1A6B8A',
-  steam: 'rgba(200,220,240,0.3)', particle: '#E8963E',
+  navy: '#1B2A4A', teal: '#2E86AB', amber: '#E8963E', green: '#27AE60',
+  red: '#C0392B', blue: '#5B9BD5', purple: '#7C68AE', offWhite: '#F5F5F5',
+  dark: '#0a0e1a', darkPanel: '#111827', cardBg: '#1a2236', gridLine: '#1e2d4a',
+  steel: '#8899AA', lightSteel: '#B0BEC5', warmGray: '#9E9E9E',
+  grain: '#D4A056', kibble: '#8B6914', orange: '#E67E22'
 };
 
-let frame = 0;
-const totalFrames = 30 * 20; // 20 seconds at 30fps
+const DURATION = 25;
+let startTime = null;
 
-// Production stages
-const stages = [
-  { name: 'Matières\nPremières', color: '#1B2A4A', spec: '10% humidité', icon: 'grain' },
-  { name: 'Pré-\nconditionneur', color: '#1A6B8A', spec: '350 kg/h vapeur', icon: 'steam' },
-  { name: 'Extrudeuse\nSJPS165', color: '#2E86AB', spec: '203 kW / 145°C', icon: 'screw' },
-  { name: 'Séchoir\nGZDH2200', color: '#E8963E', spec: '140°C / 44 m²', icon: 'heat' },
-  { name: 'Refroidisseur', color: '#5B9BD5', spec: '12 min séjour', icon: 'cool' },
-  { name: 'Enrobeur', color: '#7C68AE', spec: '12% MG', icon: 'coat' },
-  { name: 'Conditionnement', color: '#27AE60', spec: '20°C / 45% HR', icon: 'pack' },
-];
+const FLOOR_Y = 680;
+const EQ = {
+  silos:    { x: 60,   y: 280, w: 160, h: 400 },
+  hammer:   { x: 250,  y: 430, w: 90,  h: 180 },
+  mixer:    { x: 370,  y: 440, w: 130, h: 100 },
+  precon:   { x: 530,  y: 400, w: 160, h: 110 },
+  extruder: { x: 720,  y: 390, w: 240, h: 140 },
+  dryer:    { x: 1000, y: 340, w: 260, h: 200 },
+  cooler:   { x: 1300, y: 300, w: 120, h: 340 },
+  coater:   { x: 1460, y: 420, w: 150, h: 120 },
+  packer:   { x: 1660, y: 380, w: 130, h: 260 },
+};
 
-// Particles flowing between stages
-class Particle {
-  constructor(startX, startY, endX, endY, color, delay) {
-    this.startX = startX; this.startY = startY;
-    this.endX = endX; this.endY = endY;
-    this.color = color; this.delay = delay;
-    this.speed = 0.008 + Math.random() * 0.006;
-    this.progress = 0;
-    this.size = 3 + Math.random() * 4;
-    this.active = false;
-  }
-  update(f) {
-    if (f < this.delay) return;
-    this.active = true;
-    this.progress += this.speed;
-    if (this.progress > 1) this.progress = 0;
-  }
-  draw() {
-    if (!this.active) return;
-    const t = this.progress;
-    const x = this.startX + (this.endX - this.startX) * t;
-    const y = this.startY + (this.endY - this.startY) * t + Math.sin(t * Math.PI * 4) * 3;
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function drawSilos(t) {
+  const e = EQ.silos;
+  ctx.save();
+  for (let i = 0; i < 2; i++) {
+    const sx = e.x + i * 85;
+    const sw = 70, sh = 220, sy = e.y + 40;
+    const grad = ctx.createLinearGradient(sx, sy, sx + sw, sy);
+    grad.addColorStop(0, '#6B7B8D'); grad.addColorStop(0.3, '#A8B8C8');
+    grad.addColorStop(0.5, '#C8D4DE'); grad.addColorStop(0.7, '#A8B8C8'); grad.addColorStop(1, '#6B7B8D');
     ctx.beginPath();
-    ctx.arc(x, y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = this.color;
-    ctx.globalAlpha = 0.7 + Math.sin(t * Math.PI) * 0.3;
-    ctx.fill();
-    ctx.globalAlpha = 1;
-  }
-}
-
-// Steam particles
-class SteamParticle {
-  constructor(x, y) {
-    this.baseX = x; this.baseY = y;
-    this.x = x; this.y = y;
-    this.vx = (Math.random() - 0.5) * 0.8;
-    this.vy = -0.5 - Math.random() * 1.5;
-    this.life = 1;
-    this.decay = 0.008 + Math.random() * 0.012;
-    this.size = 4 + Math.random() * 8;
-  }
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.life -= this.decay;
-    if (this.life <= 0) {
-      this.x = this.baseX + (Math.random() - 0.5) * 20;
-      this.y = this.baseY;
-      this.life = 1;
-      this.vx = (Math.random() - 0.5) * 0.8;
-      this.vy = -0.5 - Math.random() * 1.5;
-    }
-  }
-  draw() {
+    ctx.ellipse(sx + sw/2, sy + 10, sw/2, 18, 0, Math.PI, 0);
+    ctx.fillStyle = grad; ctx.fill();
+    ctx.strokeStyle = '#4A5568'; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = grad; ctx.fillRect(sx, sy + 10, sw, sh);
+    ctx.strokeRect(sx, sy + 10, sw, sh);
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size * this.life, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(200,220,240,${this.life * 0.25})`;
-    ctx.fill();
+    ctx.moveTo(sx, sy + 10 + sh); ctx.lineTo(sx + sw/2, sy + 10 + sh + 80);
+    ctx.lineTo(sx + sw, sy + 10 + sh); ctx.closePath();
+    ctx.fillStyle = grad; ctx.fill(); ctx.strokeStyle = '#4A5568'; ctx.stroke();
+    ctx.fillStyle = '#5A6A7A'; ctx.fillRect(sx + sw/2 - 8, sy + 10 + sh + 75, 16, 20);
+    ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(sx + sw/2 - 8, sy + 10 + sh + 75, 16, 20);
+    ctx.strokeStyle = '#7A8A9A'; ctx.lineWidth = 2;
+    for (let b = 0; b < 4; b++) { const by = sy + 40 + b * 55; ctx.beginPath(); ctx.moveTo(sx, by); ctx.lineTo(sx + sw, by); ctx.stroke(); }
+    const level = 0.6 + 0.2 * Math.sin(t * 0.5 + i);
+    ctx.fillStyle = 'rgba(212, 160, 86, 0.5)';
+    ctx.fillRect(sx + 3, sy + 10 + sh - sh * level, sw - 6, sh * level);
+    ctx.fillStyle = 'rgba(100, 180, 255, 0.3)';
+    ctx.fillRect(sx + sw - 14, sy + 60, 10, 120);
+    ctx.strokeStyle = '#5A6A7A'; ctx.strokeRect(sx + sw - 14, sy + 60, 10, 120);
   }
+  ctx.fillStyle = C.navy; ctx.fillRect(e.x + 10, e.y, 140, 28);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('SILOS STOCKAGE', e.x + 80, e.y + 18);
+  ctx.fillStyle = C.steel; ctx.font = '10px Arial'; ctx.fillText('2 x 50 T', e.x + 80, e.y + 42);
+  ctx.restore();
 }
 
-// Create particles between stages
-const particles = [];
-const stageW = 200;
-const stageGap = 35;
-const stageStartX = 95;
-const stageY = 420;
-
-for (let i = 0; i < stages.length - 1; i++) {
-  const sx = stageStartX + i * (stageW + stageGap) + stageW;
-  const ex = stageStartX + (i + 1) * (stageW + stageGap);
-  for (let j = 0; j < 8; j++) {
-    particles.push(new Particle(
-      sx, stageY + 60 + Math.random() * 40,
-      ex, stageY + 60 + Math.random() * 40,
-      stages[i].color, j * 15 + i * 30
-    ));
-  }
-}
-
-// Steam particles for preconditioner and dryer
-const steamParticles = [];
-for (let i = 0; i < 30; i++) {
-  steamParticles.push(new SteamParticle(
-    stageStartX + 1 * (stageW + stageGap) + stageW / 2 + (Math.random() - 0.5) * 60,
-    stageY - 10
-  ));
-  steamParticles.push(new SteamParticle(
-    stageStartX + 3 * (stageW + stageGap) + stageW / 2 + (Math.random() - 0.5) * 60,
-    stageY - 10
-  ));
-}
-
-// Animated counters
-function animateValue(target, f, startFrame, duration) {
-  if (f < startFrame) return 0;
-  const progress = Math.min((f - startFrame) / duration, 1);
-  const eased = 1 - Math.pow(1 - progress, 3);
-  return target * eased;
-}
-
-// Draw rounded rect
-function roundRect(x, y, w, h, r, fill, stroke) {
+function drawHammerMill(t) {
+  const e = EQ.hammer;
+  ctx.save();
   ctx.beginPath();
-  ctx.roundRect(x, y, w, h, r);
-  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
-  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+  ctx.moveTo(e.x + 10, e.y); ctx.lineTo(e.x + e.w - 10, e.y);
+  ctx.lineTo(e.x + e.w - 20, e.y + 50); ctx.lineTo(e.x + 20, e.y + 50); ctx.closePath();
+  const hopGrad = ctx.createLinearGradient(e.x, e.y, e.x + e.w, e.y);
+  hopGrad.addColorStop(0, '#5A6A7A'); hopGrad.addColorStop(0.5, '#8A9AAA'); hopGrad.addColorStop(1, '#5A6A7A');
+  ctx.fillStyle = hopGrad; ctx.fill(); ctx.strokeStyle = '#3A4A5A'; ctx.lineWidth = 1.5; ctx.stroke();
+  const bodyY = e.y + 50, bodyH = 90;
+  const bodyGrad = ctx.createLinearGradient(e.x, bodyY, e.x + e.w, bodyY);
+  bodyGrad.addColorStop(0, '#4A5A6A'); bodyGrad.addColorStop(0.5, '#7A8A9A'); bodyGrad.addColorStop(1, '#4A5A6A');
+  ctx.fillStyle = bodyGrad; ctx.fillRect(e.x + 5, bodyY, e.w - 10, bodyH);
+  ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(e.x + 5, bodyY, e.w - 10, bodyH);
+  ctx.save(); ctx.beginPath(); ctx.rect(e.x + 15, bodyY + 15, e.w - 30, bodyH - 30); ctx.clip();
+  const cx = e.x + e.w/2, cy = bodyY + bodyH/2, angle = t * 8;
+  ctx.strokeStyle = '#2A3A4A'; ctx.lineWidth = 3;
+  for (let i = 0; i < 6; i++) {
+    const a = angle + i * Math.PI / 3;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a) * 30, cy + Math.sin(a) * 30); ctx.stroke();
+    ctx.fillStyle = '#3A4A5A'; ctx.fillRect(cx + Math.cos(a) * 25 - 5, cy + Math.sin(a) * 25 - 3, 12, 6);
+  }
+  ctx.restore();
+  ctx.fillStyle = '#3A5A3A'; ctx.fillRect(e.x + e.w - 5, bodyY + 20, 30, 50);
+  ctx.strokeStyle = '#2A4A2A'; ctx.strokeRect(e.x + e.w - 5, bodyY + 20, 30, 50);
+  ctx.fillStyle = '#666'; ctx.fillRect(e.x + e.w - 8, bodyY + 40, 8, 10);
+  ctx.fillStyle = '#5A6A7A'; ctx.fillRect(e.x + 30, bodyY + bodyH, 30, 25);
+  ctx.fillStyle = C.navy; ctx.fillRect(e.x - 5, e.y - 30, e.w + 10, 24);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('BROYEUR', e.x + e.w/2, e.y - 12);
+  ctx.restore();
 }
 
-// Draw pulsing glow
-function drawGlow(x, y, w, h, color, intensity) {
-  const grad = ctx.createRadialGradient(x + w/2, y + h/2, 0, x + w/2, y + h/2, Math.max(w, h));
-  grad.addColorStop(0, color + Math.floor(intensity * 40).toString(16).padStart(2, '0'));
-  grad.addColorStop(1, color + '00');
-  ctx.fillStyle = grad;
-  ctx.fillRect(x - 20, y - 20, w + 40, h + 40);
+function drawMixer(t) {
+  const e = EQ.mixer;
+  ctx.save();
+  const grad = ctx.createLinearGradient(e.x, e.y, e.x, e.y + e.h);
+  grad.addColorStop(0, '#8A9AAA'); grad.addColorStop(0.5, '#A8B8C8'); grad.addColorStop(1, '#6A7A8A');
+  ctx.beginPath(); ctx.ellipse(e.x + 10, e.y + e.h/2, 12, e.h/2, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#7A8A9A'; ctx.fill(); ctx.strokeStyle = '#4A5A6A'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.fillStyle = grad; ctx.fillRect(e.x + 10, e.y, e.w - 20, e.h);
+  ctx.strokeStyle = '#4A5A6A'; ctx.strokeRect(e.x + 10, e.y, e.w - 20, e.h);
+  ctx.beginPath(); ctx.ellipse(e.x + e.w - 10, e.y + e.h/2, 12, e.h/2, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#7A8A9A'; ctx.fill(); ctx.strokeStyle = '#4A5A6A'; ctx.stroke();
+  ctx.save(); ctx.beginPath(); ctx.rect(e.x + 15, e.y + 5, e.w - 30, e.h - 10); ctx.clip();
+  const mcy = e.y + e.h/2;
+  ctx.strokeStyle = '#555'; ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.moveTo(e.x + 10, mcy); ctx.lineTo(e.x + e.w - 10, mcy); ctx.stroke();
+  const pAngle = t * 3;
+  for (let p = 0; p < 5; p++) {
+    const px = e.x + 25 + p * 22, pa = pAngle + p * 0.8;
+    ctx.strokeStyle = '#4A5A6A'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(px, mcy - Math.cos(pa) * 30); ctx.lineTo(px, mcy + Math.cos(pa) * 30); ctx.stroke();
+  }
+  ctx.restore();
+  ctx.fillStyle = '#5A6A7A'; ctx.fillRect(e.x + 30, e.y - 25, 25, 28);
+  ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(e.x + 30, e.y - 25, 25, 28);
+  ctx.fillStyle = '#4A5A6A'; ctx.fillRect(e.x + 20, e.y + e.h, 8, 40); ctx.fillRect(e.x + e.w - 30, e.y + e.h, 8, 40);
+  ctx.fillStyle = C.navy; ctx.fillRect(e.x + 5, e.y - 55, e.w - 10, 24);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('MELANGEUR', e.x + e.w/2, e.y - 37);
+  ctx.restore();
 }
 
-// Draw conveyor belt
-function drawConveyor(x, y, w, f) {
-  const beltY = y + 140;
-  ctx.fillStyle = '#2A3A5A';
-  ctx.fillRect(x, beltY, w, 12);
-  // Moving lines
-  const spacing = 20;
-  ctx.strokeStyle = '#3A4A6A';
-  ctx.lineWidth = 1.5;
-  for (let i = 0; i < w / spacing + 1; i++) {
-    const lx = x + ((i * spacing + f * 1.5) % w);
-    if (lx >= x && lx <= x + w) {
-      ctx.beginPath();
-      ctx.moveTo(lx, beltY + 1);
-      ctx.lineTo(lx, beltY + 11);
-      ctx.stroke();
+function drawPreconditioner(t) {
+  const e = EQ.precon;
+  ctx.save();
+  const grad = ctx.createLinearGradient(e.x, e.y, e.x, e.y + e.h);
+  grad.addColorStop(0, '#7090A0'); grad.addColorStop(0.5, '#90B0C0'); grad.addColorStop(1, '#506A7A');
+  ctx.beginPath(); ctx.ellipse(e.x + 8, e.y + e.h/2, 10, e.h/2, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#608090'; ctx.fill(); ctx.strokeStyle = '#3A5A6A'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.fillStyle = grad; ctx.fillRect(e.x + 8, e.y, e.w - 16, e.h);
+  ctx.strokeStyle = '#3A5A6A'; ctx.strokeRect(e.x + 8, e.y, e.w - 16, e.h);
+  ctx.beginPath(); ctx.ellipse(e.x + e.w - 8, e.y + e.h/2, 10, e.h/2, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#608090'; ctx.fill(); ctx.strokeStyle = '#3A5A6A'; ctx.stroke();
+  ctx.save(); ctx.beginPath(); ctx.rect(e.x + 12, e.y + 5, e.w - 24, e.h - 10); ctx.clip();
+  const sa = t * 4;
+  for (let shaft = 0; shaft < 2; shaft++) {
+    const sy = e.y + 30 + shaft * 50;
+    ctx.strokeStyle = '#3A5A6A'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(e.x + 8, sy); ctx.lineTo(e.x + e.w - 8, sy); ctx.stroke();
+    for (let p = 0; p < 8; p++) {
+      const px = e.x + 20 + p * 17, pa = sa + p * 0.6 + shaft * Math.PI;
+      ctx.fillStyle = 'rgba(58, 90, 106, 0.7)';
+      ctx.save(); ctx.translate(px, sy); ctx.rotate(pa); ctx.fillRect(-2, -20, 4, 40); ctx.restore();
     }
   }
+  ctx.restore();
+  for (let i = 0; i < 3; i++) {
+    const px = e.x + 30 + i * 40;
+    ctx.fillStyle = '#506A7A'; ctx.fillRect(px, e.y - 20, 10, 22);
+    ctx.strokeStyle = '#3A5A6A'; ctx.strokeRect(px, e.y - 20, 10, 22);
+    ctx.beginPath(); ctx.arc(px + 5, e.y - 22, 6, 0, Math.PI * 2);
+    ctx.strokeStyle = C.red; ctx.lineWidth = 2; ctx.stroke();
+  }
+  ctx.fillStyle = '#4A5A6A'; ctx.fillRect(e.x + 20, e.y + e.h, 8, 50); ctx.fillRect(e.x + e.w - 30, e.y + e.h, 8, 50);
+  ctx.fillStyle = '#1a4a5a'; ctx.fillRect(e.x, e.y - 52, e.w, 24);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('PRECONDITIONNEUR', e.x + e.w/2, e.y - 34);
+  ctx.fillStyle = C.steel; ctx.font = '10px Arial'; ctx.fillText('Vapeur 0.75 T/h', e.x + e.w/2, e.y - 3);
+  ctx.restore();
 }
 
-// Draw equipment animation inside stage
-function drawEquipment(stage, x, y, w, h, f) {
-  const cx = x + w / 2;
-  const cy = y + h / 2 + 10;
-
-  switch(stage.icon) {
-    case 'grain':
-      // Falling grain dots
-      for (let i = 0; i < 12; i++) {
-        const gy = cy - 20 + ((f * 2 + i * 15) % 60);
-        const gx = cx - 30 + (i * 8) % 60 + Math.sin(f * 0.05 + i) * 5;
-        ctx.beginPath();
-        ctx.arc(gx, gy, 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(232,150,62,${0.5 + Math.sin(f * 0.1 + i) * 0.3})`;
-        ctx.fill();
-      }
-      break;
-    case 'steam':
-      // Mixing animation
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(f * 0.04);
-      for (let i = 0; i < 4; i++) {
-        ctx.rotate(Math.PI / 2);
-        ctx.fillStyle = `rgba(255,255,255,0.15)`;
-        ctx.fillRect(-5, -30, 10, 25);
-      }
-      ctx.restore();
-      break;
-    case 'screw':
-      // Twin screw rotation
-      ctx.save();
-      ctx.translate(cx, cy);
-      for (let s = -1; s <= 1; s += 2) {
-        for (let i = 0; i < 6; i++) {
-          const angle = f * 0.08 + i * Math.PI / 3;
-          const sx = Math.cos(angle) * 18 + s * 15;
-          const sy = Math.sin(angle) * 18;
-          ctx.beginPath();
-          ctx.arc(sx, sy, 6, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(46,134,171,${0.3 + Math.sin(angle) * 0.2})`;
-          ctx.fill();
-        }
-      }
-      ctx.restore();
-      // Heat indicator
-      const heatPulse = 0.5 + Math.sin(f * 0.06) * 0.3;
-      ctx.fillStyle = `rgba(255,100,50,${heatPulse * 0.15})`;
-      ctx.fillRect(x + 10, y + 10, w - 20, h - 20);
-      break;
-    case 'heat':
-      // Heat waves
-      for (let i = 0; i < 5; i++) {
-        const hy = cy + 20 - ((f + i * 20) % 50);
-        const alpha = 1 - ((f + i * 20) % 50) / 50;
-        ctx.beginPath();
-        ctx.moveTo(cx - 40, hy);
-        for (let j = 0; j < 80; j++) {
-          ctx.lineTo(cx - 40 + j, hy + Math.sin(j * 0.15 + f * 0.1) * 4);
-        }
-        ctx.strokeStyle = `rgba(232,150,62,${alpha * 0.4})`;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-      break;
-    case 'cool':
-      // Cool air circulation
-      for (let i = 0; i < 8; i++) {
-        const angle = f * 0.03 + i * Math.PI / 4;
-        const r = 20 + Math.sin(f * 0.05 + i) * 10;
-        ctx.beginPath();
-        ctx.arc(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, 4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(91,155,213,${0.3 + Math.sin(angle) * 0.2})`;
-        ctx.fill();
-      }
-      break;
-    case 'coat':
-      // Spray coating
-      for (let i = 0; i < 10; i++) {
-        const angle = -Math.PI / 4 + Math.random() * Math.PI / 2;
-        const dist = ((f * 3 + i * 30) % 40);
-        const px = cx + Math.cos(angle) * dist;
-        const py = cy - 20 + dist;
-        ctx.beginPath();
-        ctx.arc(px, py, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(124,104,174,${0.5 - dist / 80})`;
-        ctx.fill();
-      }
-      break;
-    case 'pack':
-      // Package forming
-      const packPhase = (f * 0.02) % 1;
-      const packH = 30 * Math.min(packPhase * 2, 1);
-      ctx.fillStyle = `rgba(39,174,96,0.3)`;
-      ctx.fillRect(cx - 20, cy + 15 - packH, 40, packH);
-      ctx.strokeStyle = `rgba(39,174,96,0.6)`;
-      ctx.lineWidth = 1.5;
-      ctx.strokeRect(cx - 20, cy + 15 - packH, 40, packH);
-      break;
+function drawExtruder(t) {
+  const e = EQ.extruder;
+  ctx.save();
+  const motorW = 60, motorH = 80, motorX = e.x, motorY = e.y + 30;
+  const mGrad = ctx.createLinearGradient(motorX, motorY, motorX, motorY + motorH);
+  mGrad.addColorStop(0, '#3A6A3A'); mGrad.addColorStop(0.5, '#4A8A4A'); mGrad.addColorStop(1, '#2A5A2A');
+  ctx.fillStyle = mGrad; ctx.fillRect(motorX, motorY, motorW, motorH);
+  ctx.strokeStyle = '#1A3A1A'; ctx.lineWidth = 2; ctx.strokeRect(motorX, motorY, motorW, motorH);
+  ctx.strokeStyle = '#2A5A2A'; ctx.lineWidth = 1;
+  for (let f = 0; f < 6; f++) { ctx.beginPath(); ctx.moveTo(motorX + 8 + f * 8, motorY + 5); ctx.lineTo(motorX + 8 + f * 8, motorY + motorH - 5); ctx.stroke(); }
+  ctx.fillStyle = '#AAD4AA'; ctx.font = 'bold 9px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('203 kW', motorX + motorW/2, motorY + motorH/2 + 3);
+  const gbX = motorX + motorW, gbW = 30;
+  ctx.fillStyle = '#5A6A7A'; ctx.fillRect(gbX, motorY + 10, gbW, motorH - 20);
+  ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(gbX, motorY + 10, gbW, motorH - 20);
+  const barrelX = gbX + gbW, barrelW = e.w - motorW - gbW - 20, barrelH = 50, barrelY = e.y + 45;
+  const bGrad = ctx.createLinearGradient(barrelX, barrelY, barrelX, barrelY + barrelH);
+  bGrad.addColorStop(0, '#8090A0'); bGrad.addColorStop(0.3, '#A0B0C0'); bGrad.addColorStop(0.5, '#B0C0D0');
+  bGrad.addColorStop(0.7, '#A0B0C0'); bGrad.addColorStop(1, '#6A7A8A');
+  ctx.fillStyle = bGrad; ctx.fillRect(barrelX, barrelY, barrelW, barrelH);
+  ctx.strokeStyle = '#4A5A6A'; ctx.lineWidth = 2; ctx.strokeRect(barrelX, barrelY, barrelW, barrelH);
+  for (let s = 0; s < 5; s++) {
+    const sx = barrelX + 5 + s * (barrelW / 5);
+    ctx.strokeStyle = '#5A6A7A'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(sx, barrelY); ctx.lineTo(sx, barrelY + barrelH); ctx.stroke();
+    const ti2 = 0.3 + s * 0.15 + 0.1 * Math.sin(t * 3 + s);
+    ctx.fillStyle = `rgba(230, 120, 30, ${ti2})`; ctx.fillRect(sx + 2, barrelY + 2, barrelW/5 - 8, 5);
   }
+  ctx.save(); ctx.beginPath(); ctx.rect(barrelX + 3, barrelY + 8, barrelW - 6, barrelH - 16); ctx.clip();
+  const screwAngle = t * 6;
+  for (let screw = 0; screw < 2; screw++) {
+    const sy = barrelY + 18 + screw * 18;
+    ctx.strokeStyle = 'rgba(90, 100, 120, 0.6)'; ctx.lineWidth = 2;
+    for (let x = barrelX; x < barrelX + barrelW; x += 8) {
+      const offset = screwAngle * 8 + screw * 12;
+      const yOff = Math.sin((x + offset) * 0.15) * 6;
+      ctx.beginPath(); ctx.moveTo(x, sy + yOff - 5); ctx.lineTo(x + 4, sy - yOff + 5); ctx.stroke();
+    }
+  }
+  ctx.restore();
+  const dieX = barrelX + barrelW;
+  ctx.fillStyle = '#4A5A6A'; ctx.fillRect(dieX, barrelY - 5, 15, barrelH + 10);
+  ctx.strokeStyle = '#2A3A4A'; ctx.strokeRect(dieX, barrelY - 5, 15, barrelH + 10);
+  for (let d = 0; d < 4; d++) { ctx.beginPath(); ctx.arc(dieX + 8, barrelY + 10 + d * 12, 3, 0, Math.PI * 2); ctx.fillStyle = '#1A2A3A'; ctx.fill(); }
+  ctx.beginPath(); ctx.moveTo(barrelX + 5, barrelY); ctx.lineTo(barrelX - 5, barrelY - 40);
+  ctx.lineTo(barrelX + 35, barrelY - 40); ctx.lineTo(barrelX + 25, barrelY); ctx.closePath();
+  ctx.fillStyle = '#6A7A8A'; ctx.fill(); ctx.strokeStyle = '#4A5A6A'; ctx.stroke();
+  ctx.fillStyle = '#3A4A5A';
+  ctx.fillRect(motorX + 10, motorY + motorH, 8, FLOOR_Y - motorY - motorH);
+  ctx.fillRect(barrelX + barrelW/2, barrelY + barrelH, 8, FLOOR_Y - barrelY - barrelH);
+  ctx.fillRect(dieX, barrelY + barrelH + 5, 8, FLOOR_Y - barrelY - barrelH - 5);
+  ctx.fillStyle = '#2A3A4A'; ctx.fillRect(motorX, FLOOR_Y - 10, e.w, 10);
+  ctx.fillStyle = C.teal; ctx.fillRect(e.x + 30, e.y - 10, 180, 28);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('EXTRUDEUSE BI-VIS SJPS165', e.x + 120, e.y + 10);
+  ctx.fillStyle = C.steel; ctx.font = '10px Arial'; ctx.fillText('5 T/h  |  Fourreau 145 C', e.x + 120, e.y + 24);
+  ctx.restore();
 }
 
-// Main render
-function render() {
-  const f = frame;
-
-  // Background
-  ctx.fillStyle = C.darkBg;
-  ctx.fillRect(0, 0, 1920, 1080);
-
-  // Subtle grid
-  ctx.strokeStyle = 'rgba(46,134,171,0.05)';
-  ctx.lineWidth = 1;
-  for (let x = 0; x < 1920; x += 40) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 1080); ctx.stroke();
-  }
-  for (let y = 0; y < 1080; y += 40) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1920, y); ctx.stroke();
-  }
-
-  // Title area
-  const titleAlpha = Math.min(f / 30, 1);
-  ctx.globalAlpha = titleAlpha;
-
-  // Logo area
-  roundRect(40, 30, 8, 50, 2, C.amber);
-  ctx.font = 'bold 36px Arial';
-  ctx.fillStyle = C.white;
-  ctx.fillText('PETFACTORY MAROC', 65, 68);
-  ctx.font = '16px Arial';
-  ctx.fillStyle = '#6B7B8D';
-  ctx.fillText('Simulation de Production  |  Ligne d\'Extrusion Sèche 5 T/h  |  FAMSUN Clé en Main', 65, 95);
-
-  // Top-right live stats
-  ctx.font = 'bold 14px Arial';
-  ctx.fillStyle = C.amber;
-  const statusPulse = Math.sin(f * 0.08) > 0 ? '●' : '○';
-  ctx.fillText(`${statusPulse}  EN PRODUCTION`, 1680, 50);
-  ctx.font = '12px Arial';
-  ctx.fillStyle = '#6B7B8D';
-  const hours = Math.floor((f / 30) % 24);
-  const mins = Math.floor((f / 30 * 60) % 60);
-  ctx.fillText(`${String(hours).padStart(2,'0')}:${String(mins).padStart(2,'0')} — Août 2026`, 1700, 70);
-
-  ctx.globalAlpha = 1;
-
-  // Phase intro animations
-  const phase1Start = 30;   // stages appear
-  const phase2Start = 90;   // particles start
-  const phase3Start = 150;  // dashboard appears
-
-  // Draw production stages
-  for (let i = 0; i < stages.length; i++) {
-    const stageAppear = Math.min((f - phase1Start - i * 8) / 20, 1);
-    if (stageAppear <= 0) continue;
-
-    const s = stages[i];
-    const sx = stageStartX + i * (stageW + stageGap);
-    const sy = stageY;
-    const sw = stageW;
-    const sh = 160;
-
-    ctx.globalAlpha = stageAppear;
-
-    // Glow effect for active stages
-    const pulse = 0.5 + Math.sin(f * 0.05 + i * 0.5) * 0.3;
-    drawGlow(sx, sy, sw, sh, s.color, pulse);
-
-    // Stage card
-    roundRect(sx, sy, sw, sh, 10, s.color + 'DD');
-    roundRect(sx, sy, sw, sh, 10, null, s.color);
-
-    // Stage number
-    ctx.font = 'bold 14px Arial';
-    ctx.fillStyle = `rgba(255,255,255,0.4)`;
-    ctx.textAlign = 'center';
-    ctx.fillText(`${i + 1}`, sx + sw / 2, sy + 22);
-
-    // Stage name
-    ctx.font = 'bold 15px Arial';
-    ctx.fillStyle = C.white;
-    const lines = s.name.split('\n');
-    lines.forEach((line, li) => {
-      ctx.fillText(line, sx + sw / 2, sy + 48 + li * 18);
-    });
-
-    // Spec
-    ctx.font = '11px Arial';
-    ctx.fillStyle = `rgba(255,255,255,0.7)`;
-    ctx.fillText(s.spec, sx + sw / 2, sy + sh - 15);
-
-    ctx.textAlign = 'left';
-
-    // Equipment animation inside
-    drawEquipment(s, sx, sy, sw, sh, f);
-
-    // Conveyor belt
-    drawConveyor(sx, sy, sw, f);
-
-    // Arrow between stages
-    if (i < stages.length - 1) {
-      const ax = sx + sw + 5;
-      const ay = sy + sh / 2;
-      ctx.beginPath();
-      ctx.moveTo(ax, ay - 8);
-      ctx.lineTo(ax + stageGap - 10, ay);
-      ctx.lineTo(ax, ay + 8);
-      ctx.fillStyle = `rgba(255,255,255,${0.15 + pulse * 0.15})`;
-      ctx.fill();
+function drawDryer(t) {
+  const e = EQ.dryer;
+  ctx.save();
+  const grad = ctx.createLinearGradient(e.x, e.y, e.x, e.y + e.h);
+  grad.addColorStop(0, '#7A6A5A'); grad.addColorStop(0.5, '#9A8A7A'); grad.addColorStop(1, '#6A5A4A');
+  ctx.fillStyle = grad; ctx.fillRect(e.x, e.y + 20, e.w, e.h - 20);
+  ctx.strokeStyle = '#4A3A2A'; ctx.lineWidth = 2; ctx.strokeRect(e.x, e.y + 20, e.w, e.h - 20);
+  ctx.save(); ctx.beginPath(); ctx.rect(e.x + 10, e.y + 30, e.w - 20, e.h - 40); ctx.clip();
+  for (let belt = 0; belt < 3; belt++) {
+    const by = e.y + 50 + belt * 55;
+    ctx.fillStyle = 'rgba(80, 90, 70, 0.6)'; ctx.fillRect(e.x + 15, by, e.w - 30, 8);
+    const dir = belt % 2 === 0 ? 1 : -1;
+    ctx.strokeStyle = 'rgba(60, 70, 50, 0.5)'; ctx.lineWidth = 1;
+    for (let seg = 0; seg < 12; seg++) {
+      const sx = e.x + 20 + ((seg * 20 + t * 30 * dir) % (e.w - 40));
+      if (sx > e.x + 15 && sx < e.x + e.w - 20) { ctx.beginPath(); ctx.moveTo(sx, by + 1); ctx.lineTo(sx + 6 * dir, by + 1); ctx.stroke(); }
     }
-
-    ctx.globalAlpha = 1;
-  }
-
-  // Draw steam particles
-  if (f > phase2Start) {
-    steamParticles.forEach(p => { p.update(); p.draw(); });
-  }
-
-  // Draw flow particles
-  if (f > phase2Start) {
-    particles.forEach(p => { p.update(f - phase2Start); p.draw(); });
-  }
-
-  // Bottom dashboard
-  if (f > phase3Start) {
-    const dashAlpha = Math.min((f - phase3Start) / 40, 1);
-    ctx.globalAlpha = dashAlpha;
-
-    // Dashboard background
-    roundRect(40, 640, 1840, 410, 15, 'rgba(27,42,74,0.6)');
-    roundRect(40, 640, 1840, 410, 15, null, 'rgba(46,134,171,0.2)');
-
-    // Dashboard title
-    ctx.font = 'bold 20px Arial';
-    ctx.fillStyle = C.white;
-    ctx.fillText('Tableau de Bord de Production', 80, 678);
-
-    ctx.font = '12px Arial';
-    ctx.fillStyle = '#6B7B8D';
-    ctx.fillText('Données temps réel — Simulation', 360, 678);
-
-    // Stat cards
-    const stats = [
-      { label: 'Débit', value: animateValue(5.0, f, phase3Start, 60).toFixed(1), unit: 'T/h', color: C.teal },
-      { label: 'Temp. Extrudeuse', value: Math.floor(animateValue(145, f, phase3Start, 60) + Math.sin(f*0.1)*2), unit: '°C', color: C.amber },
-      { label: 'Vapeur', value: animateValue(2.45, f, phase3Start, 60).toFixed(2), unit: 'T/h', color: C.teal },
-      { label: 'Humidité Sortie', value: animateValue(9.0, f, phase3Start, 60).toFixed(1), unit: '%', color: C.green },
-      { label: 'Activité Eau', value: animateValue(0.58, f, phase3Start, 60).toFixed(2), unit: 'aw', color: C.green },
-      { label: 'Énergie', value: Math.floor(animateValue(203, f, phase3Start, 60) + Math.sin(f*0.07)*5), unit: 'kW', color: C.orange },
-    ];
-
-    stats.forEach((s, i) => {
-      const sx = 80 + i * 300;
-      const sy = 710;
-
-      roundRect(sx, sy, 270, 90, 8, 'rgba(15,26,46,0.8)');
-
-      ctx.font = '12px Arial';
-      ctx.fillStyle = '#6B7B8D';
-      ctx.fillText(s.label, sx + 15, sy + 25);
-
-      ctx.font = 'bold 36px Arial';
-      ctx.fillStyle = s.color;
-      ctx.fillText(String(s.value), sx + 15, sy + 68);
-
-      ctx.font = '14px Arial';
-      ctx.fillStyle = '#6B7B8D';
-      ctx.fillText(s.unit, sx + 15 + ctx.measureText(String(s.value)).width + 8, sy + 68);
-    });
-
-    // Process flow bar chart
-    const chartX = 80;
-    const chartY = 830;
-    const chartW = 880;
-    const chartH = 180;
-
-    roundRect(chartX, chartY, chartW, chartH, 8, 'rgba(15,26,46,0.6)');
-
-    ctx.font = 'bold 13px Arial';
-    ctx.fillStyle = '#8899AA';
-    ctx.fillText('Flux de Production par Étape (T/h)', chartX + 15, chartY + 25);
-
-    const barData = [5.0, 4.8, 5.0, 4.9, 4.8, 4.7, 4.5];
-    const barW = 90;
-    const barGap = 18;
-    const maxBar = 5.5;
-    const barAreaY = chartY + 45;
-    const barAreaH = chartH - 70;
-
-    barData.forEach((v, i) => {
-      const bx = chartX + 30 + i * (barW + barGap);
-      const animV = animateValue(v, f, phase3Start + 30, 40);
-      const bh = (animV / maxBar) * barAreaH;
-      const by = barAreaY + barAreaH - bh;
-
-      // Bar with gradient
-      const grad = ctx.createLinearGradient(bx, by, bx, barAreaY + barAreaH);
-      grad.addColorStop(0, stages[i].color);
-      grad.addColorStop(1, stages[i].color + '44');
-      ctx.fillStyle = grad;
-      roundRect(bx, by, barW, bh, 4, grad);
-
-      // Value on top
-      ctx.font = 'bold 11px Arial';
-      ctx.fillStyle = C.white;
-      ctx.textAlign = 'center';
-      ctx.fillText(animV.toFixed(1), bx + barW / 2, by - 6);
-
-      // Label
-      ctx.font = '9px Arial';
-      ctx.fillStyle = '#6B7B8D';
-      const shortNames = ['Mat.Prem.', 'Précond.', 'Extrud.', 'Séchoir', 'Refroid.', 'Enrobeur', 'Cond.'];
-      ctx.fillText(shortNames[i], bx + barW / 2, barAreaY + barAreaH + 15);
-      ctx.textAlign = 'left';
-    });
-
-    // Right side — Temperature profile
-    const tempX = 1000;
-    const tempY = chartY;
-    const tempW = 860;
-    const tempH = chartH;
-
-    roundRect(tempX, tempY, tempW, tempH, 8, 'rgba(15,26,46,0.6)');
-
-    ctx.font = 'bold 13px Arial';
-    ctx.fillStyle = '#8899AA';
-    ctx.fillText('Profil de Température (°C)', tempX + 15, tempY + 25);
-
-    const tempData = [25, 85, 145, 140, 35, 30, 20];
-    const tempAreaY = tempY + 50;
-    const tempAreaH = tempH - 80;
-    const maxTemp = 160;
-    const pointSpacing = (tempW - 80) / (tempData.length - 1);
-
-    // Grid lines
-    ctx.strokeStyle = 'rgba(46,134,171,0.1)';
-    ctx.lineWidth = 1;
-    for (let t = 0; t <= 160; t += 40) {
-      const gy = tempAreaY + tempAreaH - (t / maxTemp) * tempAreaH;
-      ctx.beginPath(); ctx.moveTo(tempX + 40, gy); ctx.lineTo(tempX + tempW - 20, gy); ctx.stroke();
-      ctx.font = '9px Arial';
-      ctx.fillStyle = '#556677';
-      ctx.fillText(`${t}°`, tempX + 15, gy + 4);
+    for (let k = 0; k < 8; k++) {
+      const kx = e.x + 20 + ((k * 28 + t * 25 * dir) % (e.w - 50));
+      if (kx > e.x + 15 && kx < e.x + e.w - 25) { ctx.fillStyle = C.kibble; ctx.beginPath(); ctx.arc(kx, by - 3, 3, 0, Math.PI * 2); ctx.fill(); }
     }
-
-    // Temperature line
+    ctx.fillStyle = '#3A4A3A';
+    ctx.beginPath(); ctx.arc(e.x + 18, by + 4, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(e.x + e.w - 18, by + 4, 6, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.strokeStyle = 'rgba(230, 140, 60, 0.3)'; ctx.lineWidth = 1;
+  for (let hw = 0; hw < 6; hw++) {
+    const hx = e.x + 30 + hw * 38;
     ctx.beginPath();
-    tempData.forEach((t, i) => {
-      const animT = animateValue(t, f, phase3Start + 40, 50);
-      const px = tempX + 50 + i * pointSpacing;
-      const py = tempAreaY + tempAreaH - (animT / maxTemp) * tempAreaH;
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
-    });
-    ctx.strokeStyle = C.amber;
-    ctx.lineWidth = 3;
+    for (let y = e.y + 35; y < e.y + e.h - 15; y += 3) {
+      const xOff = Math.sin((y + t * 40) * 0.1) * 4;
+      if (y === e.y + 35) ctx.moveTo(hx + xOff, y); else ctx.lineTo(hx + xOff, y);
+    }
     ctx.stroke();
-
-    // Fill under line
-    ctx.lineTo(tempX + 50 + (tempData.length - 1) * pointSpacing, tempAreaY + tempAreaH);
-    ctx.lineTo(tempX + 50, tempAreaY + tempAreaH);
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(232,150,62,0.08)';
-    ctx.fill();
-
-    // Data points
-    tempData.forEach((t, i) => {
-      const animT = animateValue(t, f, phase3Start + 40, 50);
-      const px = tempX + 50 + i * pointSpacing;
-      const py = tempAreaY + tempAreaH - (animT / maxTemp) * tempAreaH;
-
-      ctx.beginPath();
-      ctx.arc(px, py, 5, 0, Math.PI * 2);
-      ctx.fillStyle = stages[i].color;
-      ctx.fill();
-      ctx.strokeStyle = C.white;
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Point label
-      ctx.font = 'bold 10px Arial';
-      ctx.fillStyle = C.white;
-      ctx.textAlign = 'center';
-      ctx.fillText(`${Math.floor(animT)}°`, px, py - 12);
-      ctx.textAlign = 'left';
-    });
-
-    ctx.globalAlpha = 1;
   }
-
-  // Fade in/out
-  if (f < 20) {
-    ctx.fillStyle = `rgba(15,26,46,${1 - f / 20})`;
-    ctx.fillRect(0, 0, 1920, 1080);
-  }
-  if (f > totalFrames - 30) {
-    ctx.fillStyle = `rgba(15,26,46,${(f - (totalFrames - 30)) / 30})`;
-    ctx.fillRect(0, 0, 1920, 1080);
-  }
-
-  frame++;
-  if (frame <= totalFrames) {
-    requestAnimationFrame(render);
-  } else {
-    document.title = 'DONE';
-  }
+  ctx.restore();
+  ctx.fillStyle = '#5A4A3A'; ctx.fillRect(e.x + e.w/2 - 15, e.y - 20, 30, 42);
+  ctx.strokeStyle = '#3A2A1A'; ctx.strokeRect(e.x + e.w/2 - 15, e.y - 20, 30, 42);
+  ctx.fillStyle = '#4A3A2A'; ctx.beginPath();
+  ctx.moveTo(e.x + e.w/2 - 20, e.y - 20); ctx.lineTo(e.x + e.w/2, e.y - 35); ctx.lineTo(e.x + e.w/2 + 20, e.y - 20);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#4A3A2A';
+  ctx.fillRect(e.x + 15, e.y + e.h, 10, FLOOR_Y - e.y - e.h);
+  ctx.fillRect(e.x + e.w - 25, e.y + e.h, 10, FLOOR_Y - e.y - e.h);
+  ctx.fillRect(e.x + e.w/2, e.y + e.h, 10, FLOOR_Y - e.y - e.h);
+  ctx.fillStyle = C.amber; ctx.fillRect(e.x + 30, e.y - 55, 200, 28);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('SECHOIR A BANDES GZDH2200', e.x + 130, e.y - 37);
+  ctx.fillStyle = C.steel; ctx.font = '10px Arial';
+  ctx.fillText('Entree 140 C  |  Tapis 44 m2', e.x + 130, e.y - 23);
+  ctx.restore();
 }
 
-render();
+function drawCooler(t) {
+  const e = EQ.cooler;
+  ctx.save();
+  const grad = ctx.createLinearGradient(e.x, e.y, e.x + e.w, e.y);
+  grad.addColorStop(0, '#5A7A9A'); grad.addColorStop(0.3, '#8AAABA'); grad.addColorStop(0.5, '#9ABACA');
+  grad.addColorStop(0.7, '#8AAABA'); grad.addColorStop(1, '#5A7A9A');
+  ctx.beginPath(); ctx.ellipse(e.x + e.w/2, e.y + 20, e.w/2, 20, 0, Math.PI, 0);
+  ctx.fillStyle = grad; ctx.fill(); ctx.strokeStyle = '#3A5A7A'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = grad; ctx.fillRect(e.x, e.y + 20, e.w, e.h - 80);
+  ctx.strokeStyle = '#3A5A7A'; ctx.strokeRect(e.x, e.y + 20, e.w, e.h - 80);
+  ctx.beginPath(); ctx.moveTo(e.x, e.y + e.h - 60); ctx.lineTo(e.x + e.w/2, e.y + e.h);
+  ctx.lineTo(e.x + e.w, e.y + e.h - 60); ctx.closePath();
+  ctx.fillStyle = grad; ctx.fill(); ctx.strokeStyle = '#3A5A7A'; ctx.stroke();
+  ctx.fillStyle = '#4A6A8A'; ctx.fillRect(e.x + e.w/2 - 10, e.y + e.h - 5, 20, 20);
+  ctx.strokeStyle = '#2A4A6A'; ctx.strokeRect(e.x + e.w/2 - 10, e.y + e.h - 5, 20, 20);
+  ctx.strokeStyle = 'rgba(58, 90, 122, 0.5)'; ctx.lineWidth = 1;
+  for (let b = 0; b < 5; b++) {
+    const by = e.y + 50 + b * 45;
+    ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(e.x + 8, by); ctx.lineTo(e.x + e.w - 8, by); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  ctx.strokeStyle = 'rgba(100, 180, 255, 0.4)'; ctx.lineWidth = 2;
+  for (let a = 0; a < 4; a++) {
+    const ax = e.x + 25 + a * 25, baseY = e.y + e.h - 80;
+    const ay = baseY - ((t * 50 + a * 60) % 200);
+    if (ay > e.y + 25 && ay < baseY) {
+      ctx.beginPath(); ctx.moveTo(ax, ay + 15); ctx.lineTo(ax, ay);
+      ctx.moveTo(ax - 4, ay + 6); ctx.lineTo(ax, ay); ctx.lineTo(ax + 4, ay + 6); ctx.stroke();
+    }
+  }
+  for (let k = 0; k < 6; k++) {
+    const ky = e.y + 30 + ((t * 30 + k * 50) % (e.h - 100));
+    const kx = e.x + 20 + Math.sin(k * 2 + t) * 25 + 20;
+    ctx.fillStyle = C.kibble; ctx.beginPath(); ctx.arc(kx, ky, 2.5, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.fillStyle = '#5A7A9A'; ctx.fillRect(e.x - 25, e.y + e.h - 100, 28, 15);
+  ctx.strokeStyle = '#3A5A7A'; ctx.strokeRect(e.x - 25, e.y + e.h - 100, 28, 15);
+  ctx.fillStyle = '#3A5A7A';
+  ctx.fillRect(e.x + 10, e.y + e.h + 12, 10, FLOOR_Y - e.y - e.h - 12);
+  ctx.fillRect(e.x + e.w - 20, e.y + e.h + 12, 10, FLOOR_Y - e.y - e.h - 12);
+  ctx.fillStyle = C.blue; ctx.fillRect(e.x - 10, e.y - 28, e.w + 20, 24);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('REFROIDISSEUR', e.x + e.w/2, e.y - 10);
+  ctx.fillStyle = C.steel; ctx.font = '10px Arial';
+  ctx.fillText('Contre-courant | 12 min', e.x + e.w/2, e.y + 5);
+  ctx.restore();
+}
+
+function drawCoater(t) {
+  const e = EQ.coater;
+  ctx.save();
+  const drumAngle = t * 2;
+  ctx.beginPath(); ctx.ellipse(e.x + 10, e.y + e.h/2, 12, e.h/2 - 5, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#6A5A7A'; ctx.fill(); ctx.strokeStyle = '#4A3A5A'; ctx.lineWidth = 1.5; ctx.stroke();
+  const dGrad = ctx.createLinearGradient(e.x, e.y, e.x, e.y + e.h);
+  dGrad.addColorStop(0, '#7A6A8A'); dGrad.addColorStop(0.3, '#9A8AAA'); dGrad.addColorStop(0.5, '#AA9ABA');
+  dGrad.addColorStop(0.7, '#9A8AAA'); dGrad.addColorStop(1, '#6A5A7A');
+  ctx.fillStyle = dGrad; ctx.fillRect(e.x + 10, e.y + 5, e.w - 20, e.h - 10);
+  ctx.strokeStyle = '#4A3A5A'; ctx.strokeRect(e.x + 10, e.y + 5, e.w - 20, e.h - 10);
+  ctx.save(); ctx.beginPath(); ctx.rect(e.x + 12, e.y + 7, e.w - 24, e.h - 14); ctx.clip();
+  ctx.strokeStyle = 'rgba(74, 58, 90, 0.4)'; ctx.lineWidth = 1;
+  for (let r = 0; r < 6; r++) {
+    const ry = e.y + e.h/2 + Math.sin(drumAngle + r * Math.PI/3) * (e.h/2 - 10);
+    ctx.beginPath(); ctx.moveTo(e.x + 12, ry); ctx.lineTo(e.x + e.w - 12, ry); ctx.stroke();
+  }
+  for (let l = 0; l < 4; l++) {
+    const la = drumAngle + l * Math.PI / 2;
+    const lyOff = Math.sin(la) * (e.h/2 - 15);
+    ctx.strokeStyle = 'rgba(90, 70, 110, 0.5)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(e.x + 30, e.y + e.h/2 + lyOff); ctx.lineTo(e.x + e.w - 30, e.y + e.h/2 + lyOff); ctx.stroke();
+  }
+  ctx.restore();
+  ctx.beginPath(); ctx.ellipse(e.x + e.w - 10, e.y + e.h/2, 12, e.h/2 - 5, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#6A5A7A'; ctx.fill(); ctx.strokeStyle = '#4A3A5A'; ctx.stroke();
+  ctx.fillStyle = '#5A6A7A'; ctx.fillRect(e.x + 30, e.y - 25, e.w - 60, 8);
+  ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(e.x + 30, e.y - 25, e.w - 60, 8);
+  for (let n = 0; n < 4; n++) {
+    const nx = e.x + 40 + n * 22;
+    ctx.fillStyle = '#4A5A6A'; ctx.fillRect(nx, e.y - 17, 5, 18);
+    if (t > 3) {
+      ctx.fillStyle = `rgba(196, 162, 62, ${0.2 + 0.1 * Math.sin(t * 5 + n)})`;
+      ctx.beginPath(); ctx.moveTo(nx + 2.5, e.y + 3); ctx.lineTo(nx - 3, e.y + 18); ctx.lineTo(nx + 8, e.y + 18); ctx.closePath(); ctx.fill();
+    }
+  }
+  ctx.fillStyle = '#C4A23E'; ctx.fillRect(e.x - 35, e.y + 20, 30, 50);
+  ctx.strokeStyle = '#9A8020'; ctx.strokeRect(e.x - 35, e.y + 20, 30, 50);
+  ctx.fillStyle = '#FFF'; ctx.font = '8px Arial'; ctx.textAlign = 'center'; ctx.fillText('HUILE', e.x - 20, e.y + 48);
+  ctx.strokeStyle = '#9A8020'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(e.x - 5, e.y + 30); ctx.lineTo(e.x + 30, e.y + 30); ctx.lineTo(e.x + 30, e.y - 21); ctx.stroke();
+  ctx.fillStyle = '#4A3A5A';
+  ctx.fillRect(e.x + 15, e.y + e.h - 3, 8, FLOOR_Y - e.y - e.h + 3);
+  ctx.fillRect(e.x + e.w - 25, e.y + e.h - 3, 8, FLOOR_Y - e.y - e.h + 3);
+  ctx.fillStyle = '#5A6A7A';
+  ctx.beginPath(); ctx.arc(e.x + 25, e.y + e.h + 2, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.arc(e.x + e.w - 25, e.y + e.h + 2, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = C.purple; ctx.fillRect(e.x + 10, e.y - 55, e.w - 20, 24);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('ENROBEUR', e.x + e.w/2, e.y - 37);
+  ctx.fillStyle = C.steel; ctx.font = '10px Arial'; ctx.fillText('12% graisse | 2% appetent', e.x + e.w/2, e.y - 57);
+  ctx.restore();
+}
+
+function drawPacker(t) {
+  const e = EQ.packer;
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(e.x + 15, e.y); ctx.lineTo(e.x + e.w - 15, e.y);
+  ctx.lineTo(e.x + e.w - 25, e.y + 60); ctx.lineTo(e.x + 25, e.y + 60); ctx.closePath();
+  const hopGrad = ctx.createLinearGradient(e.x, e.y, e.x + e.w, e.y);
+  hopGrad.addColorStop(0, '#4A6A4A'); hopGrad.addColorStop(0.5, '#6A8A6A'); hopGrad.addColorStop(1, '#4A6A4A');
+  ctx.fillStyle = hopGrad; ctx.fill(); ctx.strokeStyle = '#2A4A2A'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.fillStyle = '#5A6A7A'; ctx.fillRect(e.x + e.w/2 - 12, e.y + 60, 24, 80);
+  ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(e.x + e.w/2 - 12, e.y + 60, 24, 80);
+  ctx.beginPath(); ctx.arc(e.x + 15, e.y + 80, 18, 0, Math.PI * 2);
+  ctx.fillStyle = '#8899AA'; ctx.fill(); ctx.strokeStyle = '#5A6A7A'; ctx.stroke();
+  ctx.beginPath(); ctx.arc(e.x + 15, e.y + 80, 6, 0, Math.PI * 2);
+  ctx.fillStyle = '#5A6A7A'; ctx.fill();
+  ctx.strokeStyle = 'rgba(136, 153, 170, 0.5)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(e.x + 15, e.y + 62); ctx.lineTo(e.x + e.w/2 - 12, e.y + 70); ctx.stroke();
+  const jawY = e.y + 145;
+  const jawOpen = 3 + Math.abs(Math.sin(t * 4)) * 8;
+  ctx.fillStyle = '#4A5A6A';
+  ctx.fillRect(e.x + 20, jawY, e.w/2 - 32 - jawOpen, 15);
+  ctx.fillRect(e.x + e.w/2 + jawOpen, jawY, e.w/2 - 32 - jawOpen, 15);
+  ctx.strokeStyle = '#2A3A4A';
+  ctx.strokeRect(e.x + 20, jawY, e.w/2 - 32 - jawOpen, 15);
+  ctx.strokeRect(e.x + e.w/2 + jawOpen, jawY, e.w/2 - 32 - jawOpen, 15);
+  const bagY = jawY + 18, bagPhase = (t * 0.8) % 3;
+  if (bagPhase < 2) {
+    const bagH = Math.min(bagPhase * 40, 60);
+    ctx.fillStyle = 'rgba(200, 180, 140, 0.7)'; ctx.fillRect(e.x + e.w/2 - 20, bagY, 40, bagH);
+    ctx.strokeStyle = '#A08060'; ctx.strokeRect(e.x + e.w/2 - 20, bagY, 40, bagH);
+    if (bagH > 30) {
+      ctx.fillStyle = C.kibble;
+      for (let k = 0; k < 5; k++) { ctx.beginPath(); ctx.arc(e.x + e.w/2 - 10 + k * 5, bagY + 20 + (Math.sin(k + t) * 5 + 5), 2, 0, Math.PI * 2); ctx.fill(); }
+    }
+  }
+  ctx.fillStyle = '#3A4A3A'; ctx.fillRect(e.x + 10, e.y + e.h - 25, e.w + 30, 8);
+  const bagSpacing = 45;
+  for (let b = 0; b < 2; b++) {
+    const bx = e.x + 20 + ((b * bagSpacing + t * 20) % (e.w + 10));
+    if (bx < e.x + e.w + 20) {
+      ctx.fillStyle = '#D4C4A0'; ctx.fillRect(bx, e.y + e.h - 55, 30, 30);
+      ctx.strokeStyle = '#A09070'; ctx.strokeRect(bx, e.y + e.h - 55, 30, 30);
+      ctx.fillStyle = C.navy; ctx.font = 'bold 6px Arial'; ctx.textAlign = 'center';
+      ctx.fillText('PET', bx + 15, e.y + e.h - 42); ctx.fillText('FACTORY', bx + 15, e.y + e.h - 35);
+    }
+  }
+  ctx.fillStyle = '#2A4A2A'; ctx.fillRect(e.x + 10, e.y + 30, 8, e.h - 55); ctx.fillRect(e.x + e.w - 18, e.y + 30, 8, e.h - 55);
+  ctx.fillStyle = C.green; ctx.fillRect(e.x - 5, e.y - 35, e.w + 10, 28);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('CONDITIONNEMENT', e.x + e.w/2, e.y - 15);
+  ctx.fillStyle = C.steel; ctx.font = '10px Arial'; ctx.fillText('Salle 20 C | 45% HR', e.x + e.w/2, e.y - 1);
+  ctx.restore();
+}
+
+function drawPipe(x1, y1, x2, y2, t, color) {
+  ctx.save();
+  const midX = (x1 + x2) / 2;
+  const tall = Math.abs(y2 - y1) > 30;
+  ctx.strokeStyle = '#5A6A7A'; ctx.lineWidth = 8; ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(x1, y1);
+  if (tall) { ctx.lineTo(midX, y1); ctx.lineTo(midX, y2); ctx.lineTo(x2, y2); } else { ctx.lineTo(x2, y2); }
+  ctx.stroke();
+  ctx.strokeStyle = '#7A8A9A'; ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.moveTo(x1, y1);
+  if (tall) { ctx.lineTo(midX, y1); ctx.lineTo(midX, y2); ctx.lineTo(x2, y2); } else { ctx.lineTo(x2, y2); }
+  ctx.stroke();
+  const dist = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+  const numP = Math.floor(dist / 25);
+  for (let p = 0; p < numP; p++) {
+    const prog = ((p / numP + t * 0.15) % 1);
+    let px, py;
+    if (tall) {
+      if (prog < 0.33) { px = lerp(x1, midX, prog / 0.33); py = y1; }
+      else if (prog < 0.66) { px = midX; py = lerp(y1, y2, (prog - 0.33) / 0.33); }
+      else { px = lerp(midX, x2, (prog - 0.66) / 0.33); py = y2; }
+    } else { px = lerp(x1, x2, prog); py = lerp(y1, y2, prog); }
+    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(px, py, 2.5, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawBucketElevator(x1, y1, x2, y2, t) {
+  ctx.save();
+  const ex = (x1 + x2) / 2;
+  const topY = Math.min(y1, y2) - 20, botY = Math.max(y1, y2) + 10;
+  ctx.fillStyle = '#4A5A6A'; ctx.fillRect(ex - 10, topY, 20, botY - topY);
+  ctx.strokeStyle = '#3A4A5A'; ctx.strokeRect(ex - 10, topY, 20, botY - topY);
+  for (let b = 0; b < 5; b++) {
+    const by = topY + ((b * 40 + t * 40) % (botY - topY));
+    ctx.fillStyle = '#6A7A8A'; ctx.fillRect(ex - 6, by, 12, 8);
+    ctx.fillStyle = C.kibble; ctx.fillRect(ex - 4, by + 1, 8, 4);
+  }
+  ctx.fillStyle = '#5A6A7A'; ctx.fillRect(x1, y1 - 4, ex - x1, 8); ctx.fillRect(ex, topY - 4, x2 - ex + 10, 8);
+  ctx.restore();
+}
+
+function drawConveyors(t) {
+  ctx.save();
+  drawPipe(EQ.silos.x + 100, FLOOR_Y - 30, EQ.hammer.x + 45, EQ.hammer.y + 5, t, C.grain);
+  drawPipe(EQ.hammer.x + 45, EQ.hammer.y + 165, EQ.mixer.x + 42, EQ.mixer.y - 22, t, C.grain);
+  drawPipe(EQ.mixer.x + EQ.mixer.w - 10, EQ.mixer.y + 50, EQ.precon.x + 10, EQ.precon.y + 55, t, C.grain);
+  drawPipe(EQ.precon.x + EQ.precon.w - 5, EQ.precon.y + 55, 810 + 5, EQ.extruder.y + 5, t, C.grain);
+  drawPipe(EQ.extruder.x + EQ.extruder.w - 15, EQ.extruder.y + 60, EQ.dryer.x + 5, EQ.dryer.y + 60, t, C.kibble);
+  drawBucketElevator(EQ.dryer.x + EQ.dryer.w - 10, EQ.dryer.y + 80, EQ.cooler.x + 10, EQ.cooler.y + 30, t);
+  drawPipe(EQ.cooler.x + EQ.cooler.w - 5, EQ.cooler.y + EQ.cooler.h - 30, EQ.coater.x + 12, EQ.coater.y + 60, t, C.kibble);
+  drawPipe(EQ.coater.x + EQ.coater.w - 8, EQ.coater.y + 60, EQ.packer.x + 20, EQ.packer.y + 5, t, C.kibble);
+  ctx.restore();
+}
+
+function drawSteamEffects(t) {
+  ctx.save();
+  for (let s = 0; s < 12; s++) {
+    const baseX = EQ.precon.x + 20 + s * 12;
+    const age = (t * 0.6 + s * 0.3) % 2;
+    if (age < 1.5) {
+      const sy = EQ.precon.y - 20 - age * 40, alpha = (1 - age / 1.5) * 0.35, size = 4 + age * 8;
+      ctx.fillStyle = `rgba(200, 220, 240, ${alpha})`;
+      ctx.beginPath(); ctx.arc(baseX + Math.sin(age * 3 + s) * 10, sy, size, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+  for (let s = 0; s < 8; s++) {
+    const baseX = EQ.dryer.x + EQ.dryer.w/2;
+    const age = (t * 0.5 + s * 0.4) % 2.5;
+    if (age < 2) {
+      const sy = EQ.dryer.y - 35 - age * 35, alpha = (1 - age / 2) * 0.4, size = 5 + age * 10;
+      ctx.fillStyle = `rgba(180, 200, 220, ${alpha})`;
+      ctx.beginPath(); ctx.arc(baseX + Math.sin(age * 2 + s) * 15, sy, size, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+  const dieX = EQ.extruder.x + EQ.extruder.w - 15;
+  for (let h = 0; h < 5; h++) {
+    const age = (t * 0.8 + h * 0.5) % 1.5;
+    const hx = dieX + 15 + age * 15, hy = EQ.extruder.y + 50 + Math.sin(age * 8 + h) * 15;
+    const alpha = (1 - age / 1.5) * 0.3;
+    ctx.fillStyle = `rgba(255, 180, 80, ${alpha})`;
+    ctx.beginPath(); ctx.arc(hx, hy, 3 + age * 4, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawBackground(t) {
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+  bgGrad.addColorStop(0, '#0a0e1a'); bgGrad.addColorStop(0.4, '#0f1525'); bgGrad.addColorStop(1, '#131b2e');
+  ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(30, 45, 74, 0.3)'; ctx.lineWidth = 0.5;
+  for (let x = 0; x < W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+  for (let y = 0; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+  ctx.fillStyle = '#1a2236'; ctx.fillRect(0, FLOOR_Y, W, H - FLOOR_Y);
+  ctx.strokeStyle = '#2A3A4A'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(0, FLOOR_Y); ctx.lineTo(W, FLOOR_Y); ctx.stroke();
+  ctx.strokeStyle = 'rgba(46, 134, 171, 0.15)'; ctx.lineWidth = 1; ctx.setLineDash([10, 10]);
+  ctx.beginPath(); ctx.moveTo(40, FLOOR_Y + 15); ctx.lineTo(W - 40, FLOOR_Y + 15); ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function drawDashboard(t) {
+  const dy = 710;
+  ctx.fillStyle = 'rgba(17, 24, 39, 0.92)'; ctx.fillRect(0, dy, W, H - dy);
+  ctx.strokeStyle = C.teal; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, dy); ctx.lineTo(W, dy); ctx.stroke();
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 18px Arial'; ctx.textAlign = 'left';
+  ctx.fillText('PETFACTORY MOROCCO — TABLEAU DE BORD DE PRODUCTION', 40, dy + 30);
+  ctx.fillStyle = C.steel; ctx.font = '12px Arial';
+  ctx.fillText('Ligne d\'extrusion seche FAMSUN  |  Capacite nominale 5 T/h', 40, dy + 50);
+  const pulse = 0.5 + 0.5 * Math.sin(t * 3);
+  ctx.fillStyle = `rgba(39, 174, 96, ${0.6 + pulse * 0.4})`;
+  ctx.beginPath(); ctx.arc(W - 100, dy + 30, 6, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = C.green; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'right';
+  ctx.fillText('EN MARCHE', W - 115, dy + 35);
+  const stats = [
+    { label: 'Debit', value: (4.2 + Math.sin(t * 0.5) * 0.3).toFixed(1), unit: 'T/h', color: C.teal },
+    { label: 'Temp. Extrudeuse', value: Math.round(143 + Math.sin(t * 0.7) * 4), unit: '°C', color: C.amber },
+    { label: 'Vapeur', value: (0.72 + Math.sin(t * 0.3) * 0.05).toFixed(2), unit: 'T/h', color: C.blue },
+    { label: 'Humidite Sortie', value: (9.5 + Math.sin(t * 0.4) * 0.8).toFixed(1), unit: '%', color: C.green },
+    { label: 'Activite Eau', value: (0.42 + Math.sin(t * 0.6) * 0.02).toFixed(2), unit: 'Aw', color: C.purple },
+    { label: 'Energie Spec.', value: Math.round(95 + Math.sin(t * 0.8) * 8), unit: 'kWh/T', color: C.orange },
+  ];
+  const cardW = 150, cardH = 70, cardGap = 15, cardStartX = 40, cardY = dy + 65;
+  stats.forEach((s, i) => {
+    const cx = cardStartX + i * (cardW + cardGap);
+    ctx.fillStyle = C.cardBg; ctx.fillRect(cx, cardY, cardW, cardH);
+    ctx.strokeStyle = s.color; ctx.lineWidth = 1; ctx.strokeRect(cx, cardY, cardW, cardH);
+    ctx.fillStyle = s.color; ctx.fillRect(cx, cardY, cardW, 3);
+    ctx.fillStyle = s.color; ctx.font = '10px Arial'; ctx.textAlign = 'left'; ctx.fillText(s.label, cx + 10, cardY + 20);
+    ctx.fillStyle = '#FFF'; ctx.font = 'bold 26px Arial'; ctx.fillText(s.value, cx + 10, cardY + 50);
+    ctx.fillStyle = C.steel; ctx.font = '12px Arial';
+    ctx.fillText(s.unit, cx + 10 + ctx.measureText(s.value).width + 5, cardY + 50);
+  });
+  const chartX = 40, chartY2 = dy + 155, chartW = 900, chartH = 170;
+  ctx.fillStyle = C.cardBg; ctx.fillRect(chartX, chartY2, chartW, chartH);
+  ctx.strokeStyle = C.gridLine; ctx.strokeRect(chartX, chartY2, chartW, chartH);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'left';
+  ctx.fillText('FLUX DE PRODUCTION PAR ETAPE (T/h)', chartX + 15, chartY2 + 20);
+  const barData = [
+    { label: 'Stockage', value: 5.0, color: C.navy },
+    { label: 'Broyeur', value: 4.8, color: '#5A6A7A' },
+    { label: 'Melange', value: 4.7, color: '#6A7A8A' },
+    { label: 'Precon.', value: 4.5 + Math.sin(t * 0.5) * 0.2, color: '#1a6a7a' },
+    { label: 'Extrusion', value: 4.2 + Math.sin(t * 0.6) * 0.3, color: C.teal },
+    { label: 'Sechage', value: 4.0 + Math.sin(t * 0.4) * 0.2, color: C.amber },
+    { label: 'Refroid.', value: 3.9 + Math.sin(t * 0.5) * 0.15, color: C.blue },
+    { label: 'Enrobage', value: 4.3 + Math.sin(t * 0.3) * 0.2, color: C.purple },
+    { label: 'Conditn.', value: 4.1 + Math.sin(t * 0.7) * 0.2, color: C.green },
+  ];
+  const barStartX = chartX + 80, barMaxW = chartW - 110, barH = 14, barGap = 3, maxVal = 5.5;
+  barData.forEach((d, i) => {
+    const by = chartY2 + 35 + i * (barH + barGap);
+    ctx.fillStyle = C.steel; ctx.font = '10px Arial'; ctx.textAlign = 'right'; ctx.fillText(d.label, barStartX - 8, by + 11);
+    const bw = (d.value / maxVal) * barMaxW;
+    ctx.fillStyle = d.color; ctx.fillRect(barStartX, by, bw, barH);
+    ctx.fillStyle = '#FFF'; ctx.font = '9px Arial'; ctx.textAlign = 'left'; ctx.fillText(d.value.toFixed(1), barStartX + bw + 5, by + 11);
+  });
+  const tChartX = 980, tChartY2 = chartY2, tChartW = W - tChartX - 40, tChartH = chartH;
+  ctx.fillStyle = C.cardBg; ctx.fillRect(tChartX, tChartY2, tChartW, tChartH);
+  ctx.strokeStyle = C.gridLine; ctx.strokeRect(tChartX, tChartY2, tChartW, tChartH);
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'left';
+  ctx.fillText('PROFIL DE TEMPERATURE (°C)', tChartX + 15, tChartY2 + 20);
+  const tempData = [25, 65, 95, 145, 140, 90, 35, 35, 20];
+  const tempLabels = ['Mat.', 'Prec.', 'Ext.E', 'Ext.S', 'Sech.', 'Ref.E', 'Ref.S', 'Enr.', 'Cond.'];
+  const tPadL = 35, tPadR = 15, tPadT = 35, tPadB = 25;
+  const tPlotW = tChartW - tPadL - tPadR, tPlotH = tChartH - tPadT - tPadB;
+  ctx.fillStyle = C.steel; ctx.font = '9px Arial'; ctx.textAlign = 'right';
+  for (let v = 0; v <= 150; v += 50) {
+    const yy = tChartY2 + tPadT + tPlotH - (v / 150) * tPlotH;
+    ctx.fillText(v.toString(), tChartX + tPadL - 5, yy + 3);
+    ctx.strokeStyle = C.gridLine; ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(tChartX + tPadL, yy); ctx.lineTo(tChartX + tChartW - tPadR, yy); ctx.stroke();
+  }
+  ctx.strokeStyle = C.amber; ctx.lineWidth = 2.5; ctx.beginPath();
+  tempData.forEach((v, i) => {
+    const noise = Math.sin(t * 2 + i) * 3;
+    const x = tChartX + tPadL + (i / (tempData.length - 1)) * tPlotW;
+    const y = tChartY2 + tPadT + tPlotH - ((v + noise) / 150) * tPlotH;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  tempData.forEach((v, i) => {
+    const noise = Math.sin(t * 2 + i) * 3;
+    const x = tChartX + tPadL + (i / (tempData.length - 1)) * tPlotW;
+    const y = tChartY2 + tPadT + tPlotH - ((v + noise) / 150) * tPlotH;
+    ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fillStyle = C.amber; ctx.fill();
+    ctx.strokeStyle = '#FFF'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = C.steel; ctx.font = '8px Arial'; ctx.textAlign = 'center';
+    ctx.fillText(tempLabels[i], x, tChartY2 + tChartH - 8);
+  });
+}
+
+function drawHeader(t) {
+  ctx.fillStyle = 'rgba(10, 14, 26, 0.85)'; ctx.fillRect(0, 0, W, 55);
+  ctx.strokeStyle = C.teal; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, 55); ctx.lineTo(W, 55); ctx.stroke();
+  ctx.fillStyle = '#FFF'; ctx.font = 'bold 22px Arial'; ctx.textAlign = 'left';
+  ctx.fillText('PETFACTORY MOROCCO', 40, 35);
+  ctx.fillStyle = C.teal; ctx.font = '14px Arial';
+  ctx.fillText('Simulation Ligne de Production — Extrusion Seche 5 T/h', 280, 35);
+  const elapsed = Math.min(t, DURATION);
+  const mins = Math.floor(elapsed / 60), secs = Math.floor(elapsed % 60);
+  ctx.fillStyle = C.steel; ctx.font = '13px Arial'; ctx.textAlign = 'right';
+  ctx.fillText(`Temps: ${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`, W - 40, 35);
+}
+
+function drawFlowArrows(t) {
+  ctx.save();
+  ctx.fillStyle = `rgba(46, 134, 171, ${0.3 + 0.15 * Math.sin(t * 2)})`;
+  ctx.font = 'bold 20px Arial'; ctx.textAlign = 'center';
+  [200, 340, 480, 660, 880, 1160, 1380, 1580].forEach(ax => { ctx.fillText('→', ax, FLOOR_Y + 8); });
+  ctx.restore();
+}
+
+function getPhaseAlpha(t, st, fd) { if (t < st) return 0; if (t < st + fd) return (t - st) / fd; return 1; }
+
+function render(timestamp) {
+  if (!startTime) startTime = timestamp;
+  const elapsed = (timestamp - startTime) / 1000;
+  if (elapsed > DURATION + 1) { document.title = 'DONE'; return; }
+  const t = elapsed;
+  let globalAlpha = 1;
+  if (t < 1) globalAlpha = t;
+  if (t > DURATION - 1) globalAlpha = Math.max(0, DURATION - t);
+  ctx.globalAlpha = globalAlpha;
+  drawBackground(t);
+  drawHeader(t);
+  const equipAlpha = getPhaseAlpha(t, 0.5, 1.5);
+  const convAlpha = getPhaseAlpha(t, 1.5, 1);
+  const dashAlpha = getPhaseAlpha(t, 2.5, 1);
+  const effectAlpha = getPhaseAlpha(t, 2, 1);
+  ctx.globalAlpha = globalAlpha * equipAlpha;
+  drawSilos(t); drawHammerMill(t); drawMixer(t); drawPreconditioner(t);
+  drawExtruder(t); drawDryer(t); drawCooler(t); drawCoater(t); drawPacker(t);
+  ctx.globalAlpha = globalAlpha * convAlpha;
+  drawConveyors(t); drawFlowArrows(t);
+  ctx.globalAlpha = globalAlpha * effectAlpha;
+  drawSteamEffects(t);
+  ctx.globalAlpha = globalAlpha * dashAlpha;
+  drawDashboard(t);
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(render);
+}
+
+requestAnimationFrame(render);
 </script>
-</body>
-</html>
+</body></html>

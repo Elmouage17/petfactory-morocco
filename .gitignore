@@ -2,3 +2,8 @@
 ~$*
 .petfactory/
 *.oauth.json
+node_modules/
+package.json
+package-lock.json
+slide-*.jpg
+PetFactory_Infrastructure_Investor_Deck.pdf

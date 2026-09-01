@@ -1,0 +1,892 @@
+<title>PetFactory Marrakesh Campaign</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  --teal: #1A5C5E;
+  --teal-light: #24797C;
+  --sand: #E8DBC5;
+  --sand-light: #F2ECE0;
+  --sienna: #C4622D;
+  --sienna-light: #D8834F;
+  --sage: #8BA888;
+  --sage-light: #A8C4A5;
+  --ink: #1C1F1E;
+  --ink-soft: #3A3F3E;
+  --ground: #F7F5F0;
+  --ground-alt: #EFEBE3;
+  --card-bg: #FFFFFF;
+  --card-border: rgba(26,92,94,0.1);
+  --divider: rgba(26,92,94,0.15);
+  --text-on-teal: #F7F5F0;
+  --text-on-sienna: #FFFFFF;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --teal: #2A8B8E;
+    --teal-light: #35A0A3;
+    --sand: #3D3729;
+    --sand-light: #4A4334;
+    --sienna: #D8834F;
+    --sienna-light: #E5996A;
+    --sage: #8BA888;
+    --sage-light: #A0BD9D;
+    --ink: #E8E4DC;
+    --ink-soft: #B8B4AC;
+    --ground: #1A1916;
+    --ground-alt: #23211C;
+    --card-bg: #262420;
+    --card-border: rgba(42,139,142,0.2);
+    --divider: rgba(42,139,142,0.2);
+    --text-on-teal: #F0ECE4;
+    --text-on-sienna: #FFFFFF;
+  }
+}
+:root[data-theme="dark"] {
+  --teal: #2A8B8E;
+  --teal-light: #35A0A3;
+  --sand: #3D3729;
+  --sand-light: #4A4334;
+  --sienna: #D8834F;
+  --sienna-light: #E5996A;
+  --sage: #8BA888;
+  --sage-light: #A0BD9D;
+  --ink: #E8E4DC;
+  --ink-soft: #B8B4AC;
+  --ground: #1A1916;
+  --ground-alt: #23211C;
+  --card-bg: #262420;
+  --card-border: rgba(42,139,142,0.2);
+  --divider: rgba(42,139,142,0.2);
+  --text-on-teal: #F0ECE4;
+  --text-on-sienna: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- HERO --- */
+.hero {
+  background: var(--teal);
+  color: var(--text-on-teal);
+  padding: 72px 24px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+}
+.hero-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--sage-light);
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+  margin-bottom: 20px;
+  max-width: 680px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--sand);
+}
+.hero-sub {
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(247,245,240,0.8);
+  max-width: 560px;
+  margin-bottom: 32px;
+}
+.hero-meta {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(247,245,240,0.6);
+}
+.hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-meta .dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--sienna);
+  display: inline-block;
+}
+
+/* --- SECTIONS --- */
+section { padding: 56px 0; }
+section + section { border-top: 1px solid var(--divider); }
+
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--sienna);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(24px, 3.5vw, 34px);
+  font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.section-lead {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 620px;
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+
+/* --- AUDIENCE CARDS --- */
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.audience-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 28px 24px;
+  border-radius: 6px;
+}
+.audience-card .a-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.audience-card h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.audience-card p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.a-bg-teal { background: var(--teal); color: var(--text-on-teal); }
+.a-bg-sienna { background: var(--sienna); color: var(--text-on-sienna); }
+.a-bg-sage { background: var(--sage); color: #1C1F1E; }
+
+/* --- PILLAR BLOCKS --- */
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.pillar {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  align-items: start;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 28px 24px;
+  border-radius: 6px;
+}
+.pillar-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+  padding-top: 2px;
+}
+.pillar h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.pillar p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.pillar .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.pillar .tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  background: var(--sand);
+  color: var(--ink-soft);
+}
+
+/* --- CALENDAR --- */
+.calendar-week {
+  margin-bottom: 32px;
+}
+.calendar-week h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--teal);
+  display: inline-block;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+.cal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cal-card .cal-day {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--sienna);
+}
+.cal-card .cal-type {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  width: fit-content;
+}
+.type-reel { background: var(--teal); color: var(--text-on-teal); }
+.type-carousel { background: var(--sienna); color: var(--text-on-sienna); }
+.type-story { background: var(--sage); color: #1C1F1E; }
+.type-static { background: var(--sand); color: var(--ink-soft); }
+.cal-card .cal-caption {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.45;
+}
+.cal-card .cal-hashtags {
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* --- WORKFLOW --- */
+.workflow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.wf-step {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  position: relative;
+}
+.wf-step:not(:last-child) {
+  padding-bottom: 28px;
+}
+.wf-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 40px;
+  bottom: 0;
+  width: 2px;
+  background: var(--divider);
+}
+.wf-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.wf-dot-teal { background: var(--teal); color: var(--text-on-teal); }
+.wf-dot-sienna { background: var(--sienna); color: var(--text-on-sienna); }
+.wf-dot-sage { background: var(--sage); color: #1C1F1E; }
+.wf-dot-sand { background: var(--sand); color: var(--ink-soft); }
+.wf-content h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  padding-top: 2px;
+}
+.wf-content p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.wf-content .wf-tool {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  background: var(--ground-alt);
+  color: var(--teal);
+  margin-top: 8px;
+  margin-right: 6px;
+}
+
+/* --- KPIS --- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+.kpi {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 24px 20px;
+  text-align: center;
+}
+.kpi .kpi-val {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.kpi .kpi-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  letter-spacing: 0.5px;
+}
+
+/* --- HASHTAG BANK --- */
+.hashtag-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hashtag-bank span {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--sand);
+  color: var(--ink-soft);
+}
+
+/* --- BUDGET TABLE --- */
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.budget-table th {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--teal);
+}
+.budget-table td {
+  font-size: 14px;
+  padding: 12px;
+  border-bottom: 1px solid var(--divider);
+  color: var(--ink);
+}
+.budget-table tr:last-child td {
+  font-weight: 600;
+  border-bottom: 2px solid var(--teal);
+}
+.budget-table .budget-amt {
+  text-align: right;
+  font-weight: 500;
+}
+.budget-wrap {
+  overflow-x: auto;
+}
+
+/* --- FOOTER --- */
+.campaign-footer {
+  background: var(--teal);
+  color: var(--text-on-teal);
+  padding: 48px 24px;
+  margin-top: 56px;
+  text-align: center;
+}
+.campaign-footer h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.campaign-footer p {
+  font-size: 15px;
+  color: rgba(247,245,240,0.75);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 40px; }
+  section { padding: 40px 0; }
+  .page-wrap { padding: 0 16px; }
+  .pillar { grid-template-columns: 1fr; }
+  .pillar-num { font-size: 24px; }
+  .hero-meta { flex-direction: column; gap: 8px; }
+  .cal-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">PetFactory Marrakesh &middot; Customer Acquisition Campaign</div>
+    <h1>Bringing Premium Pet Nutrition to <em>Route de F&egrave;s</em></h1>
+    <p class="hero-sub">An Instagram-first marketing campaign targeting affluent pet owners in Targa, Agdal, and the Route de F&egrave;s corridor &mdash; with automated workflows to turn followers into loyal customers.</p>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Launch: September 2026</span>
+      <span><span class="dot"></span> Duration: 8 weeks</span>
+      <span><span class="dot"></span> Primary channel: Instagram + WhatsApp</span>
+      <span><span class="dot"></span> Market: Marrakesh, Morocco</span>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+<!-- AUDIENCE -->
+<section>
+  <div class="section-eyebrow">Target Audience</div>
+  <h2 class="section-title">Who we're reaching</h2>
+  <p class="section-lead">The Route de F&egrave;s corridor and neighboring Targa sit at the heart of Marrakesh's most affluent residential zone &mdash; villa communities, expat families, and young professionals who treat their pets as family.</p>
+  <div class="audience-grid">
+    <div class="audience-card">
+      <div class="a-icon a-bg-teal">&#127968;</div>
+      <h3>Affluent Villa Owners</h3>
+      <p>Targa &amp; Route de F&egrave;s residents in villas (MAD 3.5M&ndash;8M+). Multiple pets, willing to pay for premium brands. Often have gardens &mdash; ideal for large breeds.</p>
+    </div>
+    <div class="audience-card">
+      <div class="a-icon a-bg-sienna">&#127758;</div>
+      <h3>Expat Families</h3>
+      <p>European and North American expats near international schools (Lyc&eacute;e Victor Hugo, ESCA). Accustomed to Royal Canin, Hill's, Orijen. Seek trusted local suppliers with home delivery.</p>
+    </div>
+    <div class="audience-card">
+      <div class="a-icon a-bg-sage">&#128241;</div>
+      <h3>Young Professionals</h3>
+      <p>Gu&eacute;liz &amp; Agdal millennials and Gen-Z. Instagram-native, follow pet influencers, treat pets as lifestyle statements. Value aesthetics, sustainability, and convenience.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM STRATEGY PILLARS -->
+<section>
+  <div class="section-eyebrow">Instagram Strategy</div>
+  <h2 class="section-title">Four content pillars</h2>
+  <p class="section-lead">Every post maps to one of four pillars. This keeps the feed coherent and ensures we rotate between education, personality, proof, and promotion.</p>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <div>
+        <h3>Educate &mdash; "Le Saviez-Vous?"</h3>
+        <p>Nutrition tips, ingredient breakdowns, breed-specific feeding guides. Position PetFactory as the trusted expert, not just a shop. Carousel format works best &mdash; save-worthy, shareable content that the algorithm rewards.</p>
+        <div class="tags">
+          <span class="tag">Carousels</span>
+          <span class="tag">FR + AR captions</span>
+          <span class="tag">2&times;/week</span>
+        </div>
+      </div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <div>
+        <h3>Personality &mdash; "Nos Amis Route de F&egrave;s"</h3>
+        <p>Customer pet spotlights, behind-the-scenes at the store, team introductions. Reels showing real pets reacting to food, neighborhood dogs on walks past the shop. Authenticity over polish &mdash; phone-shot Reels outperform studio content.</p>
+        <div class="tags">
+          <span class="tag">Reels</span>
+          <span class="tag">UGC reposts</span>
+          <span class="tag">3&times;/week</span>
+        </div>
+      </div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <div>
+        <h3>Social Proof &mdash; "T&eacute;moignages"</h3>
+        <p>Customer reviews, before/after coat transformations, vet endorsements. Screenshot WhatsApp praise (with permission). Testimonials in Darija build local trust faster than polished French copy.</p>
+        <div class="tags">
+          <span class="tag">Stories</span>
+          <span class="tag">Static posts</span>
+          <span class="tag">1&times;/week</span>
+        </div>
+      </div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">04</div>
+      <div>
+        <h3>Promote &mdash; "Offres PetFactory"</h3>
+        <p>New arrivals, weekly specials, loyalty rewards, WhatsApp-exclusive deals. Always pair a promotion with a clear CTA: "DM us" or "Click the WhatsApp link in bio." Morocco's purchase decisions close on WhatsApp, not on checkout pages.</p>
+        <div class="tags">
+          <span class="tag">Stories + Feed</span>
+          <span class="tag">WhatsApp CTA</span>
+          <span class="tag">2&times;/week</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT CALENDAR -->
+<section>
+  <div class="section-eyebrow">Content Calendar</div>
+  <h2 class="section-title">Week-by-week content plan</h2>
+  <p class="section-lead">Four weeks of ready-to-post content. Best posting times for Moroccan Instagram: 12h&ndash;14h (lunch break), 19h&ndash;21h (evening scroll). Post in French with Darija captions on Reels.</p>
+
+  <div class="calendar-week">
+    <h3>Week 1 &mdash; Grand Launch</h3>
+    <div class="cal-grid">
+      <div class="cal-card">
+        <span class="cal-day">Monday</span>
+        <span class="cal-type type-reel">Reel</span>
+        <span class="cal-caption">Store reveal: cinematic walk-through of PetFactory on Route de F&egrave;s. Show shelves, brands, the team welcoming.</span>
+        <span class="cal-hashtags">#PetFactoryMarrakech #AnimalerieMarrakech #RouteDeF&egrave;s</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Wednesday</span>
+        <span class="cal-type type-carousel">Carousel</span>
+        <span class="cal-caption">"5 signs your dog's kibble isn't right" &mdash; educational carousel with brand-neutral advice. Slide 5: visit us for a free nutrition consult.</span>
+        <span class="cal-hashtags">#NutritionAnimale #ChienMaroc #ConseilsV&eacute;t&eacute;rinaire</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Friday</span>
+        <span class="cal-type type-story">Story</span>
+        <span class="cal-caption">Countdown to opening weekend. Poll: "What's your pet's favorite flavor?" + swipe-up to WhatsApp.</span>
+        <span class="cal-hashtags">#PetFactoryMarrakech #ComingSoon</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Saturday</span>
+        <span class="cal-type type-reel">Reel</span>
+        <span class="cal-caption">Grand opening day: first customers, pets in-store, treat tasting bar. Trending audio + text overlays in Darija.</span>
+        <span class="cal-hashtags">#GrandOuverture #PetFactoryMarrakech #Marrakech</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="calendar-week">
+    <h3>Week 2 &mdash; Build Trust</h3>
+    <div class="cal-grid">
+      <div class="cal-card">
+        <span class="cal-day">Monday</span>
+        <span class="cal-type type-carousel">Carousel</span>
+        <span class="cal-caption">"Royal Canin vs. Ownat vs. Carnilove: which is right for your breed?" Honest comparison carousel. No hard sell.</span>
+        <span class="cal-hashtags">#RoyalCaninMaroc #ComparatifCroquettes</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Tuesday</span>
+        <span class="cal-type type-reel">Reel</span>
+        <span class="cal-caption">Customer spotlight: film a Targa family's golden retriever trying a new premium kibble. Real reaction, phone-shot.</span>
+        <span class="cal-hashtags">#NosAmisRouteDeFes #ChiensDeMarrakech</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Thursday</span>
+        <span class="cal-type type-story">Story</span>
+        <span class="cal-caption">WhatsApp-exclusive: "Show this story for 10% off your first bag." Drives WhatsApp saves + store visits.</span>
+        <span class="cal-hashtags">#OffrePetFactory #R&eacute;duction</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Saturday</span>
+        <span class="cal-type type-static">Static</span>
+        <span class="cal-caption">Testimonial graphic: screenshot of a 5-star WhatsApp review from a Targa resident. Clean design with photo.</span>
+        <span class="cal-hashtags">#AvisClients #PetFactoryMarrakech</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="calendar-week">
+    <h3>Week 3 &mdash; Community</h3>
+    <div class="cal-grid">
+      <div class="cal-card">
+        <span class="cal-day">Monday</span>
+        <span class="cal-type type-reel">Reel</span>
+        <span class="cal-caption">"A day at PetFactory" &mdash; team morning routine, unboxing new stock, arranging the shelves, greeting regulars. Slice-of-life style.</span>
+        <span class="cal-hashtags">#BehindTheScenes #VieEnAnimalerie</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Wednesday</span>
+        <span class="cal-type type-carousel">Carousel</span>
+        <span class="cal-caption">"Guide alimentation chat d'int&eacute;rieur" &mdash; indoor cat feeding guide. Targa apartment/villa cats are mostly indoor. High save potential.</span>
+        <span class="cal-hashtags">#ChatMaroc #AlimentationChat #ConseilsChat</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Friday</span>
+        <span class="cal-type type-reel">Reel</span>
+        <span class="cal-caption">UGC repost: customer tags us with their pet enjoying a meal. Add "Thank you @customer!" overlay. Drives more UGC.</span>
+        <span class="cal-hashtags">#UGC #PetFactoryFamily</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Sunday</span>
+        <span class="cal-type type-story">Story</span>
+        <span class="cal-caption">"Pet of the Week" poll &mdash; followers vote between two customer pets. Winner gets featured in a dedicated post + a free treat bag.</span>
+        <span class="cal-hashtags">#PetOfTheWeek #PetFactoryMarrakech</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="calendar-week">
+    <h3>Week 4 &mdash; Convert</h3>
+    <div class="cal-grid">
+      <div class="cal-card">
+        <span class="cal-day">Monday</span>
+        <span class="cal-type type-carousel">Carousel</span>
+        <span class="cal-caption">"Loyalty card launched!" &mdash; explain the stamp program: 10 bags = 1 free. Carousel shows how it works + benefits.</span>
+        <span class="cal-hashtags">#CarteFid&eacute;lit&eacute; #PetFactoryRewards</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Wednesday</span>
+        <span class="cal-type type-reel">Reel</span>
+        <span class="cal-caption">Collab with a Marrakesh pet groomer or vet. Cross-promote: "Visit PetFactory for nutrition, visit @groomer for style."</span>
+        <span class="cal-hashtags">#CollabMarrakech #PetCareMaroc</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Friday</span>
+        <span class="cal-type type-static">Static</span>
+        <span class="cal-caption">Monthly recap: "September in numbers" &mdash; customers served, kg of food sold, pets fed. Builds scale perception.</span>
+        <span class="cal-hashtags">#PetFactoryEnChiffres #Bilan</span>
+      </div>
+      <div class="cal-card">
+        <span class="cal-day">Saturday</span>
+        <span class="cal-type type-reel">Reel</span>
+        <span class="cal-caption">Weekend flash sale: 48h promo on premium brands. Reel with quick cuts of products + prices. WhatsApp link in bio.</span>
+        <span class="cal-hashtags">#PromoWeekend #PetFactoryDeals</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HASHTAG STRATEGY -->
+<section>
+  <div class="section-eyebrow">Hashtag Bank</div>
+  <h2 class="section-title">Hashtag strategy</h2>
+  <p class="section-lead">Mix 3&ndash;5 hashtags per post. Combine location-specific tags (low competition, high local reach) with category tags (broader discovery).</p>
+  <div class="hashtag-bank">
+    <span>#PetFactoryMarrakech</span>
+    <span>#AnimalerieMarrakech</span>
+    <span>#RouteDeF&egrave;s</span>
+    <span>#CroquettesMaroc</span>
+    <span>#ChienMarrakech</span>
+    <span>#ChatMarrakech</span>
+    <span>#PetFoodMaroc</span>
+    <span>#NutritionAnimale</span>
+    <span>#RoyalCaninMaroc</span>
+    <span>#AnimauxMarrakech</span>
+    <span>#TargaMarrakech</span>
+    <span>#PetLoversMaroc</span>
+    <span>#MarrakechLife</span>
+    <span>#PetCareMaroc</span>
+    <span>#V&eacute;t&eacute;rinaireMarrakech</span>
+  </div>
+</section>
+
+<!-- AUTOMATED WORKFLOW -->
+<section>
+  <div class="section-eyebrow">Automated Workflow</div>
+  <h2 class="section-title">Hands-off growth engine</h2>
+  <p class="section-lead">Automated routines that run weekly &mdash; content reminders, performance check-ins, and customer follow-ups &mdash; so nothing falls through the cracks.</p>
+  <div class="workflow">
+    <div class="wf-step">
+      <div class="wf-dot wf-dot-teal">1</div>
+      <div class="wf-content">
+        <h4>Weekly Content Reminder</h4>
+        <p>Every Sunday at 10:00, receive an automated prompt with this week's content plan &mdash; which posts to shoot, captions to finalize, and stories to schedule. No more "what do I post today?"</p>
+        <span class="wf-tool">Claude Routine</span>
+        <span class="wf-tool">Gmail notification</span>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-dot wf-dot-sienna">2</div>
+      <div class="wf-content">
+        <h4>Instagram Performance Check-in</h4>
+        <p>Every Friday at 18:00, a scheduled check-in reviews this week's posting consistency and reminds you to pull Instagram Insights: reach, saves, shares, profile visits, and WhatsApp clicks.</p>
+        <span class="wf-tool">Claude Routine</span>
+        <span class="wf-tool">Google Drive log</span>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-dot wf-dot-sage">3</div>
+      <div class="wf-content">
+        <h4>New Customer Welcome Email</h4>
+        <p>When a customer provides their email (in-store sign-up or WhatsApp), trigger a welcome email with a 10% first-order coupon, the store's Instagram link, and a nutrition guide PDF.</p>
+        <span class="wf-tool">Gmail draft template</span>
+        <span class="wf-tool">Google Drive assets</span>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wf-dot wf-dot-sand">4</div>
+      <div class="wf-content">
+        <h4>Monthly Campaign Review</h4>
+        <p>First Monday of each month: automated prompt to compile KPIs, review what content performed, adjust the next month's calendar, and update the campaign tracker spreadsheet.</p>
+        <span class="wf-tool">Claude Routine</span>
+        <span class="wf-tool">Google Drive tracker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section>
+  <div class="section-eyebrow">Budget Estimate</div>
+  <h2 class="section-title">Monthly investment</h2>
+  <p class="section-lead">Lean startup budget for the first 3 months. Scale the ad spend once organic traction confirms which content types convert best.</p>
+  <div class="budget-wrap">
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th>Line Item</th>
+          <th class="budget-amt">Monthly (MAD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Instagram / Meta Ads (geo-targeted to Targa, Agdal, Gu&eacute;liz)</td>
+          <td class="budget-amt">3,000</td>
+        </tr>
+        <tr>
+          <td>Content creation (phone tripod, ring light, Canva Pro)</td>
+          <td class="budget-amt">500</td>
+        </tr>
+        <tr>
+          <td>Petfluencer collaborations (1&ndash;2 local micro-influencers/month)</td>
+          <td class="budget-amt">2,000</td>
+        </tr>
+        <tr>
+          <td>WhatsApp Business API (automated responses)</td>
+          <td class="budget-amt">300</td>
+        </tr>
+        <tr>
+          <td>In-store sampling &amp; treat tasting events</td>
+          <td class="budget-amt">1,000</td>
+        </tr>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td class="budget-amt"><strong>6,800</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section>
+  <div class="section-eyebrow">Success Metrics</div>
+  <h2 class="section-title">KPI targets &mdash; first 8 weeks</h2>
+  <p class="section-lead">Track weekly in Instagram Insights and a shared Google Sheet. These targets are calibrated for a new local business account in a mid-sized Moroccan city.</p>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-val">1,500</div>
+      <div class="kpi-label">Instagram Followers</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">5%</div>
+      <div class="kpi-label">Engagement Rate</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">200</div>
+      <div class="kpi-label">WhatsApp Contacts</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">80</div>
+      <div class="kpi-label">Store Visits from IG</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">50</div>
+      <div class="kpi-label">Loyalty Cards Issued</div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- FOOTER CTA -->
+<div class="campaign-footer">
+  <h2>Ready to launch?</h2>
+  <p>Automated workflows are set up and ready to activate. The first post goes live the day you say go.</p>
+</div>

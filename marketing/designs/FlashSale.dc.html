@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'DM Sans', system-ui, sans-serif; }
+    a { color: #C4622D; } a:hover { color: #A8511F; }
+  </style>
+</helmet>
+<div style="width: 1080px; height: 1080px; background: #1C1F1E; display: flex; flex-direction: column; position: relative; overflow: hidden;">
+
+  <!-- Top section: teal -->
+  <div style="background: #1A5C5E; padding: 56px 80px 48px; position: relative; flex-shrink: 0;">
+    <div style="position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: linear-gradient(135deg, transparent 50%, rgba(196,98,45,0.15) 100%);"></div>
+    <div style="font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: #8BA888; margin-bottom: 16px; position: relative; z-index: 1;">Ce weekend seulement</div>
+    <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 80px; font-weight: 700; color: #F7F5F0; line-height: 0.95; position: relative; z-index: 1;">FLASH</div>
+    <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 80px; font-weight: 700; font-style: italic; color: #C4622D; line-height: 0.95; position: relative; z-index: 1;">SALE</div>
+  </div>
+
+  <!-- Products grid -->
+  <div style="flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; background: #F7F5F0;">
+    <!-- Product 1 -->
+    <div style="padding: 32px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(26,92,94,0.1); border-bottom: 1px solid rgba(26,92,94,0.1);">
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #8BA888; margin-bottom: 8px;">Royal Canin</div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600; color: #1C1F1E; margin-bottom: 4px;">Maxi Adult 15kg</div>
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 8px;">
+        <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 36px; font-weight: 700; color: #C4622D;">-15%</div>
+      </div>
+    </div>
+    <!-- Product 2 -->
+    <div style="padding: 32px; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid rgba(26,92,94,0.1);">
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #8BA888; margin-bottom: 8px;">Ownat</div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600; color: #1C1F1E; margin-bottom: 4px;">Classic Dog</div>
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 8px;">
+        <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 36px; font-weight: 700; color: #C4622D;">-20%</div>
+      </div>
+    </div>
+    <!-- Product 3 -->
+    <div style="padding: 32px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(26,92,94,0.1);">
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #8BA888; margin-bottom: 8px;">Carnilove</div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600; color: #1C1F1E; margin-bottom: 4px;">Fresh Chicken</div>
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 8px;">
+        <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 36px; font-weight: 700; color: #C4622D;">-10%</div>
+      </div>
+    </div>
+    <!-- Bonus -->
+    <div style="padding: 32px; display: flex; flex-direction: column; justify-content: center; background: #E8DBC5;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="margin-bottom: 12px;">
+        <path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 110-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 100-5C13 2 12 7 12 7z" stroke="#C4622D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600; color: #1C1F1E; margin-bottom: 4px;">Friandises OFFERTES</div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 14px; color: #3A3F3E;">d&#232;s 300 MAD d&#8217;achat</div>
+    </div>
+  </div>
+
+  <!-- Bottom CTA -->
+  <div style="background: #C4622D; padding: 28px 80px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="#FFFFFF"/>
+      </svg>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 700; color: #FFFFFF;">48H SEULEMENT</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; color: #FFFFFF;">Commandez via WhatsApp</div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

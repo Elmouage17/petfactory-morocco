@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'DM Sans', system-ui, sans-serif; }
+    a { color: #C4622D; } a:hover { color: #A8511F; }
+  </style>
+</helmet>
+<div style="width: 1080px; height: 1080px; background: #F7F5F0; display: flex; flex-direction: column; position: relative; overflow: hidden;">
+
+  <!-- Top teal band -->
+  <div style="background: #1A5C5E; padding: 56px 80px 48px; flex-shrink: 0;">
+    <div style="font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: #8BA888; margin-bottom: 16px;">Comparatif</div>
+    <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 48px; font-weight: 700; color: #F7F5F0; line-height: 1.15;">Royal Canin <span style="font-style: italic; color: #E8DBC5;">vs.</span> Ownat <span style="font-style: italic; color: #E8DBC5;">vs.</span> Carnilove</div>
+  </div>
+
+  <!-- Three columns -->
+  <div style="flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;">
+    <!-- Royal Canin -->
+    <div style="padding: 40px 36px; display: flex; flex-direction: column; align-items: center; border-right: 1px solid rgba(26,92,94,0.1);">
+      <div style="width: 80px; height: 80px; border-radius: 50%; background: #1A5C5E; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2l2.4 7.4H22l-6.2 4.5L18.2 21 12 16.5 5.8 21l2.4-7.1L2 9.4h7.6z" fill="#E8DBC5"/>
+        </svg>
+      </div>
+      <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 700; color: #1C1F1E; margin-bottom: 8px; text-align: center;">Royal Canin</div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #C4622D; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">Le classique</div>
+      <div style="width: 32px; height: 1px; background: #C4622D; margin-bottom: 20px;"></div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 15px; color: #3A3F3E; text-align: center; line-height: 1.6;">
+        Formules sp&#233;cifiques par race et taille. Recommand&#233; par les v&#233;t&#233;rinaires.
+      </div>
+      <div style="margin-top: auto; padding-top: 24px;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #8BA888; text-align: center;">Id&#233;al pour</div>
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: #1C1F1E; text-align: center; margin-top: 4px;">Besoins m&#233;dicaux</div>
+      </div>
+    </div>
+
+    <!-- Ownat -->
+    <div style="padding: 40px 36px; display: flex; flex-direction: column; align-items: center; border-right: 1px solid rgba(26,92,94,0.1);">
+      <div style="width: 80px; height: 80px; border-radius: 50%; background: #8BA888; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <path d="M12 22c-4 0-8-2.5-8-9 0-4 2-7 4-9l2 3c1-2 2-4 2-6 2 2 6 5 6 12 0 6.5-4 9-6 9z" fill="#1C1F1E"/>
+        </svg>
+      </div>
+      <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 700; color: #1C1F1E; margin-bottom: 8px; text-align: center;">Ownat</div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #C4622D; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">Le naturel</div>
+      <div style="width: 32px; height: 1px; background: #C4622D; margin-bottom: 20px;"></div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 15px; color: #3A3F3E; text-align: center; line-height: 1.6;">
+        Ingr&#233;dients naturels, viande fra&#238;che en premier. Sans colorants artificiels.
+      </div>
+      <div style="margin-top: auto; padding-top: 24px;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #8BA888; text-align: center;">Id&#233;al pour</div>
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: #1C1F1E; text-align: center; margin-top: 4px;">Qualit&#233; premium</div>
+      </div>
+    </div>
+
+    <!-- Carnilove -->
+    <div style="padding: 40px 36px; display: flex; flex-direction: column; align-items: center;">
+      <div style="width: 80px; height: 80px; border-radius: 50%; background: #C4622D; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4M4 7l8 4M4 7v10l8 4m0-10v10" stroke="#F7F5F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 700; color: #1C1F1E; margin-bottom: 8px; text-align: center;">Carnilove</div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #C4622D; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">Le grain-free</div>
+      <div style="width: 32px; height: 1px; background: #C4622D; margin-bottom: 20px;"></div>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 15px; color: #3A3F3E; text-align: center; line-height: 1.6;">
+        Sans c&#233;r&#233;ales, riche en prot&#233;ines animales. R&#233;gime ancestral.
+      </div>
+      <div style="margin-top: auto; padding-top: 24px;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #8BA888; text-align: center;">Id&#233;al pour</div>
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: #1C1F1E; text-align: center; margin-top: 4px;">Chiens actifs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom CTA strip -->
+  <div style="background: #1A5C5E; padding: 28px 80px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
+    <div style="font-family: 'DM Sans', sans-serif; font-size: 16px; color: rgba(247,245,240,0.7);">Les 3 marques disponibles chez PetFactory</div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; color: #E8DBC5;">Swipez pour le d&#233;tail</div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#E8DBC5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

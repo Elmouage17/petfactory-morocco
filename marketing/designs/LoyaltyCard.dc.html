@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'DM Sans', system-ui, sans-serif; }
+    a { color: #C4622D; } a:hover { color: #A8511F; }
+  </style>
+</helmet>
+<div style="width: 1080px; height: 1080px; background: #C4622D; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 80px;">
+
+  <!-- Decorative arcs -->
+  <div style="position: absolute; top: -200px; right: -200px; width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.08);"></div>
+  <div style="position: absolute; bottom: -150px; left: -100px; width: 400px; height: 400px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.06);"></div>
+
+  <!-- Eyebrow -->
+  <div style="font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 32px; position: relative; z-index: 1;">Programme Fid&#233;lit&#233;</div>
+
+  <!-- Main headline -->
+  <div style="text-align: center; position: relative; z-index: 1; margin-bottom: 48px;">
+    <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 72px; font-weight: 700; color: #FFFFFF; line-height: 1.1;">10 achats =</div>
+    <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 72px; font-weight: 700; color: #E8DBC5; line-height: 1.1;">1 sac OFFERT</div>
+  </div>
+
+  <!-- Stamp card visual -->
+  <div style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 32px 40px; position: relative; z-index: 1; margin-bottom: 48px;">
+    <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px; text-align: center;">Carte PetFactory</div>
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
+      <!-- Filled stamps -->
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="34" rx="10" ry="8" fill="#E8DBC5"/><circle cx="14" cy="20" r="5" fill="#E8DBC5"/><circle cx="24" cy="16" r="5" fill="#E8DBC5"/><circle cx="34" cy="20" r="5" fill="#E8DBC5"/></svg>
+      </div>
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="34" rx="10" ry="8" fill="#E8DBC5"/><circle cx="14" cy="20" r="5" fill="#E8DBC5"/><circle cx="24" cy="16" r="5" fill="#E8DBC5"/><circle cx="34" cy="20" r="5" fill="#E8DBC5"/></svg>
+      </div>
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="34" rx="10" ry="8" fill="#E8DBC5"/><circle cx="14" cy="20" r="5" fill="#E8DBC5"/><circle cx="24" cy="16" r="5" fill="#E8DBC5"/><circle cx="34" cy="20" r="5" fill="#E8DBC5"/></svg>
+      </div>
+      <!-- Empty stamps -->
+      <div style="width: 64px; height: 64px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.3);"></div>
+      <div style="width: 64px; height: 64px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.3);"></div>
+      <div style="width: 64px; height: 64px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.3);"></div>
+      <div style="width: 64px; height: 64px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.3);"></div>
+      <div style="width: 64px; height: 64px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.3);"></div>
+      <div style="width: 64px; height: 64px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.3);"></div>
+      <!-- Gift stamp -->
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: #E8DBC5; display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 110-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 100-5C13 2 12 7 12 7z" stroke="#C4622D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; z-index: 1;">
+    <div style="background: #FFFFFF; color: #C4622D; font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 700; padding: 16px 48px; border-radius: 6px; letter-spacing: 1px;">DEMANDEZ VOTRE CARTE</div>
+    <div style="font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(255,255,255,0.6);">Gratuite &#183; En magasin ou via WhatsApp</div>
+  </div>
+
+  <!-- Bottom branding -->
+  <div style="position: absolute; bottom: 40px; display: flex; align-items: center; gap: 8px;">
+    <svg width="14" height="14" viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="34" rx="10" ry="8" fill="rgba(255,255,255,0.4)"/><circle cx="14" cy="20" r="5" fill="rgba(255,255,255,0.4)"/><circle cx="24" cy="16" r="5" fill="rgba(255,255,255,0.4)"/><circle cx="34" cy="20" r="5" fill="rgba(255,255,255,0.4)"/></svg>
+    <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 2px;">PETFACTORY &#183; ROUTE DE F&#200;S</div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

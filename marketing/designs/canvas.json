@@ -1,0 +1,11 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1080, "h": 1080, "title": "Grand Opening" },
+    { "file": "FiveSigns.dc.html", "x": 1200, "y": 0, "w": 1080, "h": 1080, "title": "5 Signs Carousel Cover" },
+    { "file": "LoyaltyCard.dc.html", "x": 2400, "y": 0, "w": 1080, "h": 1080, "title": "Loyalty Card" },
+    { "file": "BrandComparison.dc.html", "x": 0, "y": 1240, "w": 1080, "h": 1080, "title": "Brand Comparison" },
+    { "file": "Testimonial.dc.html", "x": 1200, "y": 1240, "w": 1080, "h": 1080, "title": "Customer Testimonial" },
+    { "file": "FlashSale.dc.html", "x": 2400, "y": 1240, "w": 1080, "h": 1080, "title": "Flash Sale Weekend" }
+  ],
+  "launch": { "view": "canvas" }
+}

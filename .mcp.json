@@ -29,6 +29,13 @@
         "-y",
         "@omnisocials/mcp-server"
       ]
+    },
+    "aopenroute": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@aopenroute/mcp-server"
+      ]
     }
   }
 }

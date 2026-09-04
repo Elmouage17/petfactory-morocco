@@ -2,3 +2,4 @@
 ~$*
 .petfactory/
 *.oauth.json
+__pycache__/

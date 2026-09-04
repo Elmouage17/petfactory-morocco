@@ -1,0 +1,13 @@
+{
+  "team_name": "PFM Production Crew (Benguerir 5 TPH Line)",
+  "demand": {
+    "tickets_per_day_p50": 40,
+    "tickets_per_day_p90": 52,
+    "tickets_per_day_p99": 60
+  },
+  "sla_target_minutes": 30,
+  "current_fte": 12,
+  "avg_handle_time_minutes": 22,
+  "shrinkage_pct": 20,
+  "working_hours_per_day": 16
+}

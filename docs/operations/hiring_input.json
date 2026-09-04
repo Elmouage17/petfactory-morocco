@@ -1,0 +1,9 @@
+{
+  "team_name": "PFM Production & Operations (Benguerir Plant)",
+  "current_fte": 12,
+  "target_fte_end_of_year": 18,
+  "ramp_time_weeks": 6,
+  "attrition_rate_annual_pct": 15,
+  "growth_assumption_qoq_pct": 5,
+  "hiring_constraints": {"max_hires_per_quarter": 3}
+}

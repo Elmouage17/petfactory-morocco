@@ -1,0 +1,104 @@
+{
+  "process_name": "PetFactory Morocco — Kibble Production Line (5 TPH Famsun)",
+  "wip": 3,
+  "stages": [
+    {
+      "name": "Raw Material Receiving & QC",
+      "owner": "Warehouse / QC",
+      "type": "value-add",
+      "duration_minutes_p50": 30,
+      "duration_minutes_p90": 60
+    },
+    {
+      "name": "Batch Weighing & Grinding",
+      "owner": "Production Ops",
+      "type": "value-add",
+      "duration_minutes_p50": 15,
+      "duration_minutes_p90": 25
+    },
+    {
+      "name": "Wait for Preconditioner Availability",
+      "owner": "Production Ops",
+      "type": "wait",
+      "duration_minutes_p50": 5,
+      "duration_minutes_p90": 15
+    },
+    {
+      "name": "Preconditioner (Steam + Water Mixing)",
+      "owner": "Production Ops",
+      "type": "value-add",
+      "duration_minutes_p50": 3,
+      "duration_minutes_p90": 4
+    },
+    {
+      "name": "Extrusion (Twin-Screw SJPS165, 203 kW)",
+      "owner": "Production Ops",
+      "type": "value-add",
+      "duration_minutes_p50": 2,
+      "duration_minutes_p90": 3
+    },
+    {
+      "name": "Wait — Dryer Belt Queue",
+      "owner": "Production Ops",
+      "type": "wait",
+      "duration_minutes_p50": 8,
+      "duration_minutes_p90": 20
+    },
+    {
+      "name": "Drying (Belt Dryer GZDH2200, 4 zones)",
+      "owner": "Production Ops",
+      "type": "value-add",
+      "duration_minutes_p50": 35,
+      "duration_minutes_p90": 45
+    },
+    {
+      "name": "Cooling",
+      "owner": "Production Ops",
+      "type": "value-add",
+      "duration_minutes_p50": 12,
+      "duration_minutes_p90": 15
+    },
+    {
+      "name": "Fat Coating & Palatant Application",
+      "owner": "Production Ops",
+      "type": "value-add",
+      "duration_minutes_p50": 5,
+      "duration_minutes_p90": 8
+    },
+    {
+      "name": "Wait — Packaging Line Queue",
+      "owner": "Packaging",
+      "type": "wait",
+      "duration_minutes_p50": 12,
+      "duration_minutes_p90": 30
+    },
+    {
+      "name": "Packaging (14-head weigher, seal, label)",
+      "owner": "Packaging",
+      "type": "value-add",
+      "duration_minutes_p50": 10,
+      "duration_minutes_p90": 15
+    },
+    {
+      "name": "QC Final Check & Release",
+      "owner": "QC",
+      "type": "value-add",
+      "duration_minutes_p50": 15,
+      "duration_minutes_p90": 30
+    },
+    {
+      "name": "Rework — Moisture or Density Out of Spec",
+      "owner": "Production Ops",
+      "type": "rework",
+      "duration_minutes_p50": 20,
+      "duration_minutes_p90": 45
+    },
+    {
+      "name": "Palletizing & Warehouse",
+      "owner": "Warehouse",
+      "type": "value-add",
+      "duration_minutes_p50": 10,
+      "duration_minutes_p90": 15
+    }
+  ]
+}

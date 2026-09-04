@@ -1,0 +1,17 @@
+{
+  "team_name": "PFM Production Crew (Benguerir 5 TPH Line)",
+  "team_members": [
+    {"name": "Shift A Lead", "role": "Production Supervisor", "utilization_pct": 82},
+    {"name": "Shift A Op 1", "role": "Extruder Operator", "utilization_pct": 88},
+    {"name": "Shift A Op 2", "role": "Dryer Operator", "utilization_pct": 85},
+    {"name": "Shift A Op 3", "role": "Packaging Operator", "utilization_pct": 92},
+    {"name": "Shift A Op 4", "role": "Raw Material Handler", "utilization_pct": 65},
+    {"name": "Shift A QC", "role": "QC Technician", "utilization_pct": 70},
+    {"name": "Shift B Lead", "role": "Production Supervisor", "utilization_pct": 78},
+    {"name": "Shift B Op 1", "role": "Extruder Operator", "utilization_pct": 86},
+    {"name": "Shift B Op 2", "role": "Dryer Operator", "utilization_pct": 83},
+    {"name": "Shift B Op 3", "role": "Packaging Operator", "utilization_pct": 90},
+    {"name": "Shift B Op 4", "role": "Raw Material Handler", "utilization_pct": 60},
+    {"name": "Shift B QC", "role": "QC Technician", "utilization_pct": 68}
+  ]
+}

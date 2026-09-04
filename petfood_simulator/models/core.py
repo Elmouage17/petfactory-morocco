@@ -49,7 +49,7 @@ class SKU:
         "fat": 0.08,
         "vitamins_minerals": 0.07,
     })
-    moisture_target_pct: float = 9.0
+    moisture_target_pct: float = 7.0
     aw_limit: float = 0.60
     density_target: float = 380.0      # g/L bulk density
     design_throughput_kgph: float = 5000.0

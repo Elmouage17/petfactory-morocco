@@ -1,0 +1,151 @@
+version: "3.8"
+
+# ERPNext for PetFactory Morocco
+# Usage:
+#   cd erp/docker
+#   docker compose up -d
+#   Open http://localhost:8080
+#   Login: Administrator / admin
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: petfactory-mariadb
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-petfactory_root_2027}
+      MYSQL_DATABASE: petfactory_erp
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - petfactory-net
+    healthcheck:
+      test: mysqladmin ping -h localhost --password=$$MYSQL_ROOT_PASSWORD
+      interval: 10s
+      retries: 5
+      start_period: 30s
+
+  redis-cache:
+    image: redis:7-alpine
+    container_name: petfactory-redis-cache
+    restart: unless-stopped
+    networks:
+      - petfactory-net
+
+  redis-queue:
+    image: redis:7-alpine
+    container_name: petfactory-redis-queue
+    restart: unless-stopped
+    networks:
+      - petfactory-net
+
+  erpnext:
+    image: frappe/erpnext:v15
+    container_name: petfactory-erpnext
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis-cache:
+        condition: service_started
+      redis-queue:
+        condition: service_started
+    environment:
+      # Database
+      DB_HOST: mariadb
+      DB_PORT: "3306"
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-petfactory_root_2027}
+      # Redis
+      REDIS_CACHE: redis://redis-cache:6379
+      REDIS_QUEUE: redis://redis-queue:6379
+      # Site
+      SITE_NAME: ${SITE_NAME:-petfactory.localhost}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      INSTALL_APPS: erpnext
+      # Worker config
+      WORKER_CLASS: gthread
+      GUNICORN_WORKERS: 4
+    volumes:
+      - erpnext-sites:/home/frappe/frappe-bench/sites
+      - erpnext-logs:/home/frappe/frappe-bench/logs
+    ports:
+      - "${ERPNEXT_PORT:-8080}:8080"
+    networks:
+      - petfactory-net
+
+  erpnext-worker-default:
+    image: frappe/erpnext:v15
+    container_name: petfactory-worker-default
+    restart: unless-stopped
+    depends_on:
+      - erpnext
+    command: bench worker --queue default
+    environment:
+      REDIS_QUEUE: redis://redis-queue:6379
+    volumes:
+      - erpnext-sites:/home/frappe/frappe-bench/sites
+      - erpnext-logs:/home/frappe/frappe-bench/logs
+    networks:
+      - petfactory-net
+
+  erpnext-worker-short:
+    image: frappe/erpnext:v15
+    container_name: petfactory-worker-short
+    restart: unless-stopped
+    depends_on:
+      - erpnext
+    command: bench worker --queue short
+    environment:
+      REDIS_QUEUE: redis://redis-queue:6379
+    volumes:
+      - erpnext-sites:/home/frappe/frappe-bench/sites
+      - erpnext-logs:/home/frappe/frappe-bench/logs
+    networks:
+      - petfactory-net
+
+  erpnext-worker-long:
+    image: frappe/erpnext:v15
+    container_name: petfactory-worker-long
+    restart: unless-stopped
+    depends_on:
+      - erpnext
+    command: bench worker --queue long
+    environment:
+      REDIS_QUEUE: redis://redis-queue:6379
+    volumes:
+      - erpnext-sites:/home/frappe/frappe-bench/sites
+      - erpnext-logs:/home/frappe/frappe-bench/logs
+    networks:
+      - petfactory-net
+
+  erpnext-scheduler:
+    image: frappe/erpnext:v15
+    container_name: petfactory-scheduler
+    restart: unless-stopped
+    depends_on:
+      - erpnext
+    command: bench schedule
+    environment:
+      REDIS_QUEUE: redis://redis-queue:6379
+    volumes:
+      - erpnext-sites:/home/frappe/frappe-bench/sites
+      - erpnext-logs:/home/frappe/frappe-bench/logs
+    networks:
+      - petfactory-net
+
+volumes:
+  mariadb-data:
+    name: petfactory-mariadb-data
+  erpnext-sites:
+    name: petfactory-erpnext-sites
+  erpnext-logs:
+    name: petfactory-erpnext-logs
+
+networks:
+  petfactory-net:
+    name: petfactory-network

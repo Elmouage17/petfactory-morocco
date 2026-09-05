@@ -1,0 +1,166 @@
+{
+  "doctype": "DocType",
+  "name": "ONSSA Traceability Record",
+  "module": "Manufacturing",
+  "custom": 1,
+  "is_submittable": 1,
+  "track_changes": 1,
+  "naming_rule": "Expression",
+  "autoname": "ONSSA-.YYYY.-.#####",
+  "description": "Full forward/backward traceability record for ONSSA compliance. Links finished goods batches to all raw material lots, suppliers, and certificates.",
+  "fields": [
+    {
+      "fieldname": "record_type",
+      "fieldtype": "Select",
+      "label": "Record Type",
+      "options": "Production Trace\nRecall Simulation\nInspection Report",
+      "reqd": 1
+    },
+    {
+      "fieldname": "batch_record",
+      "fieldtype": "Link",
+      "label": "Production Batch Record",
+      "options": "Production Batch Record"
+    },
+    {
+      "fieldname": "finished_goods_batch",
+      "fieldtype": "Link",
+      "label": "Finished Goods Batch",
+      "options": "Batch"
+    },
+    {
+      "fieldname": "finished_item",
+      "fieldtype": "Link",
+      "label": "Finished Item",
+      "options": "Item"
+    },
+    {
+      "fieldname": "production_date",
+      "fieldtype": "Date",
+      "label": "Production Date"
+    },
+    {
+      "fieldname": "expiry_date",
+      "fieldtype": "Date",
+      "label": "Expiry Date"
+    },
+    {
+      "fieldname": "section_raw_materials",
+      "fieldtype": "Section Break",
+      "label": "Raw Material Traceability"
+    },
+    {
+      "fieldname": "raw_material_trace",
+      "fieldtype": "Table",
+      "label": "Raw Material Lots",
+      "options": "ONSSA Raw Material Trace"
+    },
+    {
+      "fieldname": "section_supplier_certs",
+      "fieldtype": "Section Break",
+      "label": "Supplier Certificates"
+    },
+    {
+      "fieldname": "supplier_certificates",
+      "fieldtype": "Table",
+      "label": "Certificates",
+      "options": "Supplier Certificate"
+    },
+    {
+      "fieldname": "section_distribution",
+      "fieldtype": "Section Break",
+      "label": "Distribution (Forward Trace)"
+    },
+    {
+      "fieldname": "distribution_records",
+      "fieldtype": "Table",
+      "label": "Distribution",
+      "options": "Distribution Record"
+    },
+    {
+      "fieldname": "section_quality",
+      "fieldtype": "Section Break",
+      "label": "Quality Records"
+    },
+    {
+      "fieldname": "quality_inspections",
+      "fieldtype": "Table",
+      "label": "Linked Quality Inspections",
+      "options": "Linked Quality Inspection"
+    },
+    {
+      "fieldname": "haccp_logs",
+      "fieldtype": "Table",
+      "label": "HACCP Logs",
+      "options": "Linked HACCP Log"
+    },
+    {
+      "fieldname": "section_recall",
+      "fieldtype": "Section Break",
+      "label": "Recall Information",
+      "depends_on": "eval:doc.record_type=='Recall Simulation'"
+    },
+    {
+      "fieldname": "recall_reason",
+      "fieldtype": "Small Text",
+      "label": "Recall Reason"
+    },
+    {
+      "fieldname": "affected_quantity_kg",
+      "fieldtype": "Float",
+      "label": "Affected Quantity (kg)"
+    },
+    {
+      "fieldname": "affected_customers",
+      "fieldtype": "Int",
+      "label": "Number of Affected Customers"
+    },
+    {
+      "fieldname": "recall_status",
+      "fieldtype": "Select",
+      "label": "Recall Status",
+      "options": "\nInitiated\nIn Progress\nCompleted\nClosed"
+    },
+    {
+      "fieldname": "section_report",
+      "fieldtype": "Section Break",
+      "label": "ONSSA Report"
+    },
+    {
+      "fieldname": "report_language",
+      "fieldtype": "Select",
+      "label": "Report Language",
+      "options": "French\nArabic",
+      "default": "French"
+    },
+    {
+      "fieldname": "report_generated_on",
+      "fieldtype": "Datetime",
+      "label": "Report Generated On"
+    },
+    {
+      "fieldname": "submitted_to_onssa",
+      "fieldtype": "Check",
+      "label": "Submitted to ONSSA"
+    },
+    {
+      "fieldname": "onssa_reference",
+      "fieldtype": "Data",
+      "label": "ONSSA Reference Number"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Quality Manager",
+      "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1
+    },
+    {
+      "role": "Manufacturing Manager",
+      "read": 1, "write": 1, "create": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1
+    }
+  ]
+}

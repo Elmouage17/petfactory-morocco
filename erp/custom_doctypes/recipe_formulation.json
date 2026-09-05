@@ -1,0 +1,145 @@
+{
+  "doctype": "DocType",
+  "name": "Recipe Formulation",
+  "module": "Manufacturing",
+  "custom": 1,
+  "is_submittable": 1,
+  "track_changes": 1,
+  "naming_rule": "By field name",
+  "autoname": "field:recipe_name",
+  "fields": [
+    {
+      "fieldname": "recipe_name",
+      "fieldtype": "Data",
+      "label": "Recipe Name",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "species",
+      "fieldtype": "Select",
+      "label": "Species",
+      "options": "Dog\nCat",
+      "reqd": 1
+    },
+    {
+      "fieldname": "aafco_profile",
+      "fieldtype": "Select",
+      "label": "AAFCO Nutritional Profile",
+      "options": "Growth\nMaintenance\nAll Life Stages\nGestation/Lactation"
+    },
+    {
+      "fieldname": "sku_link",
+      "fieldtype": "Link",
+      "label": "Linked SKU (Item)",
+      "options": "Item"
+    },
+    {
+      "fieldname": "target_batch_weight_kg",
+      "fieldtype": "Float",
+      "label": "Target Batch Weight (kg)",
+      "default": "5000",
+      "description": "Standard batch size for 5 TPH line"
+    },
+    {
+      "fieldname": "section_ingredients",
+      "fieldtype": "Section Break",
+      "label": "Ingredients"
+    },
+    {
+      "fieldname": "ingredients",
+      "fieldtype": "Table",
+      "label": "Ingredients",
+      "options": "Recipe Ingredient",
+      "reqd": 1
+    },
+    {
+      "fieldname": "total_percentage",
+      "fieldtype": "Float",
+      "label": "Total %",
+      "read_only": 1,
+      "description": "Must equal 100%"
+    },
+    {
+      "fieldname": "section_nutritional",
+      "fieldtype": "Section Break",
+      "label": "Nutritional Targets"
+    },
+    {
+      "fieldname": "nutritional_targets",
+      "fieldtype": "Table",
+      "label": "Nutritional Targets",
+      "options": "Nutritional Target"
+    },
+    {
+      "fieldname": "section_processing",
+      "fieldtype": "Section Break",
+      "label": "Processing Parameters"
+    },
+    {
+      "fieldname": "extruder_temp_c",
+      "fieldtype": "Float",
+      "label": "Extruder Temperature (°C)",
+      "description": "Target barrel temperature"
+    },
+    {
+      "fieldname": "extruder_moisture_pct",
+      "fieldtype": "Float",
+      "label": "Extruder Moisture (%)",
+      "description": "Target moisture at extruder die"
+    },
+    {
+      "fieldname": "dryer_target_moisture_pct",
+      "fieldtype": "Float",
+      "label": "Dryer Target Moisture (%)",
+      "default": "10"
+    },
+    {
+      "fieldname": "kibble_density_target",
+      "fieldtype": "Float",
+      "label": "Kibble Density Target (g/L)"
+    },
+    {
+      "fieldname": "coating_fat_pct",
+      "fieldtype": "Float",
+      "label": "Coating Fat (%)"
+    },
+    {
+      "fieldname": "section_status",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nSuperseded",
+      "default": "Draft"
+    },
+    {
+      "fieldname": "effective_date",
+      "fieldtype": "Date",
+      "label": "Effective Date"
+    },
+    {
+      "fieldname": "superseded_by",
+      "fieldtype": "Link",
+      "label": "Superseded By",
+      "options": "Recipe Formulation",
+      "depends_on": "eval:doc.status=='Superseded'"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Manufacturing Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 0, "submit": 1
+    },
+    {
+      "role": "Quality Manager",
+      "read": 1, "write": 0, "create": 0
+    },
+    {
+      "role": "Production Operator",
+      "read": 1
+    }
+  ]
+}

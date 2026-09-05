@@ -1,0 +1,151 @@
+{
+  "doctype": "DocType",
+  "name": "Production Batch Record",
+  "module": "Manufacturing",
+  "custom": 1,
+  "is_submittable": 1,
+  "track_changes": 1,
+  "naming_rule": "Expression",
+  "autoname": "PF-.YYYY.MM.DD.-.####",
+  "fields": [
+    {
+      "fieldname": "work_order",
+      "fieldtype": "Link",
+      "label": "Work Order",
+      "options": "Work Order",
+      "reqd": 1
+    },
+    {
+      "fieldname": "recipe",
+      "fieldtype": "Link",
+      "label": "Recipe Formulation",
+      "options": "Recipe Formulation",
+      "reqd": 1
+    },
+    {
+      "fieldname": "production_date",
+      "fieldtype": "Date",
+      "label": "Production Date",
+      "reqd": 1,
+      "default": "Today"
+    },
+    {
+      "fieldname": "shift",
+      "fieldtype": "Select",
+      "label": "Shift",
+      "options": "Morning (06:00-14:00)\nAfternoon (14:00-22:00)\nNight (22:00-06:00)"
+    },
+    {
+      "fieldname": "line_operator",
+      "fieldtype": "Link",
+      "label": "Line Operator",
+      "options": "Employee"
+    },
+    {
+      "fieldname": "section_ingredients",
+      "fieldtype": "Section Break",
+      "label": "Ingredient Lots Used"
+    },
+    {
+      "fieldname": "ingredient_lots",
+      "fieldtype": "Table",
+      "label": "Ingredient Lots",
+      "options": "Ingredient Lot Used"
+    },
+    {
+      "fieldname": "section_stages",
+      "fieldtype": "Section Break",
+      "label": "Production Stage Logs"
+    },
+    {
+      "fieldname": "stage_logs",
+      "fieldtype": "Table",
+      "label": "Stage Logs",
+      "options": "Production Stage Log"
+    },
+    {
+      "fieldname": "section_output",
+      "fieldtype": "Section Break",
+      "label": "Output"
+    },
+    {
+      "fieldname": "yield_kg",
+      "fieldtype": "Float",
+      "label": "Yield (kg)"
+    },
+    {
+      "fieldname": "waste_kg",
+      "fieldtype": "Float",
+      "label": "Waste (kg)"
+    },
+    {
+      "fieldname": "yield_pct",
+      "fieldtype": "Float",
+      "label": "Yield %",
+      "read_only": 1
+    },
+    {
+      "fieldname": "finished_batch_no",
+      "fieldtype": "Link",
+      "label": "Finished Goods Batch",
+      "options": "Batch"
+    },
+    {
+      "fieldname": "section_qc",
+      "fieldtype": "Section Break",
+      "label": "Quality Control"
+    },
+    {
+      "fieldname": "qc_result",
+      "fieldtype": "Select",
+      "label": "QC Result",
+      "options": "Pending\nPass\nFail\nConditional Release"
+    },
+    {
+      "fieldname": "quality_inspection",
+      "fieldtype": "Link",
+      "label": "Quality Inspection",
+      "options": "Quality Inspection"
+    },
+    {
+      "fieldname": "qc_notes",
+      "fieldtype": "Small Text",
+      "label": "QC Notes"
+    },
+    {
+      "fieldname": "section_onssa",
+      "fieldtype": "Section Break",
+      "label": "ONSSA Traceability"
+    },
+    {
+      "fieldname": "onssa_traceable",
+      "fieldtype": "Check",
+      "label": "ONSSA Traceable",
+      "default": "1"
+    },
+    {
+      "fieldname": "onssa_report_generated",
+      "fieldtype": "Check",
+      "label": "ONSSA Report Generated"
+    },
+    {
+      "fieldname": "expiry_date",
+      "fieldtype": "Date",
+      "label": "Expiry Date"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Manufacturing Manager",
+      "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1
+    },
+    {
+      "role": "Production Operator",
+      "read": 1, "write": 1, "create": 1
+    },
+    {
+      "role": "Quality Manager",
+      "read": 1, "write": 1
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "doctype": "DocType",
+  "name": "HACCP Control Point Log",
+  "module": "Manufacturing",
+  "custom": 1,
+  "is_submittable": 1,
+  "track_changes": 1,
+  "naming_rule": "Expression",
+  "autoname": "HACCP-.YYYY.-.#####",
+  "fields": [
+    {
+      "fieldname": "ccp_id",
+      "fieldtype": "Select",
+      "label": "Critical Control Point",
+      "options": "CCP-01: Raw Material Reception (Aflatoxin)\nCCP-02: Grinding (Metal Detection)\nCCP-03: Preconditioning (Steam Temperature)\nCCP-04: Extrusion (Temperature/Pressure)\nCCP-05: Drying (Moisture/Aw)\nCCP-06: Cooling (Temperature)\nCCP-07: Coating (Temperature)\nCCP-08: Metal Detection (Final)\nCCP-09: Packaging (Seal Integrity)",
+      "reqd": 1
+    },
+    {
+      "fieldname": "work_order",
+      "fieldtype": "Link",
+      "label": "Work Order",
+      "options": "Work Order"
+    },
+    {
+      "fieldname": "batch_record",
+      "fieldtype": "Link",
+      "label": "Production Batch Record",
+      "options": "Production Batch Record"
+    },
+    {
+      "fieldname": "section_measurement",
+      "fieldtype": "Section Break",
+      "label": "Measurement"
+    },
+    {
+      "fieldname": "critical_limit",
+      "fieldtype": "Data",
+      "label": "Critical Limit",
+      "description": "e.g., ≥85°C for ≥15 sec, ≤20 ppb, ≤10% moisture"
+    },
+    {
+      "fieldname": "measured_value",
+      "fieldtype": "Float",
+      "label": "Measured Value",
+      "reqd": 1
+    },
+    {
+      "fieldname": "unit",
+      "fieldtype": "Select",
+      "label": "Unit",
+      "options": "°C\n%\nppb\nppm\nseconds\nbar\ng/L"
+    },
+    {
+      "fieldname": "monitoring_time",
+      "fieldtype": "Datetime",
+      "label": "Monitoring Time",
+      "reqd": 1,
+      "default": "Now"
+    },
+    {
+      "fieldname": "within_limits",
+      "fieldtype": "Check",
+      "label": "Within Critical Limits"
+    },
+    {
+      "fieldname": "section_corrective",
+      "fieldtype": "Section Break",
+      "label": "Corrective Action",
+      "depends_on": "eval:!doc.within_limits"
+    },
+    {
+      "fieldname": "corrective_action",
+      "fieldtype": "Small Text",
+      "label": "Corrective Action Taken",
+      "mandatory_depends_on": "eval:!doc.within_limits"
+    },
+    {
+      "fieldname": "product_disposition",
+      "fieldtype": "Select",
+      "label": "Product Disposition",
+      "options": "\nRelease\nHold for Review\nRework\nReject/Dispose",
+      "depends_on": "eval:!doc.within_limits"
+    },
+    {
+      "fieldname": "section_verification",
+      "fieldtype": "Section Break",
+      "label": "Verification"
+    },
+    {
+      "fieldname": "monitored_by",
+      "fieldtype": "Link",
+      "label": "Monitored By",
+      "options": "Employee"
+    },
+    {
+      "fieldname": "verified_by",
+      "fieldtype": "Link",
+      "label": "Verified By",
+      "options": "Employee"
+    },
+    {
+      "fieldname": "verification_time",
+      "fieldtype": "Datetime",
+      "label": "Verification Time"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Quality Manager",
+      "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1
+    },
+    {
+      "role": "Production Operator",
+      "read": 1, "write": 1, "create": 1
+    },
+    {
+      "role": "Manufacturing Manager",
+      "read": 1
+    }
+  ]
+}

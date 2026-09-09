@@ -2,3 +2,5 @@
 ~$*
 .petfactory/
 *.oauth.json
+__pycache__/
+*.pyc

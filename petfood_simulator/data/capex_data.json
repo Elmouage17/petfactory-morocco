@@ -1,0 +1,277 @@
+{
+  "total_budget_mad": 25000000.0,
+  "contingency_pct": 10.0,
+  "quotes": [
+    {
+      "vendor": "Fangkuai Boiler Co., LTD (China)",
+      "system": "Boiler System",
+      "description": "WNS3-1.0-YQ-FL1 3 t/h split condensing gas steam boiler with all auxiliaries (condenser, Riello RL310 burner, Siemens PLC control, water softener, feed pumps, steam distributor, chimney)",
+      "amount_mad": 424670.0,
+      "currency_original": "USD",
+      "amount_original": 42467.0,
+      "exchange_rate": 10.0,
+      "quote_date": "2026-06-16",
+      "valid_until": "2026-09-16",
+      "status": "received",
+      "notes": "3 t/h only - undersized for 6000 kg/h requirement. FOB China, shipping not included."
+    },
+    {
+      "vendor": "Energie Management (Casablanca)",
+      "system": "Boiler System",
+      "description": "Complete boiler room: Chaudière Vapeur à Gaz 5000 Kg (400,000) + 6000 Kg (440,000), chimneys, bâche alimentaire, purges, blow-down tank, steam collector DN400, gas detendeurs, water softener, transport to Dakhla, installation/commissioning, full steam/condensate piping with insulation",
+      "amount_mad": 2528318.94,
+      "currency_original": "MAD",
+      "amount_original": 2528318.94,
+      "exchange_rate": 1.0,
+      "quote_date": "2026-03-11",
+      "valid_until": null,
+      "status": "under_review",
+      "notes": "Proforma 0016/2026. ICE: 002861675000028. Total before discount: 2,689,701 MAD. 6% discount applied. TTC (20% TVA): 3,033,982.72 MAD."
+    },
+    {
+      "vendor": "Bosch Industrial / Robert Bosch Morocco (SAF)",
+      "system": "Boiler System",
+      "description": "2x UNIVERSAL UL-S 5000 kg/h steam boilers (2,687,990.37 each), bâche alimentaire WSM-V (619,176.55), barillet distribution (172,461.38), documentation (5,526.37), commissioning/training (316,482.10)",
+      "amount_mad": 6489627.14,
+      "currency_original": "MAD",
+      "amount_original": 6489627.14,
+      "exchange_rate": 1.0,
+      "quote_date": "2024-02-12",
+      "valid_until": null,
+      "status": "received",
+      "notes": "Offer T100464540-35. Older quote from 2024, may need price update."
+    },
+    {
+      "vendor": "Pression Equipement / Stein Energie (ALSTOM)",
+      "system": "Boiler System",
+      "description": "1x Renovated STEIN FASEL (ALSTOM) DFS 6000, 6000 Kg/h steam boiler at 16 bar, Weishaupt fioul burner, pump, controls, new armoire/wiring, new INOX insulation. Ready on chassis.",
+      "amount_mad": 510000.0,
+      "currency_original": "MAD",
+      "amount_original": 510000.0,
+      "exchange_rate": 1.0,
+      "quote_date": "2025-05-20",
+      "valid_until": "2025-06-20",
+      "status": "expired",
+      "notes": "Renovated (2001 build, 2025 renovation). Fioul burner - would need gas conversion. 1 month delivery. Single boiler only, not complete boiler room."
+    },
+    {
+      "vendor": "EGFI - Entreprise Générale de Fumisterie Industrielle",
+      "system": "Boiler System",
+      "description": "Complete turnkey boiler room: 2x 6000 kg/h at 12 bars (propane), wet-back design, economizers, O2 analyzers, chimneys (20m), bâche alimentaire 10,000L, osmose inverse 6 m3/h, water treatment, steam collector, blowdown tank, spare parts (1 year), montage/commissioning",
+      "amount_mad": 6045300.0,
+      "currency_original": "MAD",
+      "amount_original": 6045300.0,
+      "exchange_rate": 1.0,
+      "quote_date": "2026-07-20",
+      "valid_until": null,
+      "status": "under_review",
+      "notes": "Devis 315/26. Most comprehensive offer - includes water treatment, economizers, PLC/SCADA. Delivery 4.5-5 months. Dégazeur thermique price TBD. Site: QI Sidi Bouatmane."
+    },
+    {
+      "vendor": "Casa Comp / MARK (Atlas Copco Group)",
+      "system": "Air Compressor System",
+      "description": "2x MARK RMM37 screw compressors 37kW direct-drive (315,840), 2x MDX6500 dryers (71,928.45), 1x 2000L air receiver (25,000), filters FG79/FC79 (12,963.10). Commissioning included.",
+      "amount_mad": 425731.55,
+      "currency_original": "MAD",
+      "amount_original": 425731.55,
+      "exchange_rate": 1.0,
+      "quote_date": "2026-04-07",
+      "valid_until": "2026-05-07",
+      "status": "expired",
+      "notes": "Offre 00722. 25% discount on compressors/dryers, 20% on accessories. Transport not included. Payment: 30% at order, 70% at delivery. 6-8 weeks delivery."
+    },
+    {
+      "vendor": "Casa Comp / MARK (Atlas Copco Group)",
+      "system": "Air Compressor System",
+      "description": "Complete aluminum piping network DN50/DN25: tubes (15,266.50), connectors (16,687), elbows (12,328), tees (2,092), ball valves (26,748), quick drops (7,909), supports (13,680), labor (1,425), platform rental (950)",
+      "amount_mad": 103482.67,
+      "currency_original": "MAD",
+      "amount_original": 103482.67,
+      "exchange_rate": 1.0,
+      "quote_date": "2026-04-07",
+      "valid_until": null,
+      "status": "expired",
+      "notes": "Devis DV2600078. Piping for compressed air distribution. 5% discount applied. Linked to equipment quote 00722."
+    }
+  ],
+  "line_items": [
+    {
+      "system": "Boiler System",
+      "description": "Boiler room equipment and installation (2x 6000 kg/h)",
+      "amount_mad": 6045300.0,
+      "status": "forecasted",
+      "expected_date": "2027-01-15",
+      "paid_date": null,
+      "vendor": "EGFI (pending final selection)",
+      "po_number": "",
+      "notes": "Based on EGFI quote - most comprehensive. Final vendor TBD."
+    },
+    {
+      "system": "Air Compressor System",
+      "description": "2x 37kW screw compressors with dryers, receiver and piping",
+      "amount_mad": 529214.22,
+      "status": "forecasted",
+      "expected_date": "2027-02-01",
+      "paid_date": null,
+      "vendor": "Casa Comp (quote expired, needs renewal)",
+      "po_number": "",
+      "notes": "Combined equipment (425,731.55) + piping (103,482.67). Quote expired 2026-05-07."
+    },
+    {
+      "system": "Water System",
+      "description": "Water system 10,000 Kg/H - equipment and installation",
+      "amount_mad": 800000.0,
+      "status": "forecasted",
+      "expected_date": "2027-02-15",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Estimate based on industry benchmarks."
+    },
+    {
+      "system": "Weighbridge",
+      "description": "Weighbridge 60T - supply and installation",
+      "amount_mad": 350000.0,
+      "status": "forecasted",
+      "expected_date": "2026-12-01",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Estimate."
+    },
+    {
+      "system": "Big Storage Oil Tank",
+      "description": "2x 20,000L oil storage tanks",
+      "amount_mad": 250000.0,
+      "status": "forecasted",
+      "expected_date": "2027-01-01",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Estimate."
+    },
+    {
+      "system": "Elevator",
+      "description": "2x 2T elevators - supply and installation",
+      "amount_mad": 600000.0,
+      "status": "forecasted",
+      "expected_date": "2027-03-01",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Estimate."
+    },
+    {
+      "system": "Electrical Installation & Transformer",
+      "description": "1600 KVA transformer and electrical installation",
+      "amount_mad": 2500000.0,
+      "status": "forecasted",
+      "expected_date": "2026-12-15",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Critical path item. Estimate."
+    },
+    {
+      "system": "Aménagement Extérieur",
+      "description": "External works - concrete, landscaping, drainage",
+      "amount_mad": 1500000.0,
+      "status": "forecasted",
+      "expected_date": "2026-11-01",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Estimate for béton and aménagement."
+    },
+    {
+      "system": "Solaire Électricité",
+      "description": "Solar electricity installation (30% of 1600 KVA = 480 KVA)",
+      "amount_mad": 3000000.0,
+      "status": "forecasted",
+      "expected_date": "2027-04-01",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Estimate for 480 KVA solar installation."
+    },
+    {
+      "system": "Installation GAZ",
+      "description": "Gas installation - 15 m³ capacity",
+      "amount_mad": 400000.0,
+      "status": "forecasted",
+      "expected_date": "2027-01-15",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Linked to boiler system fuel supply. Estimate."
+    },
+    {
+      "system": "Séparation et Froid Industriel",
+      "description": "Industrial refrigeration and separation systems",
+      "amount_mad": 1800000.0,
+      "status": "forecasted",
+      "expected_date": "2027-03-15",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Estimate."
+    },
+    {
+      "system": "Séparation Salle de Commande & MCC",
+      "description": "Control room and motor control center separation",
+      "amount_mad": 500000.0,
+      "status": "forecasted",
+      "expected_date": "2027-02-01",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "No quotes received yet. Estimate."
+    },
+    {
+      "system": "Recrutement",
+      "description": "Recruitment of plant operations and technical staff",
+      "amount_mad": 300000.0,
+      "status": "forecasted",
+      "expected_date": "2027-03-01",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "Estimate for recruitment costs including agency fees."
+    },
+    {
+      "system": "Logiciel",
+      "description": "Software - ERP, SCADA, process control systems",
+      "amount_mad": 500000.0,
+      "status": "forecasted",
+      "expected_date": "2027-04-01",
+      "paid_date": null,
+      "vendor": "",
+      "po_number": "",
+      "notes": "Estimate for software licensing and implementation."
+    }
+  ],
+  "subsidies": [
+    {
+      "name": "Fonds de Développement Industriel (FDI)",
+      "provider": "Ministère de l'Industrie et du Commerce",
+      "amount_mad": 5000000.0,
+      "status": "applied",
+      "application_date": "2026-06-01",
+      "expected_receipt_date": "2027-03-01",
+      "received_date": null,
+      "conditions": "Minimum 50 MMAD investment, job creation requirements, environmental compliance",
+      "notes": "Industrial acceleration program for agri-food sector."
+    },
+    {
+      "name": "Programme Tatwir - Investissement Productif",
+      "provider": "Maroc PME",
+      "amount_mad": 2000000.0,
+      "status": "applied",
+      "application_date": "2026-07-15",
+      "expected_receipt_date": "2027-06-01",
+      "received_date": null,
+      "conditions": "Up to 20% of eligible investment, max 10 MMAD. Must be PME with turnover < 200 MMAD.",
+      "notes": "Covers equipment acquisition and industrial setup."
+    }
+  ]
+}

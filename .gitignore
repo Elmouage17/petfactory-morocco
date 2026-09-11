@@ -3,3 +3,4 @@
 .petfactory/
 *.oauth.json
 postiz-app/.env
+postiz-app/source/

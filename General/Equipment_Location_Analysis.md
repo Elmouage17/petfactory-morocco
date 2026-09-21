@@ -1,9 +1,10 @@
 # Analyse d'Implantation — Chaudière, Réservoirs d'Eau et Citerne GPL
 ## Equipment Location Analysis — Boiler, Water Tanks & Propane Tank
 **Project:** PetFactory Morocco — Sidi Bouathmane, Benguerir  
-**Date:** 2026-09-21  
+**Date:** 2026-09-21 (Rev 2 — 2026-09-21, updated with PNV lot dimensions)  
 **Prepared by:** Claude AI / Sam Aribi  
 **Reference drawings:**  
+- **PNV (Permis de Construire) — Modification plans (RDC, 1er Étage, Masse)**
 - Appendix E: General Layout (FAMSUN)  
 - Plan PCI Usine PET FACTORY — RDC (INGenios)  
 - Plan PCI Usine PET FACTORY — 1er Étage (INGenios)  
@@ -44,22 +45,37 @@
            (── 10m setback ──)
 ```
 
-**Key dimensions:**
-- Building: ~43m × ~65m (estimated from FAMSUN grid + room dimensions)
-- Lot: significantly larger, with 10m+ setbacks on all sides
-- Building corners: B33 (NW), B32 (NE), B39 (SE), B40 (SW)
+**Lot dimensions (from PNV — Permis de Construire):**
+
+| Edge | From → To | Length |
+|---|---|---|
+| North | B33 → B32 | **101.37 m** |
+| South | B40 → B39 | **101.33 m** |
+| West (upper) | B33 → B44 | **33.88 m** |
+| West (lower) | B44 → B40 | **74.71 m** |
+| East | B32 → B39 | **107.63 m** |
+| **Total lot area** | | **~10,900 m²** (1.09 ha) |
+
+> Note: The west boundary has a jog at point B44 (33.88m south of B33).
+
+**Building dimensions:**
+- Building: ~43m × ~65m (from FAMSUN grid + room dimensions)
+- Building corners: B33 (NW), B32 (NE), B39 (SE), B40 (SW), B44 (W midpoint)
 - Total building area: ~5,180 m²
+- 10m setback from property line on all sides (confirmed on PNV)
 
 ### Available Open Space
 
-| Zone | Location | Approx. Area | Current Use |
+With the lot at ~10,900 m² and the building at ~5,180 m², there is approximately **5,700 m² of open space** around the building. The 10m setbacks are confirmed on the PNV plans.
+
+| Zone | Location | Approx. Dimensions | Current Use |
 |---|---|---|---|
-| **South yard** | Between building & south property line | ~600–800 m² | 200T silo, truck scale, equipment |
-| **West strip** | Between building & west property line (B33–B40) | ~400–500 m² | Setback / access road |
-| **East strip** | Between building & east property line (B32–B39) | ~300–400 m² | Partially used by Office building |
-| **North strip** | Between building & north property line | ~300–400 m² | Setback |
-| **SW corner** | South of Magasin Réception, west of silo | ~300–400 m² | Open |
-| **SE corner** | South of Unité Humide, east of silo | ~200–300 m² | Truck scale, parking |
+| **South yard** | Between building & south property line | ~101m × ~20m = **~2,000 m²** | 200T silo, truck scale, equipment |
+| **West strip** | Between building & west property line (B44–B40) | ~75m × ~10m = **~750 m²** | Setback / access road |
+| **East strip** | Between building & east property line (B32–B39) | ~108m × ~10m = **~1,000 m²** | Office building, parking |
+| **North strip** | Between building & north property line | ~101m × ~10m = **~1,000 m²** | Setback |
+| **SW corner** | South of Magasin Réception, west of silo | ~40m × ~20m = **~800 m²** | Open — ideal for water tanks |
+| **SE corner** | South of Unité Humide, east of silo | ~50m × ~20m = **~1,000 m²** | Truck scale — ideal for propane |
 
 ---
 
@@ -376,20 +392,23 @@ If the SE yard has insufficient clearance from the property line:
 
 ---
 
-## 8. Distances Verification Checklist
+## 8. Distances Verification Checklist (Updated with PNV Dimensions)
 
-| Check | Required | Estimated on Plan | Status |
+With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more generous than initially estimated:
+
+| Check | Required | Available (from PNV) | Status |
 |---|---|---|---|
-| Propane tank → building wall | ≥ 7.5 m | ~10–12 m (SE yard) | OK |
-| Propane tank → property line | ≥ 15 m | ~15–20 m (to verify with surveyor) | Verify |
-| Propane tank → 200T silo | ≥ 15 m (dust source) | ~15 m | Verify |
-| Propane tank → fire water tank | N/A (different zone) | ~40 m (SW vs SE) | OK |
-| Propane tank → boiler flue | ≥ 15 m | ~50 m | OK |
-| Propane tank → offices | ≥ 15 m | ~60 m+ | OK |
-| Propane tank → truck scale | Accessible | ~10 m | OK |
-| Water tanks → well head | Short run | ~10–15 m | OK |
-| Water tanks → Chaufferie | Reasonable | ~35 m | OK |
-| Fire tank → fire pump room | Short run | ~5 m (already designed) | OK |
+| Propane tank → building south wall | ≥ 7.5 m | ~15–20 m (south yard ~20m deep) | **OK** |
+| Propane tank → property line (south) | ≥ 15 m | ~20–25 m | **OK** |
+| Propane tank → property line (east) | ≥ 15 m | ~15–20 m | **Verify** |
+| Propane tank → 200T silo | ≥ 15 m (dust source) | ~20 m | **OK** |
+| Propane tank → fire water tank | N/A (different zone) | ~50 m (SW vs SE) | **OK** |
+| Propane tank → boiler flue | ≥ 15 m | ~55 m | **OK** |
+| Propane tank → offices | ≥ 15 m | ~65 m+ | **OK** |
+| Propane tank → truck scale | Accessible | ~10 m | **OK** |
+| Water tanks → well head | Short run | ~10–15 m | **OK** |
+| Water tanks → Chaufferie | Reasonable | ~35 m | **OK** |
+| Fire tank → fire pump room | Short run | ~5 m (already designed) | **OK** |
 
 ---
 
@@ -397,8 +416,8 @@ If the SE yard has insufficient clearance from the property line:
 
 | # | Action | Responsible | Priority |
 |---|---|---|---|
-| 1 | Confirm lot dimensions and exact setback distances with surveyor/cadastral plan | Owner/Architect | High |
-| 2 | Verify SE yard has ≥15m from property line for propane tanks | Owner/Architect | High |
+| 1 | ~~Confirm lot dimensions~~ → **DONE: PNV confirms 101.37 × 107.63 m** | ~~Owner/Architect~~ | ~~High~~ |
+| 2 | Verify SE yard east boundary has ≥15m from property line for propane tanks (PNV shows ~15–20m — confirm with surveyor) | Owner/Architect | High |
 | 3 | Commission hydrogeological survey for well location in SW yard | Owner | High |
 | 4 | Confirm Chaufferie dimensions can accommodate 2 × 4 t/h boilers (request FAMSUN updated layout) | FAMSUN/Owner | High |
 | 5 | Request INGenios to update fire plan for propane tank ATEX zones | INGenios | Medium |

@@ -1,7 +1,7 @@
 # Analyse d'Implantation — Chaudière, Réservoirs d'Eau et Citerne GPL
 ## Equipment Location Analysis — Boiler, Water Tanks & Propane Tank
 **Project:** PetFactory Morocco — Sidi Bouathmane, Benguerir  
-**Date:** 2026-09-21 (Rev 4 — 2026-09-21, updated from Plan de Masse INGenios)  
+**Date:** 2026-09-21 (Rev 5 — 2026-09-21, EGFI boiler specs + truck loading zone, oil tank removed)  
 **Prepared by:** Claude AI / Sam Aribi  
 **Reference drawings:**  
 - **Plan de Masse — INGenios CFO (Indice A, 10/10/2025)** ← primary reference for Rev 4
@@ -565,7 +565,6 @@ With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more
 | Propane tank → boiler flue | ≥ 15 m | ~55 m (flue at center of roof) | **OK** |
 | Propane tank → offices | ≥ 15 m | ~65 m+ | **OK** |
 | Propane tank → truck scale | Accessible | ~10 m | **OK** |
-| **Propane tank → Big Oil Tank (B39)** | ≥ 15 m (flammable liquid) | ~10–15 m | **Verify — may need repositioning** |
 | Water tanks → well head | Short run | ~10–15 m | **OK** |
 | Water tanks → Chaufferie | Reasonable | ~35 m | **OK** |
 | Fire tank → fire pump room | Short run | ~5 m (already designed) | **OK** |
@@ -585,7 +584,6 @@ With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more
 | Water tanks → well head | Short run | ~10–15 m | **OK** |
 | Water tanks → Chaufferie (south) | Short run | **~10 m** | **OK** |
 | Chaufferie extension → property line (south) | Building setback | ~12–15 m (8m extension into ~20m yard) | **Verify with surveyor** |
-| **Propane tank → Big Oil Tank (B39)** | ≥ 15 m (flammable liquid) | ~10–15 m | **Verify — may need repositioning** |
 | Fire tank → fire pump room | Short run | ~5 m (already designed) | **OK** |
 
 > **Key difference:** The south-side boiler flue is ~20–25m from propane tanks instead of ~55m. Still above the 15m minimum, but the flue **must be oriented north** to direct exhaust away from the propane zone.
@@ -609,8 +607,8 @@ With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more
 | 11 | Confirm prevailing wind direction at Benguerir site (NE → SW assumed) | Met. data | Low |
 | 12 | Design water treatment plant layout for SW yard (softener, filters, dosing, RO) | Water eng. | Medium |
 | 13 | Plan tanker access road to serve both SE (propane) and SW (water delivery) areas | Civil eng. | Medium |
-| 14 | **Verify distance between Big Oil Tank (near B39) and propane tanks** — Plan de Masse shows ~10–15m, may need to reposition one or the other to achieve ≥15m | Owner/Architect | **High** |
-| 15 | Coordinate with INGenios on Poste Transfo / TGBT 2 cable routing to south-side Chaufferie (Option B) | Electrical eng. | Medium |
+| 14 | Coordinate with INGenios on Poste Transfo / TGBT 2 cable routing to south-side Chaufferie (Option B) | Electrical eng. | Medium |
+| 15 | Review EGFI devis 336/26 V1 — confirm 2-boiler scope, negotiate pricing, clarify deaerator cost | Owner | High |
 
 ---
 
@@ -634,7 +632,8 @@ The Plan de Masse confirms the following sub-zones within the Unité Humide (2,0
 
 ## 11. References
 
-- **Plan de Masse — INGenios CFO (Indice A, 10/10/2025)** ← primary reference for Rev 4
+- **Devis EGFI N° 336/26 V1 (29/07/2026)** — Chaufferie 4,000 kg/h 12 bars propane, boiler dimensions and equipment specs
+- **Plan de Masse — INGenios CFO (Indice A, 10/10/2025)** ← primary reference for site layout
 - Plan PCI Usine PET FACTORY — RDC, INGenios (Indice A)
 - Plan PCI Usine PET FACTORY — 1er Étage, INGenios (Indice A)
 - Plan PCI — Schéma Synoptique Surpresseur, INGenios

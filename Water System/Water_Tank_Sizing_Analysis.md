@@ -18,16 +18,49 @@
 | Operating schedule | 16 h/day (2 shifts), ~300 days/year |
 | Max occupancy (NSI ERT) | 559 persons |
 | Typical production staff | ~200 persons/shift |
-| Municipal water supply | ONEE (Office National de l'Électricité et de l'Eau potable) |
-| Water cost | 8.50 MAD/m³ |
+| Water supply — primary | Private well (forage) on site |
+| Water supply — backup | ONEE (Office National de l'Électricité et de l'Eau potable) |
+| ONEE water cost | 8.50 MAD/m³ |
+| Well water cost (pumping only) | ~1.50 MAD/m³ (electricity + maintenance) |
 
-### Water supply from ONEE
-The factory connects to the ONEE network at the ZI Sidi Bouathmane industrial zone. In Moroccan industrial zones, ONEE supply can experience:
+### Dual Water Supply Strategy: Well + ONEE
+
+The factory has **two independent water sources:**
+
+**1. Private well (forage) — Primary supply**
+
+The site at ZI Sidi Bouathmane will have a private borehole well. The Benguerir region sits on the **Bahira plain** aquifer (nappe de la Bahira), part of the Oum Er-Rbia basin. Typical characteristics for this region:
+
+| Parameter | Typical Range (Benguerir area) |
+|---|---|
+| Aquifer type | Alluvial / Plio-Quaternary |
+| Static water level | 15–40 m below ground |
+| Well depth | 40–80 m |
+| Expected yield | 3–10 m³/h (depending on location) |
+| Water quality | Moderate hardness (200–400 mg/L CaCO₃), suitable for industrial use after treatment |
+| TDS | 500–1,500 mg/L |
+
+**Regulatory requirements for private well in Morocco:**
+- Authorization from the Agence du Bassin Hydraulique de l'Oum Er-Rbia (ABHOER)
+- Loi 36-15 sur l'eau (Water Law) — permit required for any groundwater extraction
+- Annual declaration of volumes pumped
+- Meter installation mandatory
+- Water quality analysis (initial + annual)
+
+**2. ONEE municipal supply — Backup**
+
+The ONEE connection at the ZI Sidi Bouathmane industrial zone serves as a **backup** supply for:
+- Well pump failure or maintenance
+- Peak demand exceeding well capacity
+- Well water quality issues (seasonal variations)
+- Sanitary/drinking water (if well water doesn't meet potable standards)
+
+ONEE supply risks in Moroccan industrial zones:
 - Scheduled maintenance shutdowns (24–72 h notice)
 - Pressure drops during peak demand (summer)
 - Occasional unplanned interruptions (pipe breaks, pump failures)
 
-**Design philosophy:** Size raw water storage for **3–5 days autonomy** to protect production against supply disruptions.
+**Design philosophy:** The well is the primary source, ONEE is the backup. Raw water storage is sized so that **either source alone** can sustain the factory for at least **2 days**, and both together provide **3+ days** of autonomy. This dual-source approach significantly reduces supply risk compared to ONEE-only.
 
 ---
 
@@ -124,15 +157,23 @@ The chiller operates on a **closed-loop** system; makeup water compensates for m
 | **TOTAL (excl. fire)** | **~1.37** | **46.4** | **40.2** |
 
 **Peak hourly demand (production hours):** ~3.5 m³/h (including CIP peaks)  
-**Annual consumption:** 46.4 × 300 = **~13,920 m³/year**  
-**Annual cost:** 13,920 × 8.50 = **~118,320 MAD/year**
+**Annual consumption:** 46.4 × 300 = **~13,920 m³/year**
+
+### Annual cost comparison — Well vs ONEE:
+| Source | Unit Cost | Annual Cost | Saving vs ONEE |
+|---|---|---|---|
+| ONEE only | 8.50 MAD/m³ | 118,320 MAD/year | — |
+| Well only (pumping cost) | ~1.50 MAD/m³ | 20,880 MAD/year | **97,440 MAD/year** |
+| Well primary + ONEE backup (90/10 split) | ~2.20 MAD/m³ avg | 30,624 MAD/year | **87,696 MAD/year** |
+
+> The well saves approximately **87,000–97,000 MAD/year** in water costs. Well pumping cost includes electricity (~1.20 MAD/kWh × ~1 kWh/m³) + pump maintenance allocation.
 
 ### With flash steam recovery vessel (recommended):
 | | Daily Peak | Daily Average |
 |---|---|---|
 | Boiler makeup reduction | -4.2 m³/day | -3.4 m³/day |
 | **Revised total** | **42.2 m³/day** | **36.8 m³/day** |
-| Annual saving | ~1,260 m³/year | = ~10,710 MAD/year |
+| Additional annual saving | ~1,260 m³/year | = ~1,890 MAD/year (well) or ~10,710 MAD/year (ONEE) |
 
 ---
 
@@ -140,35 +181,71 @@ The chiller operates on a **closed-loop** system; makeup water compensates for m
 
 ### 4.1 Tank A — Raw Water Storage (Citerne d'eau brute)
 
-**Purpose:** Main buffer between ONEE municipal supply and plant water treatment system.
+**Purpose:** Main buffer fed by both the private well and the ONEE backup connection.
+
+**Sizing rationale with dual supply:**
+
+With a well as the primary source, the tank acts as a buffer between the well pump (intermittent cycling) and the continuous plant demand, and as a reserve if the well pump fails. The ONEE backup automatically activates on low tank level.
 
 | Design parameter | Value | Basis |
 |---|---|---|
 | Design daily demand | 46.4 m³/day | Peak day (Section 3) |
-| Fire water reserve | 35 m³ | Dedicated tank (Section 4.5) |
-| Target autonomy | 3–5 days | ONEE supply risk at Benguerir ZI |
-| Minimum volume (3 days) | 46.4 × 3 = **139 m³** | |
-| Recommended volume (4 days) | 46.4 × 4 = **186 m³** | |
-| Safety margin (10%) | +19 m³ | |
-| **Design volume** | **200 m³** | Rounded commercial size |
+| Well pump expected yield | 5–8 m³/h | Typical for Benguerir area (to confirm after drilling) |
+| Well pump operating hours | 8–12 h/day | To meet 46.4 m³/day at 5–8 m³/h |
+| Minimum buffer (pump failure) | 46.4 × 2 = 93 m³ | 2 days without well (ONEE backup activates) |
+| Target autonomy (both sources down) | 2 days | Unlikely but conservative |
+| Safety margin (15%) | +14 m³ | |
+| **Design volume** | **120 m³** | Reduced from 200 m³ thanks to dual supply |
+
+> With only ONEE, 200 m³ was needed for 4+ days autonomy. The well reduces this to **120 m³** because the dual supply makes a total loss of water very unlikely. If the well fails, ONEE kicks in immediately; if ONEE is interrupted, the well continues pumping. The 120 m³ reserve covers 2 days even if **both** sources fail simultaneously.
 
 **Recommended configuration:**
 
 | Option | Description | Cost Estimate | Pros | Cons |
 |---|---|---|---|---|
-| **Option 1 (Recommended)** | 2 × 100 m³ PEHD/béton | ~220,000 MAD | Redundancy: maintenance possible on one tank while other operates; phased installation | Higher total cost |
-| Option 2 | 1 × 200 m³ béton enterré | ~180,000 MAD | Single foundation; lower cost | No redundancy; all-or-nothing maintenance |
-| Option 3 | 1 × 200 m³ acier aérien | ~250,000 MAD | Easy inspection; fast install | Higher cost; thermal gain in summer |
+| **Option 1 (Recommended)** | 2 × 60 m³ béton armé | ~160,000 MAD | Redundancy: one tank can be cleaned while other operates; well and ONEE can each feed a different tank | Slightly higher cost than single |
+| Option 2 | 1 × 120 m³ béton armé | ~120,000 MAD | Single foundation; lower cost | No redundancy during maintenance |
+| Option 3 | 1 × 100 m³ + 1 × 50 m³ | ~145,000 MAD | Flexibility: small tank can be dedicated to boiler circuit | Uneven volumes |
 
-**Construction details (Option 1):**
+**Construction details (Option 1 — 2 × 60 m³):**
 - Material: Reinforced concrete (béton armé), waterproofed with epoxy lining
-- Location: Near ONEE connection point, ideally at low elevation on site
-- ONEE connection: DN80 minimum (per industrial zone standard)
-- Level control: Float valve on ONEE supply + level transmitter (LT) + low-level alarm
+- Location: Near the well head and boiler room, at low elevation on site
+- Well pump discharge: PEHD DN63–DN80 into tanks
+- ONEE backup connection: DN80 with automatic fill valve (opens on low-low level)
+- Disconnection device on ONEE line: mandatory (anti-retour + disconnecteur BA)
+- Level control per tank: Level transmitter (LT) + high/low/low-low alarms
+- Low level → alarm + auto-switch to ONEE backup
+- Low-low level → critical alarm + production shutdown interlock
 - Overflow: DN100 to storm drain
 - Drain: DN80 at bottom for cleaning
 - Ventilation: Screened vent pipe to prevent contamination
-- Access: Manhole 600×600 mm minimum
+- Access: Manhole 600×600 mm minimum per tank
+- Inter-tank connection: DN80 with isolation valve (allows balancing or isolation)
+
+### 4.1.1 Well Pump Station
+
+| Parameter | Recommended |
+|---|---|
+| Pump type | Submersible borehole pump |
+| Flow rate | 5–8 m³/h (confirm after pump test) |
+| Head | ~50–70 m (static level + friction + elevation) |
+| Power | ~3–5 kW |
+| Control | VFD (variable frequency drive) recommended for energy saving |
+| Level protection | Dry-run protection sensor in well |
+| Operating mode | Automatic: starts on tank low level, stops on high level |
+| Backup pump | Recommended (stored on-site spare, not installed) |
+| Estimated cost | 35,000–50,000 MAD (pump + VFD + wellhead piping) |
+
+### 4.1.2 ONEE Backup Connection
+
+| Parameter | Value |
+|---|---|
+| Connection size | DN80 |
+| Activation | Automatic: solenoid valve opens when tank level < 30% |
+| Disconnection device | BA (disconnecteur à zone de pression réduite) — mandatory per ONEE regulations |
+| Flow meter | Pulsed output meter for ONEE billing |
+| Expected fill rate | 8–12 m³/h at 2.5–3.5 bar ONEE pressure |
+| Annual ONEE usage (normal) | ~10% of total = ~1,400 m³/year = ~11,900 MAD/year |
 
 ### 4.2 Tank B — Boiler Feedwater Tank (Bâche alimentaire)
 
@@ -259,73 +336,119 @@ Moroccan regulation (Décret n°2-14-499, Livre N°104) for ERT Category A:
 
 | Tank | Volume | Type | Status | Priority |
 |---|---|---|---|---|
-| **A — Raw water storage** | **200 m³** (2×100) | Béton armé enterré | **TO BUILD** | Critical |
+| **A — Raw water storage** | **120 m³** (2×60) | Béton armé enterré | **TO BUILD** | Critical |
 | **B — Boiler feedwater** | **3 m³** | SS insulated (Fang Kuai) | Included in boiler package | — |
 | **C — Process water** | **15 m³** | PEHD/PRFV food-grade | **TO BUILD** (or upgrade existing 10 m³) | High |
 | **D — Softened water buffer** | **2 m³** | SS or PEHD | **TO BUILD** | Medium |
 | **E — Fire water reserve** | **35 m³** | Béton armé | Designed (INGenios) | Critical |
-| **TOTAL** | **255 m³** | | | |
+| **TOTAL** | **175 m³** | | | |
+
+> Compared to ONEE-only scenario (255 m³ total with 200 m³ raw storage), the dual well+ONEE supply reduces raw water storage by **80 m³**, saving approximately **60,000 MAD** in tank construction.
 
 ---
 
 ## 5. Water Treatment Chain
 
 ```
-ONEE Municipal Supply (DN80)
-        │
-        ▼
-┌──────────────────────┐
-│   RAW WATER TANK     │
-│   200 m³ (2 × 100)   │─────────────────────────────────────────┐
-│   Citerne d'eau brute │                                         │
-└──────────┬───────────┘                                         │
-           │                                                      │
-    ┌──────┴──────┐                                              │
-    │             │                                              │
-    ▼             ▼                                              ▼
-┌────────┐  ┌─────────────┐                              ┌───────────────┐
-│ Sand   │  │ Softener    │                              │ FIRE RESERVE  │
-│ Filter │  │ (Fang Kuai  │                              │  35 m³        │
-│        │  │  dual-tank) │                              │ Dedicated     │
-└───┬────┘  └──────┬──────┘                              └───────────────┘
-    │              │
-    ▼              ▼
-┌────────┐  ┌──────────────┐
-│ Carbon │  │ SOFTENED     │
-│ Filter │  │ WATER BUFFER │
-│        │  │  2 m³        │
-└───┬────┘  └──────┬───────┘
-    │              │
-    ▼              ▼
-┌─────────────┐  ┌──────────────────┐
-│ PROCESS     │  │ BOILER FEEDWATER  │
-│ WATER TANK  │  │ TANK 3 m³        │
-│ 15 m³       │  │ (+ condensate     │
-│             │  │  return at 85°C)  │
-└─────┬───────┘  └──────┬───────────┘
-      │                 │
-      ├──► Preconditioner (400 kg/h, heated to 60°C)
-      ├──► CIP system
-      ├──► Cooling makeup
-      ├──► Sanitary (via direct line from raw tank)
-      │                 │
-      │                 └──► Feed pumps 2×4 m³/h ──► Boiler 3 t/h
-      │
-      └──► Floor washing / misc
+  PRIVATE WELL (forage)          ONEE Municipal Supply (DN80)
+  Submersible pump               Backup — auto-activates on low level
+  5–8 m³/h                       8–12 m³/h at 2.5–3.5 bar
+        │                               │
+        │    PEHD DN63–DN80             │    DN80 + disconnecteur BA
+        │                               │    + solenoid valve (auto)
+        └───────────┬───────────────────┘
+                    │
+                    ▼
+          ┌──────────────────────┐
+          │   RAW WATER TANK     │
+          │   120 m³ (2 × 60)    │─────────────────────────────────┐
+          │   Citerne d'eau brute │                                 │
+          └──────────┬───────────┘                                 │
+                     │                                              │
+              ┌──────┴──────┐                                      │
+              │             │                                      │
+              ▼             ▼                                      ▼
+          ┌────────┐  ┌─────────────┐                      ┌───────────────┐
+          │ Sand   │  │ Softener    │                      │ FIRE RESERVE  │
+          │ Filter │  │ (Fang Kuai  │                      │  35 m³        │
+          │        │  │  dual-tank) │                      │ Dedicated     │
+          └───┬────┘  └──────┬──────┘                      └───────────────┘
+              │              │
+              ▼              ▼
+          ┌────────┐  ┌──────────────┐
+          │ Carbon │  │ SOFTENED     │
+          │ Filter │  │ WATER BUFFER │
+          │        │  │  2 m³        │
+          └───┬────┘  └──────┬───────┘
+              │              │
+              ▼              ▼
+        ┌─────────────┐  ┌──────────────────┐
+        │ PROCESS     │  │ BOILER FEEDWATER  │
+        │ WATER TANK  │  │ TANK 3 m³        │
+        │ 15 m³       │  │ (+ condensate     │
+        │             │  │  return at 85°C)  │
+        └─────┬───────┘  └──────┬───────────┘
+              │                 │
+              ├──► Preconditioner (400 kg/h, heated to 60°C)
+              ├──► CIP system
+              ├──► Cooling makeup
+              ├──► Sanitary (via direct line from raw tank)
+              │                 │
+              │                 └──► Feed pumps 2×4 m³/h ──► Boiler 3 t/h
+              │
+              └──► Floor washing / misc
 ```
 
 ---
 
-## 6. ONEE Connection & Fill Rates
+## 6. Water Supply Sources & Fill Rates
+
+### 6.1 Primary Source — Private Well (Forage)
+
+| Parameter | Value |
+|---|---|
+| Well pump type | Submersible borehole pump (e.g. Grundfos SP or Pedrollo 4SR) |
+| Expected flow rate | 5–8 m³/h (to confirm after pump test) |
+| Total dynamic head | ~50–70 m (static level + friction + elevation to tanks) |
+| Motor power | ~3–5 kW |
+| Daily pumping hours | 8–12 h/day (to supply 46.4 m³/day) |
+| Daily electricity cost | ~10–14 kWh × 1.20 MAD = **12–17 MAD/day** |
+| Control | VFD recommended; auto start/stop on tank level |
+| Dry-run protection | Electrode sensor or float at intake |
+| Discharge pipe | PEHD DN63–DN80 to raw water tank |
+| Annual pumped volume | ~12,500 m³ (90% of 13,920 m³) |
+| Annual pumping cost | ~18,750 MAD |
+
+**Well pump sizing note:** Final pump selection depends on the pump test results after drilling. The submersible pump must be sized to the confirmed well yield and static water level. A spare pump should be stored on-site for rapid replacement.
+
+### 6.2 Backup Source — ONEE Municipal Supply
 
 | Parameter | Value |
 |---|---|
 | ONEE connection size (recommended) | DN80 (minimum) |
 | Expected ONEE pressure at site | 2.5–3.5 bar |
 | Fill rate at 3 bar, DN80 | ~8–12 m³/h |
-| Time to fill 200 m³ from empty | 17–25 hours |
-| Daily refill requirement | 46.4 m³ → ~4–6 hours of fill per day |
-| Fire reserve refill | 35 m³ → ~3–4 hours |
+| Activation | Automatic: solenoid valve opens when tank level < 30% |
+| Disconnection device | BA (disconnecteur à zone de pression réduite) — mandatory |
+| ONEE billing meter | Pulsed output, DN80 Woltman-type |
+| Expected annual ONEE usage (normal operation) | ~1,400 m³ (~10% of total) = **~11,900 MAD/year** |
+| Time to fill 120 m³ from empty (ONEE alone) | 10–15 hours |
+| Time to fill fire reserve (35 m³) | ~3–4 hours |
+
+### 6.3 Combined Fill Capacity
+
+| Scenario | Fill Rate | Time to Fill Raw Tank (120 m³) |
+|---|---|---|
+| Well only | 5–8 m³/h | 15–24 hours |
+| ONEE only | 8–12 m³/h | 10–15 hours |
+| Both simultaneously | 13–20 m³/h | 6–9 hours |
+
+**Automatic switching logic:**
+1. **Normal:** Well pump runs on tank level (start at 60%, stop at 90%)
+2. **Low level (< 30%):** ONEE solenoid valve opens automatically, alarm raised
+3. **Low-low level (< 15%):** Critical alarm, production shutdown interlock, both sources active
+4. **Well failure:** ONEE sustains full plant demand indefinitely (at higher cost)
+5. **ONEE failure:** Well sustains full plant demand if yield ≥ 5 m³/h
 
 **Important:** Confirm ONEE connection capacity with local ONEE office (Direction Régionale de Marrakech-Safi). The industrial zone may have a DN100 main, but individual connections are typically DN80.
 
@@ -333,10 +456,21 @@ ONEE Municipal Supply (DN80)
 
 ## 7. Moroccan Regulatory Requirements
 
+### Private well (Loi 36-15 sur l'eau)
+- **Authorization required** from Agence du Bassin Hydraulique de l'Oum Er-Rbia (ABHOER, Beni Mellal)
+- Application file: geological study, estimated extraction volume, intended use, site plan
+- **Water meter installation mandatory** — annual declaration of pumped volumes to ABHOER
+- **Water quality analysis** — initial analysis at commissioning + annual follow-up (physical, chemical, bacteriological)
+- **Redevance (annual fee)** — based on volume extracted, set by ABHOER (typically 0.20–0.50 MAD/m³)
+- **Drilling permit** — separate authorization for the drilling works from local authorities
+- Well must be > 50 m from any septic tank, waste pit, or contamination source
+- Penalties for unauthorized extraction: fines per Art. 151 of Loi 36-15
+
 ### Drinking water storage (NM 03.7.001)
 - Minimum 24h autonomy for industrial establishments
 - Anti-contamination (disconnection device required at ONEE connection)
 - Annual inspection and cleaning of storage tanks
+- If well water is used for sanitary/drinking purposes, it must meet NM 03.7.001 potable water standards — periodic testing required
 
 ### Fire water (Décret n°2-14-499)
 - Dedicated reserve — cannot be shared with process water
@@ -349,28 +483,63 @@ ONEE Municipal Supply (DN80)
 - pH, COD, and BOD limits per Arrêté conjoint
 
 ### ONEE connection
-- Disconnection device (clapet anti-retour + disconnecteur) required to prevent backflow
+- Disconnection device (clapet anti-retour + disconnecteur BA) required to prevent backflow into ONEE network
 - Meter with remote reading recommended
 - Declaration of industrial water use to ONEE
+- ONEE may require verification that private well water cannot cross-contaminate the public network (disconnecteur BA meets this)
 
 ---
 
 ## 8. Cost Estimate
 
+### 8.1 Well Infrastructure
+
 | Item | Description | Estimated Cost (MAD) |
 |---|---|---|
-| Raw water tank (2 × 100 m³ béton armé) | Including excavation, waterproofing, piping | 220,000 |
+| Well drilling (forage) | 60–80 m depth, DN200 casing | 80,000–120,000 |
+| Pump test (essai de pompage) | 72 h step-drawdown + constant rate | 15,000 |
+| Submersible pump + motor | 5–8 m³/h, 50–70 m head, ~4 kW | 25,000–35,000 |
+| VFD (variateur de fréquence) | For energy savings and soft start | 8,000 |
+| Wellhead infrastructure | Concrete pad, sanitary seal, electrical panel | 15,000 |
+| Discharge pipe (PEHD DN63) | Well to raw water tank, ~30–50 m | 5,000 |
+| Water quality analysis (initial) | Physical + chemical + bacteriological | 3,000 |
+| ABHOER authorization fees | Administrative + redevance first year | 5,000 |
+| **Sub-total well** | | **156,000–206,000 MAD** |
+
+### 8.2 Water Storage & Treatment
+
+| Item | Description | Estimated Cost (MAD) |
+|---|---|---|
+| Raw water tank (2 × 60 m³ béton armé) | Including excavation, waterproofing, piping | 160,000 |
 | Process water tank (15 m³ PEHD) | Including foundation, piping | 35,000 |
 | Softened water buffer (2 m³ SS) | Including connections | 15,000 |
 | Sand filter + carbon filter | Automatic backwash, DN80 | 45,000 |
-| Pumping station (2 transfer pumps) | 2 × 5 m³/h, H=25m | 25,000 |
-| Level instrumentation (5 tanks) | Level transmitters + alarms | 30,000 |
+| Transfer pumping station | 2 × 5 m³/h, H=25m (raw tank to treatment) | 25,000 |
+| Level instrumentation (5 tanks) | Level transmitters + alarms + PLC | 35,000 |
 | Piping network (PEHD/PVC) | Raw + treated + sanitary distribution | 55,000 |
-| ONEE connection & meter | DN80, including disconnecteur | 25,000 |
-| **Sub-total water storage & treatment** | | **450,000 MAD** |
-| Fire water tank (35 m³) | Already in PCI budget (Soufiane Incendie) | (separate budget) |
-| Boiler feedwater tank (3 m³) | Included in Fang Kuai package | (included) |
-| Water softener (dual-tank) | Included in Fang Kuai package | (included) |
+| ONEE backup connection & meter | DN80, disconnecteur BA, solenoid valve | 30,000 |
+| **Sub-total storage & treatment** | | **400,000 MAD** |
+
+### 8.3 Total Water System Investment
+
+| Category | Cost (MAD) |
+|---|---|
+| Well infrastructure | 156,000–206,000 |
+| Water storage & treatment | 400,000 |
+| **TOTAL (excl. fire & boiler packages)** | **556,000–606,000 MAD** |
+| Fire water tank (35 m³) | Already in PCI budget (Soufiane Incendie) |
+| Boiler feedwater tank (3 m³) | Included in Fang Kuai package |
+| Water softener (dual-tank) | Included in Fang Kuai package |
+
+### 8.4 Annual Operating Cost Comparison
+
+| Scenario | Water Cost | Well Maintenance | ABHOER Fee | Total Annual |
+|---|---|---|---|---|
+| **ONEE only (no well)** | 118,320 MAD | — | — | **118,320 MAD** |
+| **Well + ONEE backup (90/10)** | 30,624 MAD | 10,000 MAD | ~3,000 MAD | **~43,600 MAD** |
+| **Annual saving with well** | | | | **~74,700 MAD** |
+
+**Payback period for well investment:** 156,000–206,000 MAD ÷ 74,700 MAD/year = **2.1–2.8 years**
 
 > Note: Fang Kuai boiler package already includes the feedwater tank (3 m³), feed pumps (2 × 4 m³/h), and water softener. These do not need separate procurement.
 
@@ -378,20 +547,25 @@ ONEE Municipal Supply (DN80)
 
 ## 9. Recommendations
 
-### Immediate actions
-1. **Confirm ONEE connection capacity** — contact ONEE Direction Régionale Marrakech-Safi for available pressure and flow at ZI Sidi Bouathmane
-2. **Build raw water storage (200 m³)** — this is the critical path item; production cannot start without adequate water storage
-3. **Verify fire water tank (35 m³)** — confirm with Soufiane Incendie that poteaux incendie are served from ONEE direct pressure and the 35 m³ covers RIA network only
-4. **Upgrade process water tank** from 10 m³ to 15 m³ (if not yet procured)
+### Phase 1 — Well & Water Infrastructure (before production start)
+1. **Drill the well (forage)** — engage a qualified drilling company (entreprise de forage agréée); obtain ABHOER authorization before drilling starts
+2. **Conduct pump test (essai de pompage)** — minimum 72 hours; this determines actual yield and pump sizing
+3. **Confirm ONEE backup connection** — contact ONEE Direction Régionale Marrakech-Safi for available pressure and flow at ZI Sidi Bouathmane
+4. **Build raw water storage (2 × 60 m³)** — critical path item; production cannot start without adequate water storage
+5. **Verify fire water tank (35 m³)** — confirm with Soufiane Incendie that poteaux incendie are served from ONEE direct pressure and the 35 m³ covers RIA network only
+6. **Upgrade process water tank** from 10 m³ to 15 m³ (if not yet procured)
+7. **Install well pump station** — submersible pump, VFD, wellhead, electrical panel, discharge pipe to raw water tanks
 
-### Design optimization
-5. **Install flash steam recovery vessel** — saves 4.2 m³/day of boiler makeup water (see Condensate Return Rate Calculation)
-6. **Install water meters on each circuit** — boiler makeup, preconditioner, CIP, sanitary — to enable water balance monitoring and leak detection
-7. **Rainwater harvesting** — consider collecting roof water (5,180 m² roof × 300 mm avg rainfall = ~1,554 m³/year) for landscape and floor washing. Payback: ~3 years at current water rates
+### Phase 2 — Design optimization
+8. **Install flash steam recovery vessel** — saves 4.2 m³/day of boiler makeup water (see Condensate Return Rate Calculation)
+9. **Install water meters on each circuit** — well output, ONEE input, boiler makeup, preconditioner, CIP, sanitary — to enable water balance monitoring and leak detection
+10. **Well water quality monitoring** — establish baseline quality profile; install online TDS/conductivity monitor on well output for early warning of quality changes
+11. **Rainwater harvesting** — consider collecting roof water (5,180 m² roof × 300 mm avg rainfall = ~1,554 m³/year) for landscape and floor washing. Payback: ~2 years at well water rates
 
-### Future consideration
-8. **Water recycling** — CIP rinse water from final rinse can be reused for first rinse of next cycle (saves ~30% of CIP water)
-9. **Cooling tower blowdown recovery** — if evaporative cooling is added later, blowdown can be recovered for floor washing
+### Phase 3 — Future consideration
+12. **Second well (forage de secours)** — if the factory expands beyond 5 TPH or if the primary well yield declines, a second borehole provides redundancy
+13. **Water recycling** — CIP rinse water from final rinse can be reused for first rinse of next cycle (saves ~30% of CIP water)
+14. **Cooling tower blowdown recovery** — if evaporative cooling is added later, blowdown can be recovered for floor washing
 
 ---
 
@@ -405,4 +579,6 @@ ONEE Municipal Supply (DN80)
 - PetFactory Morocco — Condensate Return Rate Calculation
 - Norme Marocaine NM 03.7.001 — Installations de production et distribution d'eau
 - Décret n°2-14-499 — Règlement général de construction, sécurité incendie
+- Loi 36-15 sur l'eau — Code de l'eau marocain (groundwater extraction authorization)
+- ABHOER — Agence du Bassin Hydraulique de l'Oum Er-Rbia (well permit authority)
 - ONEE — Conditions techniques de raccordement

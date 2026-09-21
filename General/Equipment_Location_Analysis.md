@@ -1,9 +1,10 @@
 # Analyse d'Implantation — Chaudière, Réservoirs d'Eau et Citerne GPL
 ## Equipment Location Analysis — Boiler, Water Tanks & Propane Tank
 **Project:** PetFactory Morocco — Sidi Bouathmane, Benguerir  
-**Date:** 2026-09-21 (Rev 3 — 2026-09-21, added south-side boiler option)  
+**Date:** 2026-09-21 (Rev 4 — 2026-09-21, updated from Plan de Masse INGenios)  
 **Prepared by:** Claude AI / Sam Aribi  
 **Reference drawings:**  
+- **Plan de Masse — INGenios CFO (Indice A, 10/10/2025)** ← primary reference for Rev 4
 - **PNV (Permis de Construire) — Modification plans (RDC, 1er Étage, Masse)**
 - Appendix E: General Layout (FAMSUN)  
 - Plan PCI Usine PET FACTORY — RDC (INGenios)  
@@ -15,35 +16,49 @@
 
 ## 1. Site Overview
 
-### Building Footprint & Orientation
+### Building Footprint & Orientation (updated from Plan de Masse INGenios)
 
 ```
-                    NORTH
-         B33 ─────────────────── B32
-          │       10m setback      │
-          │  ┌───────────────────┐ │
-          │  │  Magasin    Salle │ │  Office
-  B44     │  │  Produit    d'Em- │ │  By Buyer
-  (W)     │  │  Fini       ball. │ │  (separate)
-          │  │  (845 m²)         │ │
-          │  ├──────┬──────┬─────┤ │
-          │  │Unité │Chauf-│     │ │
-          │  │Sec   │ferie │Unité│ │
-          │  │Croq. │Maint.│Humi-│ │
-          │  │(10m) │TGBT  │de   │ │
-          │  │      │Huile │2000 │ │
-          │  ├──────┴──────┤ m²  │ │
-          │  │  Magasin     │     │ │
-          │  │  Réception   │     │ │
-          │  │  (1233 m²)   │     │ │
-          │  └──────────────┴─────┘ │
-          │    ┌──────┐ ┌──┐  ┌───┐│
-          │    │Equip.│ │Si│  │Trk││
-          │    │      │ │lo│  │Scl││
-         B40 ──┴──────┴─┴──┴──┴───┘B39
-                    SOUTH
-           (── 10m setback ──)
+                             NORTH
+         B33 ─────────────────────────────── B32
+          │              10m setback             │
+          │  ┌────────────────────────────────┐  │  ┌─────────────┐
+          │  │  Magasin Produit │ Salle d'Em- │  │  │Administration│
+          │  │  Fini (845 m²)   │ ballage     │  │  │ Bureaux,    │
+  B44     │  │                  │             │  │  │ Cantine,    │
+  (W)     │  ├──────┬───────────┼─────────────┤  │  │ Salle Réun. │
+          │  │Unité │Chaufferie │  Unité      │  │  └─────────────┘
+          │  │Sec   │Maint.TGBT │  Humide     │  │   Hall Réception
+          │  │Croq. │Huile      │  (2000 m²)  │  │   & Caisse
+          │  │HSP   │           │  ┌────────┐ │  │
+          │  │18.5m │           │  │Stérili-│ │  │  Guérite (NE)
+          │  │      │           │  │sation  │ │  │
+          │  ├──────┴───────────┤  │Cuisson │ │  │
+          │  │  Magasin          │  │Refroid.│ │  │
+          │  │  Réception        │  │Sertis. │ │  │
+          │  │  (1233 m²)        │  │Ch.+/−  │ │  │
+          │  └──────────────────┴──┴────────┘ │  │
+          │  ┌─────────┐┌──────┐ ┌──┐  ┌────┐│  │
+          │  │Poste    ││TGBT 2│ │Si│  │Pèse││  │
+          │  │Transfo  ││      │ │lo│  │Ess.││  │
+          │  │(6 HTA)  │├──────┤ │12│  ├────┤│  │
+          │  └─────────┘│PLG   │ │m │  │Oil ││  │
+          │             └──────┘ └──┘  │Tank││  │
+         B40 ──────────────────────────┴────┘B39
+                             SOUTH              Guérite (SE)
+                    (── 10m setback ──)
 ```
+
+**Key features from Plan de Masse:**
+- **Administration** — separate building, NE of lot (bureaux, cantine, salle de réunion, RH)
+- **Hall de Réception / Caisse** — east side of main building
+- **Guard houses (Guérite)** — at NE and SE entry points with SAS airlocks
+- **Poste Transfo** — south side, 6 HTA cells (electrical substation)
+- **Local TGBT 2** — south side, adjacent to Poste Transfo
+- **LOCAL PLG** — designated on Plan de Masse, south side
+- **Grand Réservoir d'Huile** — near B39 (SE corner)
+- **Pèse essieux** — truck weighbridge, south yard
+- **HSP (Hauteur Sous Plafond):** 18.5m (Unité Sec), 12m (silo area), 8m (standard), 3.70m (admin), +0.60m (admin level)
 
 **Lot dimensions (from PNV — Permis de Construire):**
 
@@ -75,7 +90,19 @@ With the lot at ~10,900 m² and the building at ~5,180 m², there is approximate
 | **East strip** | Between building & east property line (B32–B39) | ~108m × ~10m = **~1,000 m²** | Office building, parking |
 | **North strip** | Between building & north property line | ~101m × ~10m = **~1,000 m²** | Setback |
 | **SW corner** | South of Magasin Réception, west of silo | ~40m × ~20m = **~800 m²** | Open — ideal for water tanks |
-| **SE corner** | South of Unité Humide, east of silo | ~50m × ~20m = **~1,000 m²** | Truck scale — ideal for propane |
+| **SE corner** | South of Unité Humide, east of silo | ~50m × ~20m = **~1,000 m²** | Truck scale, oil tank — ideal for propane |
+
+### Electrical Infrastructure (from Plan de Masse)
+
+The Plan de Masse confirms significant electrical infrastructure already positioned on the **south side** of the building:
+
+| Element | Location | Details |
+|---|---|---|
+| **Poste Transformateur** | South of building, SW area | 6 HTA cells, grounding system (Prise de terre) |
+| **Local TGBT 2** | South of building, adjacent to Poste Transfo | Secondary main distribution board |
+| **LOCAL PLG** | South of building, near centre | Designated on Plan de Masse |
+
+> This south-side electrical cluster **strengthens the case for Option B (south-side Chaufferie)** — boiler power supply and controls are immediately adjacent, reducing cable runs and simplifying electrical integration.
 
 ---
 
@@ -160,6 +187,7 @@ Move the Chaufferie to a **lean-to extension** on the south wall of the building
 | **Ventilation** | Double-height void (existing) | Open-air extension — excellent natural ventilation |
 | **Noise** | Inside building (contained) | Outside — less noise impact on production area |
 | **Boiler flue to propane** | ~55 m (very safe) | **~20–25 m** (still ≥15m — OK, orient flue north) |
+| **Electrical supply (TGBT 2)** | ~40 m from TGBT 2 (south) | **~10 m** — adjacent to Poste Transfo & TGBT 2 |
 | **PNV modification** | Not needed | **Required** (building footprint change) |
 | **Construction cost** | Included in building | Additional lean-to structure |
 
@@ -537,6 +565,7 @@ With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more
 | Propane tank → boiler flue | ≥ 15 m | ~55 m (flue at center of roof) | **OK** |
 | Propane tank → offices | ≥ 15 m | ~65 m+ | **OK** |
 | Propane tank → truck scale | Accessible | ~10 m | **OK** |
+| **Propane tank → Big Oil Tank (B39)** | ≥ 15 m (flammable liquid) | ~10–15 m | **Verify — may need repositioning** |
 | Water tanks → well head | Short run | ~10–15 m | **OK** |
 | Water tanks → Chaufferie | Reasonable | ~35 m | **OK** |
 | Fire tank → fire pump room | Short run | ~5 m (already designed) | **OK** |
@@ -556,6 +585,7 @@ With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more
 | Water tanks → well head | Short run | ~10–15 m | **OK** |
 | Water tanks → Chaufferie (south) | Short run | **~10 m** | **OK** |
 | Chaufferie extension → property line (south) | Building setback | ~12–15 m (8m extension into ~20m yard) | **Verify with surveyor** |
+| **Propane tank → Big Oil Tank (B39)** | ≥ 15 m (flammable liquid) | ~10–15 m | **Verify — may need repositioning** |
 | Fire tank → fire pump room | Short run | ~5 m (already designed) | **OK** |
 
 > **Key difference:** The south-side boiler flue is ~20–25m from propane tanks instead of ~55m. Still above the 15m minimum, but the flue **must be oriented north** to direct exhaust away from the propane zone.
@@ -579,11 +609,32 @@ With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more
 | 11 | Confirm prevailing wind direction at Benguerir site (NE → SW assumed) | Met. data | Low |
 | 12 | Design water treatment plant layout for SW yard (softener, filters, dosing, RO) | Water eng. | Medium |
 | 13 | Plan tanker access road to serve both SE (propane) and SW (water delivery) areas | Civil eng. | Medium |
+| 14 | **Verify distance between Big Oil Tank (near B39) and propane tanks** — Plan de Masse shows ~10–15m, may need to reposition one or the other to achieve ≥15m | Owner/Architect | **High** |
+| 15 | Coordinate with INGenios on Poste Transfo / TGBT 2 cable routing to south-side Chaufferie (Option B) | Electrical eng. | Medium |
 
 ---
 
-## 10. References
+## 10. Wet Production Line Detail (from Plan de Masse)
 
+The Plan de Masse confirms the following sub-zones within the Unité Humide (2,000 m²), relevant for steam and water pipe routing:
+
+| Zone | Function | Steam Demand | Water Demand |
+|---|---|---|---|
+| **Stérilisation** | Retort sterilization of sealed cans/pouches | High — direct steam injection | High — retort cooling water |
+| **Cuisson** | Cooking of wet pet food formulations | High — steam-jacketed kettles | Medium — process water |
+| **Sertissage** | Can/pouch seaming and sealing | None | None |
+| **Refroidissement** | Post-retort cooling | None | High — cooling water loop |
+| **Préparation Viande** | Raw meat preparation and grinding | None | Medium — washdown |
+| **Chambre Positive** | Chilled storage (+2–4°C) | None | None |
+| **Chambre Négative** | Frozen storage (−18°C) | None | None |
+
+> **Pipe routing note:** Steam headers from the Chaufferie should enter the Unité Humide and branch to Stérilisation and Cuisson zones first (highest demand). The Refroidissement zone connects to the retort cooling water loop (25 m³ tank in SW yard).
+
+---
+
+## 11. References
+
+- **Plan de Masse — INGenios CFO (Indice A, 10/10/2025)** ← primary reference for Rev 4
 - Plan PCI Usine PET FACTORY — RDC, INGenios (Indice A)
 - Plan PCI Usine PET FACTORY — 1er Étage, INGenios (Indice A)
 - Plan PCI — Schéma Synoptique Surpresseur, INGenios

@@ -1,7 +1,7 @@
 # Analyse d'Implantation — Chaudière, Réservoirs d'Eau et Citerne GPL
 ## Equipment Location Analysis — Boiler, Water Tanks & Propane Tank
 **Project:** PetFactory Morocco — Sidi Bouathmane, Benguerir  
-**Date:** 2026-09-21 (Rev 2 — 2026-09-21, updated with PNV lot dimensions)  
+**Date:** 2026-09-21 (Rev 3 — 2026-09-21, added south-side boiler option)  
 **Prepared by:** Claude AI / Sam Aribi  
 **Reference drawings:**  
 - **PNV (Permis de Construire) — Modification plans (RDC, 1er Étage, Masse)**
@@ -108,9 +108,9 @@ The 1er Étage plan confirms **"Vide Sur Chaudière"** — the boiler room is **
 | **Condensate return** | Central position collects from both lines efficiently | Good |
 | **Noise/vibration** | Interior room but away from offices (offices are north/east) | Acceptable |
 
-### Recommendation for Boiler Room
+### Recommendation for Boiler Room — Option A: Centre (Baseline)
 
-**Keep the designated Chaufferie location. It is optimal.**
+**Keep the designated Chaufferie location. It is optimal for steam distribution.**
 
 **Size the room for 2 × 4 t/h boilers:**
 - Minimum floor area: ~80–100 m² (2 boilers + feedwater tank + softener + pumps + control panel)
@@ -119,6 +119,70 @@ The 1er Étage plan confirms **"Vide Sur Chaudière"** — the boiler room is **
 - Boiler feedwater tank (10 m³) and softened water buffer tank (5 m³): install **inside or immediately adjacent** to the Chaufferie
 - Condensate receiver tank (1–2 m³): inside the Chaufferie near the boiler feed pumps
 - Water treatment (softener, RO if needed): can be in an adjacent room or covered area on the building's west exterior wall
+
+### Option B: South-Side Boiler Room (Alternative — Preferred)
+
+Move the Chaufferie to a **lean-to extension** on the south wall of the building, between the Magasin Réception and Unité Humide exits. This option places the boiler room closer to both the propane tanks (SE yard) and water tanks (SW yard), significantly shortening utility piping.
+
+```
+        ┌──────────────────────────────────────┐
+        │  Magasin         │                   │
+        │  Réception       │  Unité Humide     │
+        │  (1233 m²)       │                   │
+        └──────┬───────────┴────────┬──────────┘
+               │    SOUTH WALL      │
+        ┌──────┴────────────────────┴──────┐
+        │        CHAUFFERIE (Extension)    │
+        │    ┌──────────┐  ┌──────────┐    │
+        │    │ Boiler 1 │  │ Boiler 2 │    │
+        │    │  4 t/h   │  │  4 t/h   │    │
+        │    └──────────┘  └──────────┘    │
+        │   Feed tank 10m³ │ Softened 5m³  │
+        │   Condensate rx  │ Pumps/Ctrl    │
+        │      ~12m × 8m = ~96 m²          │
+        └─────────────────────────────────-┘
+              ▲ Flue oriented NORTH (away from propane)
+```
+
+**Extension dimensions:** ~12m × 8m (96 m²), single-storey steel-frame lean-to with ventilated cladding.
+
+#### Comparison: Centre vs. South-Side
+
+| Criterion | Centre (Option A) | South Side (Option B) |
+|---|---|---|
+| **Gas pipe (propane → boiler)** | ~50 m | **~15 m** |
+| **Water pipe (treatment → boiler)** | ~35 m | **~10 m** |
+| **Steam to dry line** | ~15–25 m | **~20 m** (slightly longer) |
+| **Steam to wet line** | ~20–35 m | **~30 m** (slightly longer) |
+| **Interior space freed** | — | **~100 m²** freed for production/storage |
+| **Condensate return** | Central collection | Slightly longer return pipes |
+| **Maintenance access** | Internal, via Maintenance room | External — direct outdoor access |
+| **Ventilation** | Double-height void (existing) | Open-air extension — excellent natural ventilation |
+| **Noise** | Inside building (contained) | Outside — less noise impact on production area |
+| **Boiler flue to propane** | ~55 m (very safe) | **~20–25 m** (still ≥15m — OK, orient flue north) |
+| **PNV modification** | Not needed | **Required** (building footprint change) |
+| **Construction cost** | Included in building | Additional lean-to structure |
+
+#### Key Safety Check for South Option
+
+| Check | Required | Available (South config.) | Status |
+|---|---|---|---|
+| Boiler (flame source) → propane tanks | ≥ 15 m | ~20–25 m | **OK** |
+| Boiler flue → propane tanks | ≥ 15 m | ~20–25 m (flue oriented north) | **OK** |
+| Gas pipe run length | — | ~15 m (underground from SE vaporizer) | **Shorter = safer** |
+| Chaufferie → property line (south) | Building setback | ~12–15 m (extension projects ~8m south) | **Verify with surveyor** |
+| ATEX zone overlap | None | Chaufferie outside propane Zone 2 (7.5m) | **OK** |
+
+#### Recommendation
+
+**Option B (South Side) is preferred** for new construction. The advantages — 70% shorter gas pipe, 70% shorter water pipe, ~100 m² freed interior space, better ventilation and maintenance access — outweigh the drawbacks (slightly longer steam pipes, PNV modification needed, additional construction cost for lean-to).
+
+**Critical requirements for the south option:**
+1. **PNV modification** — Submit updated plans to the commune/urban agency for the building footprint extension
+2. **Flue orientation** — Stack must exhaust **north** (toward building roof), not south toward propane tanks
+3. **Structural** — Lean-to foundation independent of main building, with expansion joint
+4. **Fire separation** — 2-hour fire-rated wall on the south face of the lean-to facing the propane yard
+5. **Gas detection** — Sensors at the gas pipe entry point and inside the Chaufferie, linked to automatic shutoff
 
 ---
 
@@ -300,6 +364,8 @@ If the SE yard has insufficient clearance from the property line:
 
 ## 5. Integrated Site Layout — Summary
 
+### Layout A: Centre Chaufferie (Baseline)
+
 ```
                          NORTH
               ┌─── Property Line ────────────────────┐
@@ -338,12 +404,57 @@ If the SE yard has insufficient clearance from the property line:
                      (Tanker access road)
 ```
 
+### Layout B: South-Side Chaufferie (Preferred)
+
+```
+                         NORTH
+              ┌─── Property Line ────────────────────┐
+              │                                      │
+              │  B33 ──────────────────────── B32     │
+              │   │  ┌──────────────────────┐  │     │ Office
+              │   │  │Mag.Produit │Emballage│  │     │ By Buyer
+              │   │  │Fini (845m²)│         │  │     │
+              │   │  ├─────┬──────┼─────────┤  │     │
+              │   │  │Unité│ESPACE│  Unité  │  │     │
+              │   │  │Sec  │LIBÉRÉ│  Humide │  │     │
+     WEST     │   │  │Croq.│~100m²│  (2000  │  │     │    EAST
+              │   │  │     │(freed│   m²)   │  │     │
+              │   │  │     │space)│         │  │     │
+              │   │  ├─────┴──────┤         │  │     │
+              │   │  │Mag.Récep.  │         │  │     │
+              │   │  │(1233 m²)   │         │  │     │
+              │   │  └──────┬─────┴──┬──────┘  │     │
+              │   │         │CHAUF-  │         │     │
+              │   │         │FERIE   │         │     │
+              │   │         │(lean-to│         │     │
+              │   │         │12×8m)  │         │     │
+              │   │         └────────┘         │     │
+              │  ┌┴───────────┐    ┌────────────┴──┐  │
+              │  │ WATER TANK │    │  PROPANE TANK │  │
+              │  │ FARM (SW)  │    │  FARM (SE)    │  │
+              │  │            │    │               │  │
+              │  │• Raw 250m³ │    │• 2×30,000L AG │  │
+              │  │• Process   │    │• Vaporizer    │  │
+              │  │  30m³      │    │• Retention    │  │
+              │  │• Treatment │    │• Fenced       │  │
+              │  │• Well head │    │               │  │
+              │  │• ONEE conn.│    │  200T  Truck  │  │
+              │  │            │    │  Silo  Scale  │  │
+              │  └────────────┘    └───────────────┘  │
+              │  B40 ──────────────────────── B39     │
+              │                                      │
+              └─── Property Line ────────────────────┘
+                         SOUTH
+                     (Tanker access road)
+```
+
 ### Zoning Logic
 
 | Zone | Contents | Why Grouped Here |
 |---|---|---|
-| **Center (Chaufferie)** | 2 × 4 t/h boilers, feedwater tank (10 m³), softened buffer (5 m³), condensate receiver, water treatment | Central to both production lines, minimizes steam + water piping, adjacent to TGBT |
-| **SW Yard** | Raw water tank (250 m³), process water (30 m³), retort cooling (25 m³), treatment plant, well, ONEE | Groups all water infrastructure, near street for ONEE, accessible for drilling, feeds Chaufferie through short run |
+| **South wall (Chaufferie — Option B)** | 2 × 4 t/h boilers, feedwater tank (10 m³), softened buffer (5 m³), condensate receiver | Close to water tanks (SW) and propane (SE), short utility pipe runs, frees ~100 m² interior |
+| **Center (Option A, or freed space in Option B)** | Option A: boilers + water treatment. Option B: freed for production/storage expansion | Central to both production lines (Option A) or reclaimed space (Option B) |
+| **SW Yard** | Raw water tank (250 m³), process water (30 m³), retort cooling (25 m³), treatment plant, well, ONEE | Groups all water infrastructure, near street for ONEE, accessible for drilling |
 | **SW Building corner** | Fire reserve (35 m³), fire pump room (already positioned) | Already designed by INGenios, near building perimeter, fed from water tank farm |
 | **SE Yard** | 2 × 30,000 L propane tanks, vaporizer, gas regulator | Separated from water and fire systems, near truck access, prevailing wind carries leaks away from building |
 | **Roof / East wall (Unité Humide)** | Cooling tower for retort loop | Short pipe runs to retorts, uses no ground space |
@@ -352,17 +463,35 @@ If the SE yard has insufficient clearance from the property line:
 
 ## 6. Pipe Routing Summary
 
+### Option A — Centre Chaufferie
+
 | Service | From → To | Approx. Run | Size | Route |
 |---|---|---|---|---|
 | **Raw water** | Well / ONEE → Raw tank (SW) | 10–20m | DN100 | Underground, south yard |
 | **Treated water** | Treatment (SW) → Chaufferie | 30–40m | DN50 | Underground through building south wall |
 | **Process water** | Process tank (SW) → Production | 25–35m | DN65 | Underground through south wall, manifold inside |
 | **Retort cooling** | Cooling tank (SW) → Retorts → Cooling tower | 30–40m (loop) | DN80 | Through south wall of Unité Humide |
-| **Fire main** | Fire tank (SW corner) → RIA/PI network | Per INGenios design | DN80/100 | Already designed |
-| **Propane gas** | Vaporizer (SE) → Chaufferie | 40–50m | DN50 gas | Underground (PE or steel), enters east/south wall |
-| **Steam (dry line)** | Chaufferie → Dryer, preconditioner, fat tanks | 15–25m | DN100/60/32 | Overhead in production area (per FAMSUN) |
+| **Fire main** | Fire tank (SW corner) → RIA/PI network | Per INGenios | DN80/100 | Already designed |
+| **Propane gas** | Vaporizer (SE) → Chaufferie | **40–50m** | DN50 gas | Underground (PE or steel), enters east/south wall |
+| **Steam (dry line)** | Chaufferie → Dryer, preconditioner, fat tanks | 15–25m | DN100/60/32 | Overhead in production area |
 | **Steam (wet line)** | Chaufferie → Retorts, cooking kettles | 20–35m | DN100/80 | Overhead through wall to Unité Humide |
 | **Condensate return** | All equipment → Chaufferie | Various | DN25/50 | Gravity return, overhead then down to feed tank |
+
+### Option B — South-Side Chaufferie (Preferred)
+
+| Service | From → To | Approx. Run | Size | Route |
+|---|---|---|---|---|
+| **Raw water** | Well / ONEE → Raw tank (SW) | 10–20m | DN100 | Underground, south yard |
+| **Treated water** | Treatment (SW) → Chaufferie (south) | **~10m** | DN50 | Short underground run, south yard |
+| **Process water** | Process tank (SW) → Production | 25–35m | DN65 | Underground through south wall, manifold inside |
+| **Retort cooling** | Cooling tank (SW) → Retorts → Cooling tower | 30–40m (loop) | DN80 | Through south wall of Unité Humide |
+| **Fire main** | Fire tank (SW corner) → RIA/PI network | Per INGenios | DN80/100 | Already designed |
+| **Propane gas** | Vaporizer (SE) → Chaufferie (south) | **~15m** | DN50 gas | Short underground run, south yard |
+| **Steam (dry line)** | Chaufferie (south) → Dryer, preconditioner | **~20m** | DN100/60/32 | Up through south wall, overhead in production |
+| **Steam (wet line)** | Chaufferie (south) → Retorts, cooking kettles | **~30m** | DN100/80 | Up through south wall, overhead to Unité Humide |
+| **Condensate return** | All equipment → Chaufferie (south) | Various | DN25/50 | Gravity return, overhead then down through south wall |
+
+> **Option B saves ~35m on the gas pipe and ~25m on the treated water pipe**, at the cost of ~5–10m longer steam runs. Net piping cost is lower.
 
 ---
 
@@ -394,7 +523,9 @@ If the SE yard has insufficient clearance from the property line:
 
 ## 8. Distances Verification Checklist (Updated with PNV Dimensions)
 
-With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more generous than initially estimated:
+With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more generous than initially estimated.
+
+### Option A — Centre Chaufferie
 
 | Check | Required | Available (from PNV) | Status |
 |---|---|---|---|
@@ -403,12 +534,31 @@ With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more
 | Propane tank → property line (east) | ≥ 15 m | ~15–20 m | **Verify** |
 | Propane tank → 200T silo | ≥ 15 m (dust source) | ~20 m | **OK** |
 | Propane tank → fire water tank | N/A (different zone) | ~50 m (SW vs SE) | **OK** |
-| Propane tank → boiler flue | ≥ 15 m | ~55 m | **OK** |
+| Propane tank → boiler flue | ≥ 15 m | ~55 m (flue at center of roof) | **OK** |
 | Propane tank → offices | ≥ 15 m | ~65 m+ | **OK** |
 | Propane tank → truck scale | Accessible | ~10 m | **OK** |
 | Water tanks → well head | Short run | ~10–15 m | **OK** |
 | Water tanks → Chaufferie | Reasonable | ~35 m | **OK** |
 | Fire tank → fire pump room | Short run | ~5 m (already designed) | **OK** |
+
+### Option B — South-Side Chaufferie
+
+| Check | Required | Available (South config.) | Status |
+|---|---|---|---|
+| Propane tank → Chaufferie (south extension) | ≥ 7.5 m | ~15–20 m | **OK** |
+| Propane tank → property line (south) | ≥ 15 m | ~20–25 m | **OK** |
+| Propane tank → property line (east) | ≥ 15 m | ~15–20 m | **Verify** |
+| Propane tank → 200T silo | ≥ 15 m (dust source) | ~20 m | **OK** |
+| Propane tank → fire water tank | N/A (different zone) | ~50 m (SW vs SE) | **OK** |
+| **Propane tank → boiler flue** | **≥ 15 m** | **~20–25 m** (flue on south extension, oriented north) | **OK — verify** |
+| Propane tank → offices | ≥ 15 m | ~65 m+ | **OK** |
+| Propane tank → truck scale | Accessible | ~10 m | **OK** |
+| Water tanks → well head | Short run | ~10–15 m | **OK** |
+| Water tanks → Chaufferie (south) | Short run | **~10 m** | **OK** |
+| Chaufferie extension → property line (south) | Building setback | ~12–15 m (8m extension into ~20m yard) | **Verify with surveyor** |
+| Fire tank → fire pump room | Short run | ~5 m (already designed) | **OK** |
+
+> **Key difference:** The south-side boiler flue is ~20–25m from propane tanks instead of ~55m. Still above the 15m minimum, but the flue **must be oriented north** to direct exhaust away from the propane zone.
 
 ---
 
@@ -419,13 +569,16 @@ With the lot at 101.37m × 107.63m and 10m building setbacks, distances are more
 | 1 | ~~Confirm lot dimensions~~ → **DONE: PNV confirms 101.37 × 107.63 m** | ~~Owner/Architect~~ | ~~High~~ |
 | 2 | Verify SE yard east boundary has ≥15m from property line for propane tanks (PNV shows ~15–20m — confirm with surveyor) | Owner/Architect | High |
 | 3 | Commission hydrogeological survey for well location in SW yard | Owner | High |
-| 4 | Confirm Chaufferie dimensions can accommodate 2 × 4 t/h boilers (request FAMSUN updated layout) | FAMSUN/Owner | High |
-| 5 | Request INGenios to update fire plan for propane tank ATEX zones | INGenios | Medium |
-| 6 | Obtain soil bearing test for 250 m³ tank pad in SW yard | Structural eng. | Medium |
-| 7 | Size the propane gas pipe (DN50 estimated) for 40–50m run from vaporizer to Chaufferie | MEP engineer | Medium |
-| 8 | Confirm prevailing wind direction at Benguerir site (NE → SW assumed) | Met. data | Low |
-| 9 | Design water treatment plant layout for SW yard (softener, filters, dosing, RO) | Water eng. | Medium |
-| 10 | Plan tanker access road to serve both SE (propane) and SW (water delivery) areas | Civil eng. | Medium |
+| 4 | **Decide Chaufferie location: Centre (Option A) vs. South-side lean-to (Option B)** — Option B is recommended | Owner/Architect | **High** |
+| 5 | If Option B: submit PNV modification to commune/urban agency for building footprint extension (~12×8m lean-to on south wall) | Architect/Owner | **High** |
+| 6 | If Option B: design lean-to structure (steel frame, 2h fire-rated south wall, independent foundation, ventilation) | Structural eng. | High |
+| 7 | If Option B: verify Chaufferie extension maintains building setback ≥10m from south property line | Surveyor | High |
+| 8 | Request INGenios to update fire plan for propane tank ATEX zones | INGenios | Medium |
+| 9 | Obtain soil bearing test for 250 m³ tank pad in SW yard | Structural eng. | Medium |
+| 10 | Size the propane gas pipe — DN50, ~15m (Option B) or ~50m (Option A) from vaporizer to Chaufferie | MEP engineer | Medium |
+| 11 | Confirm prevailing wind direction at Benguerir site (NE → SW assumed) | Met. data | Low |
+| 12 | Design water treatment plant layout for SW yard (softener, filters, dosing, RO) | Water eng. | Medium |
+| 13 | Plan tanker access road to serve both SE (propane) and SW (water delivery) areas | Civil eng. | Medium |
 
 ---
 

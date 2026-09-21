@@ -1,9 +1,10 @@
 # Note de Calcul — Dimensionnement des Citernes d'Eau
 ## Water Tank Sizing Analysis
 **Project:** PetFactory Morocco — Sidi Bouathmane, Benguerir  
-**Supplier:** FAMSUN (5T/H Pet Food Line)  
-**Reference documents:** PCI Synoptique Surpresseur (INGenios), NSI ERT 0003311-NSI-YB (BCAT/Soufiane Incendie), Fang Kuai 3t Boiler Quotation, FAMSUN Chiller Solution V08, Condensate Return Rate Calculation  
-**Date:** 2026-09-21  
+**Production:** FAMSUN 5 TPH Dry Line + Wet Line (~2.5 TPH)  
+**Steam system:** 2 × 4 t/h boilers (8 t/h total capacity)  
+**Reference documents:** PCI Synoptique Surpresseur (INGenios), NSI ERT 0003311-NSI-YB (BCAT/Soufiane Incendie), FAMSUN Chiller Solution V08, Condensate Return Rate Calculation, FAMSUN Performance Guarantee Annex  
+**Date:** 2026-09-21 (Rev. 2 — wet line + 2×4t/h boilers)  
 **Prepared by:** Claude AI / Sam Aribi  
 
 ---
@@ -12,16 +13,20 @@
 
 | Parameter | Value |
 |---|---|
-| Production line | FAMSUN 5 TPH pet food (dry kibble) |
+| **Dry production line** | FAMSUN 5 TPH pet food (dry kibble) |
+| **Wet production line** | ~2.5 TPH wet pet food (cans/pouches) — *capacity to confirm with supplier* |
 | Location | ZI Sidi Bouathmane, Benguerir, Province Rhamna |
-| Total building area | 5,180 m² |
+| Total building area | 5,180 m² (incl. Unité Humide 2,000 m²) |
 | Operating schedule | 16 h/day (2 shifts), ~300 days/year |
 | Max occupancy (NSI ERT) | 559 persons |
-| Typical production staff | ~200 persons/shift |
+| Typical production staff | ~300 persons/shift (dry + wet lines) |
+| **Steam system** | **2 × 4 t/h boilers (8 t/h total capacity)** |
 | Water supply — primary | Private well (forage) on site |
 | Water supply — backup | ONEE (Office National de l'Électricité et de l'Eau potable) |
 | ONEE water cost | 8.50 MAD/m³ |
 | Well water cost (pumping only) | ~1.50 MAD/m³ (electricity + maintenance) |
+
+> **Note on wet line estimates:** The wet production line equipment has not been specified yet. Water demands for the wet line are estimated based on industry standards for a 2–3 TPH wet pet food line with batch retorts. These figures should be updated once the wet line supplier and equipment are confirmed.
 
 ### Dual Water Supply Strategy: Well + ONEE
 
@@ -40,6 +45,8 @@ The site at ZI Sidi Bouathmane will have a private borehole well. The Benguerir 
 | Water quality | Moderate hardness (200–400 mg/L CaCO₃), suitable for industrial use after treatment |
 | TDS | 500–1,500 mg/L |
 
+> **Critical finding:** With the wet line, peak daily demand rises to ~116 m³/day. A single well at the low end of yield (3–5 m³/h) **cannot** sustain the plant alone — it would need 23+ hours of continuous pumping. Either the well must yield ≥ 8 m³/h, or **two wells** are needed, or the ONEE connection becomes a co-primary source rather than a pure backup. The pump test after drilling will determine the appropriate strategy.
+
 **Regulatory requirements for private well in Morocco:**
 - Authorization from the Agence du Bassin Hydraulique de l'Oum Er-Rbia (ABHOER)
 - Loi 36-15 sur l'eau (Water Law) — permit required for any groundwater extraction
@@ -47,9 +54,9 @@ The site at ZI Sidi Bouathmane will have a private borehole well. The Benguerir 
 - Meter installation mandatory
 - Water quality analysis (initial + annual)
 
-**2. ONEE municipal supply — Backup**
+**2. ONEE municipal supply — Backup (or co-primary)**
 
-The ONEE connection at the ZI Sidi Bouathmane industrial zone serves as a **backup** supply for:
+The ONEE connection at the ZI Sidi Bouathmane industrial zone serves as a **backup** supply — or as a **co-primary** source if well yield is insufficient for the combined dry+wet plant:
 - Well pump failure or maintenance
 - Peak demand exceeding well capacity
 - Well water quality issues (seasonal variations)
@@ -60,29 +67,63 @@ ONEE supply risks in Moroccan industrial zones:
 - Pressure drops during peak demand (summer)
 - Occasional unplanned interruptions (pipe breaks, pump failures)
 
-**Design philosophy:** The well is the primary source, ONEE is the backup. Raw water storage is sized so that **either source alone** can sustain the factory for at least **2 days**, and both together provide **3+ days** of autonomy. This dual-source approach significantly reduces supply risk compared to ONEE-only.
+**Design philosophy:** Raw water storage is sized so that **either source alone** can sustain the factory for at least **2 days**, and both together provide **3+ days** of autonomy. With the larger combined plant demand, the ONEE connection is upgraded to **DN100**.
 
 ---
 
 ## 2. Water Consumers — Detailed Demand Calculation
 
-### 2.1 Boiler Feedwater Makeup
+### 2.1 Steam System — 2 × 4 t/h Boilers
 
-> Source: Condensate Return Rate Calculation (see `Boiler/Condensate_Return_Rate_Calculation.md`)
+The factory replaces the original Fang Kuai 3 t/h boiler with **two 4 t/h steam boilers** to serve both production lines.
 
-| Parameter | Current System | With Flash Recovery |
+**Steam distribution (combined plant):**
+
+| Equipment | Steam (t/h) | Line | Heat Exchange Type |
+|---|---|---|---|
+| Dryer | 1.40 | Dry | Indirect (shell & tube) |
+| Preconditioner | 0.75 | Dry | Mixed: 30% direct + 70% jacket |
+| Liquid fat daily tanks | 0.30 | Dry | Indirect coil |
+| Retorts (2–3 batch units) | 2.00 | Wet | Indirect (steam jacket + spray) |
+| Cooking kettles / mixers | 0.50 | Wet | Indirect (jacketed) |
+| Sauce / gravy preparation | 0.30 | Wet | Indirect (jacketed) |
+| CIP hot water + tracing | 0.25 | Wet | Heat exchanger / tracing |
+| **Total — dry line** | **2.45** | | |
+| **Total — wet line** | **3.05** | | |
+| **Total plant peak** | **5.50** | | |
+
+> **Boiler capacity utilization:** 5.50 / 8.00 = **69%** at peak (both lines at capacity). Average load ~4.50 t/h (56%). The 8 t/h capacity provides comfortable margin for retort heat-up surges, which can momentarily reach 7+ t/h.
+
+### 2.2 Boiler Feedwater Makeup
+
+**Condensate return analysis (combined plant):**
+
+| Equipment | Steam In (t/h) | Return Rate | Basis | Condensate (t/h) |
+|---|---|---|---|---|
+| Dryer | 1.40 | 92% | All indirect | 1.288 |
+| Preconditioner | 0.75 | 63% | 30% direct (lost) + 70% jacket @ 90% | 0.473 |
+| Fat tanks | 0.30 | 85% | Closed coil | 0.255 |
+| Retorts | 2.00 | 85% | Indirect, high recovery | 1.700 |
+| Cooking kettles | 0.50 | 80% | Jacketed | 0.400 |
+| Sauce prep | 0.30 | 80% | Jacketed | 0.240 |
+| CIP/tracing | 0.25 | 60% | Mixed (some direct contact) | 0.150 |
+| **Total** | **5.50** | | | **4.506** |
+
+**Flash steam losses at traps (1 MPa → 0.1 MPa):** flash fraction = 15.3% (same as dry line calculation)
+
+| Scenario | Condensate Returned | Return Rate | Makeup Water | Blowdown (3%) | Total Boiler Water |
+|---|---|---|---|---|---|
+| No flash recovery | 4.506 − 0.689 = **3.817 t/h** | **69.4%** | 1.683 t/h | 0.165 t/h | **1.848 t/h** |
+| With flash recovery | 3.817 + 0.584 = **4.401 t/h** | **80.0%** | 1.099 t/h | 0.165 t/h | **1.264 t/h** |
+
+| Parameter | No Flash Recovery | With Flash Recovery |
 |---|---|---|
-| Total steam consumption | 2.45 t/h | 2.45 t/h |
-| Condensate return rate | 70% (1.708 t/h) | 80% (1.969 t/h) |
-| **Makeup water required** | **0.742 t/h** | **0.481 t/h** |
-| Daily (16 h production) | 11.9 m³/day | 7.7 m³/day |
-| Blowdown (~3% of steam) | 0.074 t/h | 0.074 t/h |
-| **Total boiler water demand** | **0.816 t/h** | **0.555 t/h** |
-| Daily total | 13.1 m³/day | 8.9 m³/day |
+| Daily peak (16 h) | **29.6 m³/day** | **20.2 m³/day** |
+| Daily average | 24.2 m³/day | 16.5 m³/day |
 
-**Boiler water must be softened** (Fang Kuai specification: dual-tank automatic water softener, 3 t/h capacity included in boiler package).
+**Boiler water must be softened.** With 2 × 4 t/h boilers, the softener must be sized for the higher makeup rate — see Section 4.4.
 
-### 2.2 Process Water — Preconditioner
+### 2.3 Process Water — Dry Line (Preconditioner)
 
 > Source: FAMSUN specifications, petfood_simulator (`models/preconditioner.py`)
 
@@ -96,8 +137,21 @@ ONEE supply risks in Moroccan industrial zones:
 
 This water is absorbed into the product — it is not recovered.
 
-### 2.3 Cooling Water — Chiller System
+### 2.4 Process Water — Wet Line
 
+> Source: Industry estimates for 2.5 TPH wet pet food line. *Update once equipment confirmed.*
+
+Wet pet food is typically 70–80% moisture. Raw materials (meat, meals) already contain significant water, so net added process water is a fraction of product moisture content.
+
+| Consumer | Flow (t/h) | Daily (16 h) | Notes |
+|---|---|---|---|
+| Recipe/formulation water (mixing, sauce, gravy) | 1.00 | 16.0 m³/day | Net added water into product (after accounting for water in raw materials) |
+| Can/pouch rinsing | 0.20 | 3.2 m³/day | Pre-fill container rinse |
+| **Total wet line process water** | **1.20** | **19.2 m³/day** | Consumed in product or discharged |
+
+### 2.5 Cooling Water
+
+#### Dry line — Chiller system
 > Source: FAMSUN Chiller Solution V08
 
 | Parameter | Value |
@@ -105,13 +159,30 @@ This water is absorbed into the product — it is not recovered.
 | FAMSUN chiller capacity | 180 kW (8 ventilo-convectors FP-238) |
 | VRV existing | 410 kW (2 × 205 kW) |
 | Circuit type | Closed loop (water-glycol) |
-| Main pipe | DN150, reduced to DN65 per floor |
-| Makeup water (evaporation/leaks) | ~0.15 t/h (estimate) |
+| Makeup water (evaporation/leaks) | ~0.15 t/h |
 | Daily makeup | 2.4 m³/day |
 
-The chiller operates on a **closed-loop** system; makeup water compensates for minor evaporation and periodic blowdown of cooling towers (if present) or system losses.
+#### Wet line — Retort cooling system
 
-### 2.4 CIP / Washdown Water
+Batch retorts require rapid cooling of sterilized product after the hold phase. A **recirculating cooling system with cooling tower** is standard to minimize water consumption.
+
+| Parameter | Value |
+|---|---|
+| Retort cooling circulation rate | 15–20 m³/h (through retorts during cooling phase) |
+| Cooling tower type | Induced-draft, counterflow |
+| Cooling from / to | 45 °C → 25 °C |
+| Evaporation loss (cooling tower) | ~2–3% of circulation = 0.4–0.6 t/h |
+| Blowdown (cooling tower) | ~0.2 t/h (to control TDS buildup) |
+| **Total retort cooling makeup** | **~0.80 t/h** |
+| Daily makeup (16 h) | **12.8 m³/day** |
+
+> Without a recirculating cooling tower (once-through cooling), the retort would consume 15–20 m³/h of water directly — over 300 m³/day. **A cooling tower is essential** for the wet line.
+
+**Combined cooling makeup:** 0.15 + 0.80 = **0.95 t/h** → **15.2 m³/day**
+
+### 2.6 CIP / Washdown Water
+
+#### Dry line CIP
 
 | Operation | Frequency | Volume |
 |---|---|---|
@@ -120,27 +191,45 @@ The chiller operates on a **closed-loop** system; makeup water compensates for m
 | Fat system cleaning (daily tanks, enrobeuse) | Daily | 1.5 m³ |
 | Packaging area cleaning | Daily | 1.0 m³ |
 | Deep CIP (monthly full line cleaning) | Monthly | 15.0 m³ |
-| **Daily average** | | **8.5 m³/day** |
+| **Daily average — dry line** | | **8.5 m³/day** |
 
-### 2.5 Sanitary Water
+#### Wet line CIP
+
+Wet pet food production involves meat, protein, and fat — requiring **significantly more intensive cleaning** than dry kibble to meet food safety and HACCP standards.
+
+| Operation | Frequency | Volume |
+|---|---|---|
+| Retort interior/basket cleaning | Daily | 3.0 m³ |
+| Cooking kettles / mixer CIP | Daily | 3.0 m³ |
+| Sauce preparation vessel CIP | Daily | 2.0 m³ |
+| Filling/seaming machine CIP | Daily | 2.0 m³ |
+| Wet line floor washing | Daily | 3.0 m³ |
+| Deep CIP wet line (weekly, amortized) | Daily average | 3.0 m³ |
+| **Daily average — wet line** | | **16.0 m³/day** |
+
+**Combined CIP / washdown:** 8.5 + 16.0 = **24.5 m³/day**
+
+### 2.7 Sanitary Water
 
 | Category | Persons | Consumption | Volume |
 |---|---|---|---|
-| Production workers (showers, WC, drinking) | 200 | 50 L/person/day | 10.0 m³/day |
-| Admin & visitors | 30 | 80 L/person/day | 2.4 m³/day |
-| Kitchen/canteen | 230 | 10 L/person/day | 2.3 m³/day |
-| **Total sanitary** | | | **14.7 m³/day** |
+| Production workers — dry line (showers, WC, drinking) | 150 | 50 L/person/day | 7.5 m³/day |
+| Production workers — wet line | 150 | 50 L/person/day | 7.5 m³/day |
+| Admin, lab & visitors | 40 | 80 L/person/day | 3.2 m³/day |
+| Kitchen/canteen | 340 | 10 L/person/day | 3.4 m³/day |
+| **Total sanitary** | | | **21.6 m³/day** |
 
 > Moroccan industrial standard: 50–80 L/worker/day (Norme Marocaine NM 03.7.001)
 
-### 2.6 Miscellaneous
+### 2.8 Miscellaneous
 
 | Use | Volume |
 |---|---|
 | Green spaces/landscape | 0.5 m³/day |
-| Lab/quality control | 0.3 m³/day |
+| Lab/quality control (both lines) | 0.5 m³/day |
 | Truck washing area | 0.5 m³/day |
-| **Total miscellaneous** | **1.3 m³/day** |
+| Cooling tower chemical treatment water | 0.3 m³/day |
+| **Total miscellaneous** | **1.8 m³/day** |
 
 ---
 
@@ -148,32 +237,47 @@ The chiller operates on a **closed-loop** system; makeup water compensates for m
 
 | Consumer | Peak (m³/h) | Daily Peak (m³/day) | Daily Average (m³/day) |
 |---|---|---|---|
-| Boiler makeup (no flash recovery) | 0.816 | 13.1 | 10.5 |
-| Process water (preconditioner) | 0.400 | 6.4 | 6.4 |
-| Cooling water makeup | 0.150 | 2.4 | 1.8 |
-| CIP / washdown | — | 8.5 | 8.5 |
-| Sanitary water | — | 14.7 | 12.0 |
-| Miscellaneous | — | 1.3 | 1.0 |
-| **TOTAL (excl. fire)** | **~1.37** | **46.4** | **40.2** |
+| Boiler makeup — 2×4t/h (no flash) | 1.848 | 29.6 | 24.2 |
+| Process water — dry preconditioner | 0.400 | 6.4 | 6.4 |
+| Process water — wet line | 1.200 | 19.2 | 16.0 |
+| Cooling — dry chiller makeup | 0.150 | 2.4 | 1.8 |
+| Cooling — retort (recirculating makeup) | 0.800 | 12.8 | 10.0 |
+| CIP / washdown — dry line | — | 8.5 | 8.5 |
+| CIP / washdown — wet line | — | 16.0 | 14.0 |
+| Sanitary water | — | 21.6 | 18.0 |
+| Miscellaneous | — | 1.8 | 1.5 |
+| **TOTAL (excl. fire)** | **~4.40** | **118.3** | **100.4** |
 
-**Peak hourly demand (production hours):** ~3.5 m³/h (including CIP peaks)  
-**Annual consumption:** 46.4 × 300 = **~13,920 m³/year**
+**Peak hourly demand (production hours):** ~7.5 m³/h (including CIP surges and retort batch peaks)  
+**Annual consumption:** 118 × 300 = **~35,400 m³/year** (peak basis); 100 × 300 = **~30,100 m³/year** (average)
+
+### Comparison: Dry-only vs Dry+Wet plant
+
+| Parameter | Dry Line Only (Rev. 1) | Dry + Wet Lines (Rev. 2) | Increase |
+|---|---|---|---|
+| Daily peak demand | 46.4 m³/day | 118.3 m³/day | **+155%** |
+| Daily average | 40.2 m³/day | 100.4 m³/day | **+150%** |
+| Annual consumption | ~13,920 m³ | ~35,400 m³ | **+154%** |
+| Peak steam demand | 2.45 t/h | 5.50 t/h | **+124%** |
+| Boiler capacity | 3 t/h (1 boiler) | 8 t/h (2 boilers) | **+167%** |
 
 ### Annual cost comparison — Well vs ONEE:
-| Source | Unit Cost | Annual Cost | Saving vs ONEE |
-|---|---|---|---|
-| ONEE only | 8.50 MAD/m³ | 118,320 MAD/year | — |
-| Well only (pumping cost) | ~1.50 MAD/m³ | 20,880 MAD/year | **97,440 MAD/year** |
-| Well primary + ONEE backup (90/10 split) | ~2.20 MAD/m³ avg | 30,624 MAD/year | **87,696 MAD/year** |
 
-> The well saves approximately **87,000–97,000 MAD/year** in water costs. Well pumping cost includes electricity (~1.20 MAD/kWh × ~1 kWh/m³) + pump maintenance allocation.
+| Source | Unit Cost | Annual Cost (at 35,400 m³) | Saving vs ONEE |
+|---|---|---|---|
+| ONEE only | 8.50 MAD/m³ | 300,900 MAD/year | — |
+| Well only (pumping cost) | ~1.50 MAD/m³ | 53,100 MAD/year | **247,800 MAD/year** |
+| Well primary + ONEE backup (80/20 split) | ~2.90 MAD/m³ avg | 102,660 MAD/year | **198,240 MAD/year** |
+
+> With the larger combined plant, the well saves approximately **198,000–248,000 MAD/year**. The higher daily demand may require a higher well yield or two wells, which increases the ONEE backup share to 20%.
 
 ### With flash steam recovery vessel (recommended):
+
 | | Daily Peak | Daily Average |
 |---|---|---|
-| Boiler makeup reduction | -4.2 m³/day | -3.4 m³/day |
-| **Revised total** | **42.2 m³/day** | **36.8 m³/day** |
-| Additional annual saving | ~1,260 m³/year | = ~1,890 MAD/year (well) or ~10,710 MAD/year (ONEE) |
+| Boiler makeup reduction | -9.4 m³/day | -7.7 m³/day |
+| **Revised total** | **108.9 m³/day** | **92.7 m³/day** |
+| Additional annual saving | ~2,820 m³/year | = ~4,230 MAD/year (well) or ~23,970 MAD/year (ONEE) |
 
 ---
 
@@ -185,125 +289,131 @@ The chiller operates on a **closed-loop** system; makeup water compensates for m
 
 **Sizing rationale with dual supply:**
 
-With a well as the primary source, the tank acts as a buffer between the well pump (intermittent cycling) and the continuous plant demand, and as a reserve if the well pump fails. The ONEE backup automatically activates on low tank level.
+With the combined dry+wet plant demand of ~118 m³/day, the raw water storage must be significantly larger than the dry-only plant.
 
 | Design parameter | Value | Basis |
 |---|---|---|
-| Design daily demand | 46.4 m³/day | Peak day (Section 3) |
-| Well pump expected yield | 5–8 m³/h | Typical for Benguerir area (to confirm after drilling) |
-| Well pump operating hours | 8–12 h/day | To meet 46.4 m³/day at 5–8 m³/h |
-| Minimum buffer (pump failure) | 46.4 × 2 = 93 m³ | 2 days without well (ONEE backup activates) |
-| Target autonomy (both sources down) | 2 days | Unlikely but conservative |
-| Safety margin (15%) | +14 m³ | |
-| **Design volume** | **120 m³** | Reduced from 200 m³ thanks to dual supply |
+| Design daily demand | 118 m³/day | Peak day (Section 3) |
+| Well pump required yield | 8–12 m³/h | To meet demand in 12–15 h/day |
+| Minimum buffer (pump failure) | 118 × 2 = 236 m³ | 2 days autonomy (ONEE backup activates) |
+| Safety margin (10%) | +24 m³ | |
+| **Design volume** | **250 m³** | 2 × 125 m³ recommended |
 
-> With only ONEE, 200 m³ was needed for 4+ days autonomy. The well reduces this to **120 m³** because the dual supply makes a total loss of water very unlikely. If the well fails, ONEE kicks in immediately; if ONEE is interrupted, the well continues pumping. The 120 m³ reserve covers 2 days even if **both** sources fail simultaneously.
+> With only ONEE, this would need to be **400+ m³** for 3–4 days autonomy. The well reduces storage to 250 m³ because both sources can independently sustain the plant. If both fail simultaneously, the 250 m³ reserve covers **2+ days**.
 
 **Recommended configuration:**
 
 | Option | Description | Cost Estimate | Pros | Cons |
 |---|---|---|---|---|
-| **Option 1 (Recommended)** | 2 × 60 m³ béton armé | ~160,000 MAD | Redundancy: one tank can be cleaned while other operates; well and ONEE can each feed a different tank | Slightly higher cost than single |
-| Option 2 | 1 × 120 m³ béton armé | ~120,000 MAD | Single foundation; lower cost | No redundancy during maintenance |
-| Option 3 | 1 × 100 m³ + 1 × 50 m³ | ~145,000 MAD | Flexibility: small tank can be dedicated to boiler circuit | Uneven volumes |
+| **Option 1 (Recommended)** | 2 × 125 m³ béton armé | ~280,000 MAD | Redundancy: one tank cleaned while other operates; separate feed from well and ONEE | Higher cost |
+| Option 2 | 1 × 250 m³ béton armé | ~220,000 MAD | Single foundation; lower cost | No redundancy during maintenance |
+| Option 3 | 2 × 100 m³ + 1 × 50 m³ | ~260,000 MAD | Flexibility: 50 m³ tank dedicated to boiler circuit | Three foundations |
 
-**Construction details (Option 1 — 2 × 60 m³):**
+**Construction details (Option 1 — 2 × 125 m³):**
 - Material: Reinforced concrete (béton armé), waterproofed with epoxy lining
 - Location: Near the well head and boiler room, at low elevation on site
-- Well pump discharge: PEHD DN63–DN80 into tanks
-- ONEE backup connection: DN80 with automatic fill valve (opens on low-low level)
+- Well pump discharge: PEHD DN80–DN100 into tanks
+- ONEE backup connection: DN100 with automatic fill valve (opens on low level)
 - Disconnection device on ONEE line: mandatory (anti-retour + disconnecteur BA)
 - Level control per tank: Level transmitter (LT) + high/low/low-low alarms
 - Low level → alarm + auto-switch to ONEE backup
 - Low-low level → critical alarm + production shutdown interlock
-- Overflow: DN100 to storm drain
-- Drain: DN80 at bottom for cleaning
+- Overflow: DN150 to storm drain
+- Drain: DN100 at bottom for cleaning
 - Ventilation: Screened vent pipe to prevent contamination
 - Access: Manhole 600×600 mm minimum per tank
-- Inter-tank connection: DN80 with isolation valve (allows balancing or isolation)
+- Inter-tank connection: DN100 with isolation valve (allows balancing or isolation)
 
 ### 4.1.1 Well Pump Station
 
 | Parameter | Recommended |
 |---|---|
 | Pump type | Submersible borehole pump |
-| Flow rate | 5–8 m³/h (confirm after pump test) |
+| Flow rate | 8–12 m³/h (confirm after pump test) |
 | Head | ~50–70 m (static level + friction + elevation) |
-| Power | ~3–5 kW |
-| Control | VFD (variable frequency drive) recommended for energy saving |
+| Power | ~5–8 kW |
+| Control | VFD (variable frequency drive) recommended |
 | Level protection | Dry-run protection sensor in well |
 | Operating mode | Automatic: starts on tank low level, stops on high level |
 | Backup pump | Recommended (stored on-site spare, not installed) |
-| Estimated cost | 35,000–50,000 MAD (pump + VFD + wellhead piping) |
+| Estimated cost | 45,000–65,000 MAD (pump + VFD + wellhead piping) |
+
+> **If the well yield is < 8 m³/h after pump test**, consider: (a) drilling a second well, or (b) upgrading the ONEE connection to co-primary status with DN100 and a higher contracted capacity.
 
 ### 4.1.2 ONEE Backup Connection
 
 | Parameter | Value |
 |---|---|
-| Connection size | DN80 |
-| Activation | Automatic: solenoid valve opens when tank level < 30% |
-| Disconnection device | BA (disconnecteur à zone de pression réduite) — mandatory per ONEE regulations |
+| Connection size | **DN100** (upgraded from DN80 for higher demand) |
+| Activation | Automatic: solenoid valve opens when tank level < 40% |
+| Disconnection device | BA (disconnecteur à zone de pression réduite) — mandatory |
 | Flow meter | Pulsed output meter for ONEE billing |
-| Expected fill rate | 8–12 m³/h at 2.5–3.5 bar ONEE pressure |
-| Annual ONEE usage (normal) | ~10% of total = ~1,400 m³/year = ~11,900 MAD/year |
+| Expected fill rate | 12–18 m³/h at 2.5–3.5 bar ONEE pressure |
+| Annual ONEE usage (normal) | ~20% of total = ~7,100 m³/year = ~60,350 MAD/year |
 
 ### 4.2 Tank B — Boiler Feedwater Tank (Bâche alimentaire)
 
-> Already specified by Fang Kuai Boiler Co., LTD
+With **2 × 4 t/h boilers**, the feedwater system must be sized accordingly. The previous Fang Kuai 3 t/h package (3 m³ tank, 2 × 4 m³/h pumps) is **no longer adequate**.
 
-| Parameter | Value | Source |
+| Parameter | Value | Basis |
 |---|---|---|
-| Volume | **3 m³** | Fang Kuai quotation item 9 |
-| Material | Stainless steel, double-layer insulated | Circular design |
-| Feed water temperature | 20 °C (makeup) + 85 °C (condensate) = ~65 °C blend | Condensate calculation |
-| Feed water pumps | 2 × 4 m³/h, H=140m, P=4kW | Fang Kuai item 10 |
-| Buffer time at peak | 3 m³ ÷ 0.816 m³/h = **3.7 hours** | |
-| Buffer time at average | 3 m³ ÷ 0.555 m³/h = **5.4 hours** | |
+| Boiler total capacity | 2 × 4 = 8 t/h | |
+| Peak steam consumption | 5.50 t/h | Section 2.1 |
+| Makeup water flow (no flash) | 1.848 t/h | Section 2.2 |
+| Condensate return (hot, ~85°C) | 3.817 t/h | Section 2.2 |
+| Total feedwater flow at peak | 5.665 t/h | Makeup + condensate |
+| **Recommended tank volume** | **10 m³** | Shared between both boilers |
+| Buffer time at peak | 10 ÷ 1.848 = **5.4 hours** | Time before makeup runs out |
+| Material | Stainless steel, insulated | Standard for boiler feedwater |
+| Feed water pumps | 2 × 8 m³/h per boiler (1+1 standby) | 4 pumps total |
 
-**Assessment:** The 3 m³ tank provides adequate buffer for the boiler. The dual feed pumps (1 running + 1 standby) ensure reliability.
+> The 10 m³ tank provides a shared feedwater reservoir for both boilers. Each boiler has its own feed pump set (2 × 8 m³/h, 1 running + 1 standby). A common header allows either boiler to draw from the tank.
 
 **Upstream requirements:**
-- Water softener: Included in Fang Kuai package (dual-tank, automatic regeneration, 3 t/h)
-- Softened water buffer: **2 m³** tank recommended between softener and feedwater tank
+- Water softener: Must handle 1.85 t/h makeup — see Section 4.4
+- Deaerator: Recommended for 2 × 4 t/h boilers (removes dissolved O₂, reduces corrosion)
 
 ### 4.3 Tank C — Process Water Tank (Bâche d'eau traitée)
 
-**Purpose:** Treated water buffer for production line (preconditioner, CIP, cooling makeup).
+**Purpose:** Treated water buffer for both production lines (preconditioner, wet line process, CIP, cooling makeup).
 
 | Design parameter | Value | Basis |
 |---|---|---|
-| Consumers served | Preconditioner + CIP + cooling makeup | |
-| Peak hourly demand | 0.4 + 1.5 (CIP peak) + 0.15 = 2.05 m³/h | |
-| Daily demand | 6.4 + 8.5 + 2.4 = 17.3 m³/day | |
-| Minimum buffer (4 hours) | 2.05 × 4 = 8.2 m³ | |
-| CIP surge capacity | 5 m³ (single CIP batch) | |
-| **Recommended volume** | **15 m³** | Round up from 8.2 + safety |
+| Consumers served | Preconditioner + wet line process + CIP (both lines) + dry cooling makeup | |
+| Peak hourly demand | 0.4 + 1.2 + 2.5 (CIP peak) + 0.15 = **4.25 m³/h** | |
+| Daily demand | 6.4 + 19.2 + 24.5 + 2.4 = **52.5 m³/day** | |
+| Minimum buffer (4 hours) | 4.25 × 4 = 17 m³ | |
+| CIP surge capacity | 8 m³ (simultaneous CIP on both lines) | |
+| **Recommended volume** | **30 m³** | Round up from 17 + surge + safety |
 
-> Note: The PCI synoptic diagram shows a "Bâche à eau 10 m³." This may need to be increased to 15 m³ to accommodate CIP surges.
+> Increased from 15 m³ (dry-only) to 30 m³ to handle the wet line's process water demand and more intensive CIP schedule.
 
 **Construction details:**
 - Material: PEHD (polyethylene) or fiberglass (PRFV) food-grade
-- Location: Near production line, ideally elevated (+4.00 m) for gravity feed to preconditioner
+- Location: Near production lines, ideally elevated (+4.00 m) for gravity feed
 - Treatment upstream: Sand filter + activated carbon filter (from raw water tank)
 - Level control: Level transmitter + automatic fill valve from raw water tank
-- Temperature: Ambient (heated locally at preconditioner to 60°C)
+- Hot water generation: Plate heat exchanger for CIP hot water (heated by steam)
 
 ### 4.4 Tank D — Softened Water Buffer
 
 **Purpose:** Buffer between water softener output and boiler feedwater tank.
 
+With 2 × 4 t/h boilers consuming up to 1.85 t/h of makeup water, the softener and buffer must be upgraded.
+
 | Parameter | Value |
 |---|---|
-| Softener output | 3 t/h (Fang Kuai dual-tank) |
-| Boiler demand | 0.555–0.816 t/h |
-| Regeneration cycle downtime | ~30 min (one tank regenerates while other produces) |
-| **Recommended volume** | **2 m³** |
+| Makeup water demand (peak) | 1.848 t/h |
+| Softener configuration | **2 × 3 t/h alternating** (one online, one regenerating) |
+| Regeneration cycle downtime | ~45 min per unit |
+| Buffer requirement | 1.848 × 0.75 h = 1.4 m³ minimum |
+| **Recommended volume** | **5 m³** |
 
-> This tank ensures continuous supply during softener regeneration cycles.
+> Upgraded from 2 m³ (dry-only) to 5 m³ to buffer the higher boiler makeup demand during softener regeneration. The dual 3 t/h alternating softener replaces the single Fang Kuai unit.
 
 ### 4.5 Tank E — Fire Water Reserve (Réserve Incendie)
 
-> Already designed by Soufiane Incendie / INGenios
+> Already designed by Soufiane Incendie / INGenios — **unchanged from Rev. 1**
 
 | Parameter | Value | Source |
 |---|---|---|
@@ -328,73 +438,107 @@ Moroccan regulation (Décret n°2-14-499, Livre N°104) for ERT Category A:
 | PI: 1 simultaneous (ext.) | 60 m³/h | 2 hours |
 | **Required reserve** | max(5.4×1, 60×2) → governed by PI | |
 
-> Note: The 35 m³ appears sized for the internal RIA network + 1 PI for a reduced duration, which is standard for industrial sites with ONEE-backed supply. The poteaux incendie extérieurs are typically served directly from the ONEE network under pressure. This should be confirmed with Soufiane Incendie.
+> Note: The 35 m³ appears sized for the internal RIA network + 1 PI for a reduced duration, standard for industrial sites with ONEE-backed supply. The poteaux incendie extérieurs are served directly from the ONEE network under pressure. Confirm with Soufiane Incendie.
 
 **Critical:** The fire water reserve must be **permanently full** and **never used for process water.** Level monitoring with automatic refill from raw water tank and a low-level alarm connected to the fire alarm panel are required.
 
-### 4.6 Summary — Complete Tank Inventory
+### 4.6 Tank F — Retort Cooling Water Tank (NEW — Wet Line)
+
+**Purpose:** Dedicated buffer for the wet line batch retort cooling system with recirculating cooling tower.
+
+| Design parameter | Value | Basis |
+|---|---|---|
+| Retort cooling circulation | 15–20 m³/h | During cooling phase of retort cycle |
+| Number of retorts | 2–3 batch units | Typical for 2.5 TPH wet line |
+| Single retort batch volume | ~5–8 m³ | Water required per cooling cycle |
+| Cooling tower return | Continuous during operation | 25 °C supply, 45 °C return |
+| Makeup from raw water | 0.80 t/h (evaporation + blowdown) | Section 2.5 |
+| **Recommended volume** | **25 m³** | Surge capacity for 2 simultaneous retort batches |
+
+**Construction details:**
+- Material: Steel or fiberglass with corrosion-resistant lining
+- Location: Adjacent to retort area and cooling tower, at grade level
+- Cooling tower: Induced-draft counterflow, 200–250 kW rejection capacity
+- Chemical treatment: Anti-scale + biocide dosing system (automated)
+- Overflow to raw water tank (not to drain — water is reusable)
+- Blowdown: Controlled discharge based on conductivity
+
+### 4.7 Summary — Complete Tank Inventory
 
 | Tank | Volume | Type | Status | Priority |
 |---|---|---|---|---|
-| **A — Raw water storage** | **120 m³** (2×60) | Béton armé enterré | **TO BUILD** | Critical |
-| **B — Boiler feedwater** | **3 m³** | SS insulated (Fang Kuai) | Included in boiler package | — |
-| **C — Process water** | **15 m³** | PEHD/PRFV food-grade | **TO BUILD** (or upgrade existing 10 m³) | High |
-| **D — Softened water buffer** | **2 m³** | SS or PEHD | **TO BUILD** | Medium |
+| **A — Raw water storage** | **250 m³** (2×125) | Béton armé enterré | **TO BUILD** | Critical |
+| **B — Boiler feedwater** | **10 m³** | SS insulated (shared, 2 boilers) | **TO PROCURE** with boiler package | Critical |
+| **C — Process water** | **30 m³** | PEHD/PRFV food-grade | **TO BUILD** | High |
+| **D — Softened water buffer** | **5 m³** | SS or PEHD | **TO BUILD** | High |
 | **E — Fire water reserve** | **35 m³** | Béton armé | Designed (INGenios) | Critical |
-| **TOTAL** | **175 m³** | | | |
+| **F — Retort cooling water** | **25 m³** | Steel/FRP with cooling tower | **TO BUILD** (wet line) | High |
+| **TOTAL** | **355 m³** | | | |
 
-> Compared to ONEE-only scenario (255 m³ total with 200 m³ raw storage), the dual well+ONEE supply reduces raw water storage by **80 m³**, saving approximately **60,000 MAD** in tank construction.
+### Comparison: Dry-only vs Dry+Wet tank requirements
+
+| Tank | Dry Only (Rev. 1) | Dry + Wet (Rev. 2) | Change |
+|---|---|---|---|
+| Raw water | 120 m³ | 250 m³ | +108% |
+| Boiler feedwater | 3 m³ (Fang Kuai) | 10 m³ (new) | +233% |
+| Process water | 15 m³ | 30 m³ | +100% |
+| Softened water buffer | 2 m³ | 5 m³ | +150% |
+| Fire reserve | 35 m³ | 35 m³ | unchanged |
+| Retort cooling | — | 25 m³ | **new** |
+| **TOTAL** | **175 m³** | **355 m³** | **+103%** |
 
 ---
 
 ## 5. Water Treatment Chain
 
 ```
-  PRIVATE WELL (forage)          ONEE Municipal Supply (DN80)
-  Submersible pump               Backup — auto-activates on low level
-  5–8 m³/h                       8–12 m³/h at 2.5–3.5 bar
-        │                               │
-        │    PEHD DN63–DN80             │    DN80 + disconnecteur BA
-        │                               │    + solenoid valve (auto)
-        └───────────┬───────────────────┘
-                    │
-                    ▼
-          ┌──────────────────────┐
-          │   RAW WATER TANK     │
-          │   120 m³ (2 × 60)    │─────────────────────────────────┐
-          │   Citerne d'eau brute │                                 │
-          └──────────┬───────────┘                                 │
-                     │                                              │
-              ┌──────┴──────┐                                      │
-              │             │                                      │
-              ▼             ▼                                      ▼
-          ┌────────┐  ┌─────────────┐                      ┌───────────────┐
-          │ Sand   │  │ Softener    │                      │ FIRE RESERVE  │
-          │ Filter │  │ (Fang Kuai  │                      │  35 m³        │
-          │        │  │  dual-tank) │                      │ Dedicated     │
-          └───┬────┘  └──────┬──────┘                      └───────────────┘
-              │              │
-              ▼              ▼
-          ┌────────┐  ┌──────────────┐
-          │ Carbon │  │ SOFTENED     │
-          │ Filter │  │ WATER BUFFER │
-          │        │  │  2 m³        │
-          └───┬────┘  └──────┬───────┘
-              │              │
-              ▼              ▼
-        ┌─────────────┐  ┌──────────────────┐
-        │ PROCESS     │  │ BOILER FEEDWATER  │
-        │ WATER TANK  │  │ TANK 3 m³        │
-        │ 15 m³       │  │ (+ condensate     │
-        │             │  │  return at 85°C)  │
-        └─────┬───────┘  └──────┬───────────┘
-              │                 │
-              ├──► Preconditioner (400 kg/h, heated to 60°C)
-              ├──► CIP system
-              ├──► Cooling makeup
+  PRIVATE WELL (forage)               ONEE Municipal Supply (DN100)
+  Submersible pump                     Backup / co-primary
+  8–12 m³/h                            12–18 m³/h at 2.5–3.5 bar
+        │                                     │
+        │    PEHD DN80–DN100                  │    DN100 + disconnecteur BA
+        │                                     │    + solenoid valve (auto)
+        └──────────────┬──────────────────────┘
+                       │
+                       ▼
+             ┌──────────────────────┐
+             │   RAW WATER TANK     │
+             │   250 m³ (2 × 125)   │──────────────────────────────────┐
+             │   Citerne d'eau brute │                                  │
+             └──────────┬───────────┘                                  │
+                        │                                               │
+                 ┌──────┴──────┬───────────────┐                       │
+                 │             │               │                       │
+                 ▼             ▼               ▼                       ▼
+           ┌────────┐  ┌───────────┐  ┌──────────────┐        ┌───────────────┐
+           │ Sand   │  │ Softener  │  │ RETORT       │        │ FIRE RESERVE  │
+           │ Filter │  │ 2×3 t/h   │  │ COOLING TANK │        │  35 m³        │
+           │        │  │ alternating│  │  25 m³       │        │ Dedicated     │
+           └───┬────┘  └─────┬─────┘  │ + cooling    │        └───────────────┘
+               │             │        │   tower       │
+               ▼             ▼        └──────┬───────┘
+           ┌────────┐  ┌──────────┐          │
+           │ Carbon │  │ SOFTENED  │          └──► Retort cooling
+           │ Filter │  │ WATER    │                (recirculating)
+           │        │  │ BUFFER   │
+           └───┬────┘  │  5 m³    │
+               │       └────┬─────┘
+               ▼            ▼
+         ┌──────────┐  ┌──────────────────┐
+         │ PROCESS  │  │ BOILER FEEDWATER  │
+         │ WATER    │  │ TANK 10 m³       │
+         │ TANK     │  │ (+ condensate     │
+         │ 30 m³    │  │  return at 85°C)  │
+         └────┬─────┘  └──────┬───────────┘
+              │               │
+              ├──► Dry: Preconditioner (400 kg/h)
+              ├──► Wet: Recipe water (1,000 kg/h)
+              ├──► Wet: Can/pouch rinsing
+              ├──► CIP system (both lines)
+              ├──► Dry: Cooling makeup
               ├──► Sanitary (via direct line from raw tank)
-              │                 │
-              │                 └──► Feed pumps 2×4 m³/h ──► Boiler 3 t/h
+              │               │
+              │               └──► Feed pumps ──► 2 × 4 t/h boilers
               │
               └──► Floor washing / misc
 ```
@@ -408,49 +552,50 @@ Moroccan regulation (Décret n°2-14-499, Livre N°104) for ERT Category A:
 | Parameter | Value |
 |---|---|
 | Well pump type | Submersible borehole pump (e.g. Grundfos SP or Pedrollo 4SR) |
-| Expected flow rate | 5–8 m³/h (to confirm after pump test) |
+| Required flow rate | **8–12 m³/h** (to confirm after pump test) |
 | Total dynamic head | ~50–70 m (static level + friction + elevation to tanks) |
-| Motor power | ~3–5 kW |
-| Daily pumping hours | 8–12 h/day (to supply 46.4 m³/day) |
-| Daily electricity cost | ~10–14 kWh × 1.20 MAD = **12–17 MAD/day** |
+| Motor power | ~5–8 kW |
+| Daily pumping hours | 10–15 h/day (to supply 118 m³/day at 8–12 m³/h) |
+| Daily electricity cost | ~12–18 kWh × 1.20 MAD = **14–22 MAD/day** |
 | Control | VFD recommended; auto start/stop on tank level |
 | Dry-run protection | Electrode sensor or float at intake |
-| Discharge pipe | PEHD DN63–DN80 to raw water tank |
-| Annual pumped volume | ~12,500 m³ (90% of 13,920 m³) |
-| Annual pumping cost | ~18,750 MAD |
+| Discharge pipe | PEHD DN80–DN100 to raw water tank |
+| Annual pumped volume | ~28,300 m³ (80% of 35,400 m³) |
+| Annual pumping cost | ~42,500 MAD |
 
-**Well pump sizing note:** Final pump selection depends on the pump test results after drilling. The submersible pump must be sized to the confirmed well yield and static water level. A spare pump should be stored on-site for rapid replacement.
+> **Well yield concern:** The Benguerir aquifer typically yields 3–10 m³/h. At the low end, a single well **cannot** supply 118 m³/day. If the pump test shows < 8 m³/h, plan for either a second well or a higher ONEE share (30–40% instead of 20%).
 
 ### 6.2 Backup Source — ONEE Municipal Supply
 
 | Parameter | Value |
 |---|---|
-| ONEE connection size (recommended) | DN80 (minimum) |
+| ONEE connection size | **DN100** (upgraded for combined plant demand) |
 | Expected ONEE pressure at site | 2.5–3.5 bar |
-| Fill rate at 3 bar, DN80 | ~8–12 m³/h |
-| Activation | Automatic: solenoid valve opens when tank level < 30% |
+| Fill rate at 3 bar, DN100 | ~12–18 m³/h |
+| Activation | Automatic: solenoid valve opens when tank level < 40% |
 | Disconnection device | BA (disconnecteur à zone de pression réduite) — mandatory |
-| ONEE billing meter | Pulsed output, DN80 Woltman-type |
-| Expected annual ONEE usage (normal operation) | ~1,400 m³ (~10% of total) = **~11,900 MAD/year** |
-| Time to fill 120 m³ from empty (ONEE alone) | 10–15 hours |
-| Time to fill fire reserve (35 m³) | ~3–4 hours |
+| ONEE billing meter | Pulsed output, DN100 Woltman-type |
+| Expected annual ONEE usage | ~20% of total = ~7,100 m³/year = **~60,350 MAD/year** |
+| Time to fill 250 m³ from empty (ONEE alone) | 14–21 hours |
+| Time to fill fire reserve (35 m³) | ~2–3 hours |
 
 ### 6.3 Combined Fill Capacity
 
-| Scenario | Fill Rate | Time to Fill Raw Tank (120 m³) |
+| Scenario | Fill Rate | Time to Fill Raw Tank (250 m³) |
 |---|---|---|
-| Well only | 5–8 m³/h | 15–24 hours |
-| ONEE only | 8–12 m³/h | 10–15 hours |
-| Both simultaneously | 13–20 m³/h | 6–9 hours |
+| Well only (8 m³/h) | 8 m³/h | 31 hours |
+| Well only (12 m³/h) | 12 m³/h | 21 hours |
+| ONEE only | 12–18 m³/h | 14–21 hours |
+| Both simultaneously | 20–30 m³/h | 8–13 hours |
 
 **Automatic switching logic:**
-1. **Normal:** Well pump runs on tank level (start at 60%, stop at 90%)
-2. **Low level (< 30%):** ONEE solenoid valve opens automatically, alarm raised
+1. **Normal:** Well pump runs on tank level (start at 50%, stop at 90%)
+2. **Low level (< 40%):** ONEE solenoid valve opens automatically, alarm raised
 3. **Low-low level (< 15%):** Critical alarm, production shutdown interlock, both sources active
 4. **Well failure:** ONEE sustains full plant demand indefinitely (at higher cost)
-5. **ONEE failure:** Well sustains full plant demand if yield ≥ 5 m³/h
+5. **ONEE failure:** Well sustains full plant demand if yield ≥ 8 m³/h; if < 8 m³/h, reduce to dry line only
 
-**Important:** Confirm ONEE connection capacity with local ONEE office (Direction Régionale de Marrakech-Safi). The industrial zone may have a DN100 main, but individual connections are typically DN80.
+**Important:** Confirm ONEE connection capacity with local ONEE office (Direction Régionale de Marrakech-Safi). Request **DN100 connection** for the combined dry+wet plant. The industrial zone main may be DN150, but individual connections must be specifically requested at DN100.
 
 ---
 
@@ -465,6 +610,7 @@ Moroccan regulation (Décret n°2-14-499, Livre N°104) for ERT Category A:
 - **Drilling permit** — separate authorization for the drilling works from local authorities
 - Well must be > 50 m from any septic tank, waste pit, or contamination source
 - Penalties for unauthorized extraction: fines per Art. 151 of Loi 36-15
+- **Higher extraction volume (35,000+ m³/year)** may trigger additional environmental impact study requirements
 
 ### Drinking water storage (NM 03.7.001)
 - Minimum 24h autonomy for industrial establishments
@@ -479,14 +625,16 @@ Moroccan regulation (Décret n°2-14-499, Livre N°104) for ERT Category A:
 
 ### Industrial water discharge
 - Treated effluent discharge per Loi 36-15 (Environmental Protection)
-- CIP and washdown water requires oil/grease separator before discharge
+- CIP and washdown water requires oil/grease separator before discharge — **especially critical for wet line** (higher BOD/COD from meat processing)
 - pH, COD, and BOD limits per Arrêté conjoint
+- **Wet line wastewater** may require additional pre-treatment (dissolved air flotation or similar) before discharge due to high protein/fat load
 
 ### ONEE connection
 - Disconnection device (clapet anti-retour + disconnecteur BA) required to prevent backflow into ONEE network
 - Meter with remote reading recommended
 - Declaration of industrial water use to ONEE
 - ONEE may require verification that private well water cannot cross-contaminate the public network (disconnecteur BA meets this)
+- **DN100 connection** requires specific application and may have higher connection fees
 
 ---
 
@@ -498,81 +646,101 @@ Moroccan regulation (Décret n°2-14-499, Livre N°104) for ERT Category A:
 |---|---|---|
 | Well drilling (forage) | 60–80 m depth, DN200 casing | 80,000–120,000 |
 | Pump test (essai de pompage) | 72 h step-drawdown + constant rate | 15,000 |
-| Submersible pump + motor | 5–8 m³/h, 50–70 m head, ~4 kW | 25,000–35,000 |
-| VFD (variateur de fréquence) | For energy savings and soft start | 8,000 |
-| Wellhead infrastructure | Concrete pad, sanitary seal, electrical panel | 15,000 |
-| Discharge pipe (PEHD DN63) | Well to raw water tank, ~30–50 m | 5,000 |
+| Submersible pump + motor | 8–12 m³/h, 50–70 m head, ~6 kW | 35,000–50,000 |
+| VFD (variateur de fréquence) | For energy savings and soft start | 10,000 |
+| Wellhead infrastructure | Concrete pad, sanitary seal, electrical panel | 18,000 |
+| Discharge pipe (PEHD DN80) | Well to raw water tank, ~30–50 m | 8,000 |
 | Water quality analysis (initial) | Physical + chemical + bacteriological | 3,000 |
-| ABHOER authorization fees | Administrative + redevance first year | 5,000 |
-| **Sub-total well** | | **156,000–206,000 MAD** |
+| ABHOER authorization fees | Administrative + redevance first year | 8,000 |
+| **Sub-total well** | | **177,000–232,000 MAD** |
 
 ### 8.2 Water Storage & Treatment
 
 | Item | Description | Estimated Cost (MAD) |
 |---|---|---|
-| Raw water tank (2 × 60 m³ béton armé) | Including excavation, waterproofing, piping | 160,000 |
-| Process water tank (15 m³ PEHD) | Including foundation, piping | 35,000 |
-| Softened water buffer (2 m³ SS) | Including connections | 15,000 |
-| Sand filter + carbon filter | Automatic backwash, DN80 | 45,000 |
-| Transfer pumping station | 2 × 5 m³/h, H=25m (raw tank to treatment) | 25,000 |
-| Level instrumentation (5 tanks) | Level transmitters + alarms + PLC | 35,000 |
-| Piping network (PEHD/PVC) | Raw + treated + sanitary distribution | 55,000 |
-| ONEE backup connection & meter | DN80, disconnecteur BA, solenoid valve | 30,000 |
-| **Sub-total storage & treatment** | | **400,000 MAD** |
+| Raw water tank (2 × 125 m³ béton armé) | Including excavation, waterproofing, piping | 280,000 |
+| Process water tank (30 m³ PEHD/FRP) | Including foundation, piping | 55,000 |
+| Retort cooling water tank (25 m³ steel) | Including cooling tower, chemical dosing | 120,000 |
+| Boiler feedwater tank (10 m³ SS insulated) | Including condensate receiver | 65,000 |
+| Softened water buffer (5 m³ SS) | Including connections | 25,000 |
+| Water softeners (2 × 3 t/h alternating) | Automatic regeneration, resin, brine tank | 75,000 |
+| Sand filter + carbon filter | Automatic backwash, DN100 | 55,000 |
+| Transfer pumping station | 2 × 8 m³/h, H=25m (raw tank to treatment) | 35,000 |
+| Boiler feed pumps (4 × 8 m³/h, H=140m) | 2 running + 2 standby, for 2 boilers | 60,000 |
+| Level instrumentation (6 tanks + well) | Level transmitters + alarms + PLC | 50,000 |
+| Piping network (PEHD/PVC/SS) | Raw + treated + sanitary + retort loop | 85,000 |
+| ONEE backup connection & meter | DN100, disconnecteur BA, solenoid valve | 40,000 |
+| Wastewater pre-treatment (wet line) | Oil/grease separator + DAF unit | 80,000 |
+| **Sub-total storage & treatment** | | **1,025,000 MAD** |
 
 ### 8.3 Total Water System Investment
 
 | Category | Cost (MAD) |
 |---|---|
-| Well infrastructure | 156,000–206,000 |
-| Water storage & treatment | 400,000 |
-| **TOTAL (excl. fire & boiler packages)** | **556,000–606,000 MAD** |
+| Well infrastructure | 177,000–232,000 |
+| Water storage & treatment | 1,025,000 |
+| **TOTAL (excl. fire & boilers)** | **1,202,000–1,257,000 MAD** |
 | Fire water tank (35 m³) | Already in PCI budget (Soufiane Incendie) |
-| Boiler feedwater tank (3 m³) | Included in Fang Kuai package |
-| Water softener (dual-tank) | Included in Fang Kuai package |
+| 2 × 4 t/h boilers | Separate boiler procurement (not in this budget) |
+
+### Comparison: Dry-only vs Dry+Wet investment
+
+| Item | Dry Only (Rev. 1) | Dry + Wet (Rev. 2) | Increase |
+|---|---|---|---|
+| Well infrastructure | 156,000–206,000 | 177,000–232,000 | +21,000–26,000 |
+| Storage & treatment | 400,000 | 1,025,000 | +625,000 |
+| **Total** | **556,000–606,000** | **1,202,000–1,257,000** | **+646,000–651,000** |
+
+> The wet line adds ~650,000 MAD to the water infrastructure, primarily from the retort cooling system (120k), larger raw water tank (120k increase), larger process water tank (20k increase), boiler feedwater system (125k), wastewater pre-treatment (80k), and larger piping/instrumentation (110k increase).
 
 ### 8.4 Annual Operating Cost Comparison
 
 | Scenario | Water Cost | Well Maintenance | ABHOER Fee | Total Annual |
 |---|---|---|---|---|
-| **ONEE only (no well)** | 118,320 MAD | — | — | **118,320 MAD** |
-| **Well + ONEE backup (90/10)** | 30,624 MAD | 10,000 MAD | ~3,000 MAD | **~43,600 MAD** |
-| **Annual saving with well** | | | | **~74,700 MAD** |
+| **ONEE only (no well)** | 300,900 MAD | — | — | **300,900 MAD** |
+| **Well + ONEE backup (80/20)** | 102,660 MAD | 15,000 MAD | ~7,000 MAD | **~124,700 MAD** |
+| **Annual saving with well** | | | | **~176,200 MAD** |
 
-**Payback period for well investment:** 156,000–206,000 MAD ÷ 74,700 MAD/year = **2.1–2.8 years**
+**Payback period for well investment:** 177,000–232,000 MAD ÷ 176,200 MAD/year = **1.0–1.3 years**
 
-> Note: Fang Kuai boiler package already includes the feedwater tank (3 m³), feed pumps (2 × 4 m³/h), and water softener. These do not need separate procurement.
+> With the larger combined plant, the well pays for itself in approximately **one year** — even faster than the dry-only scenario. The higher water volume amplifies the well's cost advantage.
 
 ---
 
 ## 9. Recommendations
 
-### Phase 1 — Well & Water Infrastructure (before production start)
-1. **Drill the well (forage)** — engage a qualified drilling company (entreprise de forage agréée); obtain ABHOER authorization before drilling starts
-2. **Conduct pump test (essai de pompage)** — minimum 72 hours; this determines actual yield and pump sizing
-3. **Confirm ONEE backup connection** — contact ONEE Direction Régionale Marrakech-Safi for available pressure and flow at ZI Sidi Bouathmane
-4. **Build raw water storage (2 × 60 m³)** — critical path item; production cannot start without adequate water storage
-5. **Verify fire water tank (35 m³)** — confirm with Soufiane Incendie that poteaux incendie are served from ONEE direct pressure and the 35 m³ covers RIA network only
-6. **Upgrade process water tank** from 10 m³ to 15 m³ (if not yet procured)
-7. **Install well pump station** — submersible pump, VFD, wellhead, electrical panel, discharge pipe to raw water tanks
+### Phase 1 — Well & Core Infrastructure (before production start)
+1. **Drill the well (forage)** — engage a qualified drilling company; obtain ABHOER authorization first. Target yield: ≥ 8 m³/h. If yield < 8 m³/h, plan a second well or upgrade ONEE to co-primary.
+2. **Conduct pump test (essai de pompage)** — minimum 72 hours; determines pump sizing and sustainable yield
+3. **Confirm ONEE connection at DN100** — contact ONEE Direction Régionale Marrakech-Safi for the upgraded DN100 connection
+4. **Build raw water storage (2 × 125 m³)** — critical path item for both lines
+5. **Verify fire water tank (35 m³)** — confirm with Soufiane Incendie that the existing design covers the combined plant
+6. **Install well pump station** — submersible pump rated for 8–12 m³/h, VFD, wellhead, electrical panel
+7. **Procure boiler feedwater system** — 10 m³ SS tank, 2 × 3 t/h alternating softeners, 5 m³ buffer, feed pumps — coordinate with boiler supplier
 
-### Phase 2 — Design optimization
-8. **Install flash steam recovery vessel** — saves 4.2 m³/day of boiler makeup water (see Condensate Return Rate Calculation)
-9. **Install water meters on each circuit** — well output, ONEE input, boiler makeup, preconditioner, CIP, sanitary — to enable water balance monitoring and leak detection
-10. **Well water quality monitoring** — establish baseline quality profile; install online TDS/conductivity monitor on well output for early warning of quality changes
-11. **Rainwater harvesting** — consider collecting roof water (5,180 m² roof × 300 mm avg rainfall = ~1,554 m³/year) for landscape and floor washing. Payback: ~2 years at well water rates
+### Phase 2 — Wet Line Water Infrastructure
+8. **Build retort cooling water system** — 25 m³ tank + cooling tower + chemical dosing; coordinate with wet line equipment supplier for retort cooling specifications
+9. **Build process water tank (30 m³)** — sized for combined dry+wet line demand
+10. **Install wastewater pre-treatment** — oil/grease separator + DAF unit for wet line effluent (HACCP and environmental compliance)
+11. **Commission water treatment chain** — sand filter + carbon filter sized for combined demand (DN100)
 
-### Phase 3 — Future consideration
-12. **Second well (forage de secours)** — if the factory expands beyond 5 TPH or if the primary well yield declines, a second borehole provides redundancy
-13. **Water recycling** — CIP rinse water from final rinse can be reused for first rinse of next cycle (saves ~30% of CIP water)
-14. **Cooling tower blowdown recovery** — if evaporative cooling is added later, blowdown can be recovered for floor washing
+### Phase 3 — Optimization
+12. **Install flash steam recovery vessel** — saves 9.4 m³/day peak (both lines) = ~2,820 m³/year
+13. **Install water meters on each circuit** — well, ONEE, boiler × 2, preconditioner, wet line process, retort cooling, CIP (both lines), sanitary
+14. **Well water quality monitoring** — online TDS/conductivity monitor; baseline quality profile
+15. **Retort cooling water optimization** — monitor cooling tower performance; optimize cycles of concentration to minimize blowdown
+16. **Rainwater harvesting** — 5,180 m² roof × 300 mm avg rainfall = ~1,554 m³/year for landscape and floor washing
+
+### Phase 4 — Future Expansion
+17. **Second well (forage de secours)** — if primary well yield is marginal (< 8 m³/h) or if further expansion is planned
+18. **Water recycling** — CIP rinse water reuse (saves ~30% of CIP water); retort cooling water cascading to floor washing
+19. **Condensate polishing** — if wet line condensate quality degrades, add polishing step before returning to feedwater tank
 
 ---
 
 ## 10. References
 
-- FAMSUN 5T/H Pet Food Line — Equipment water specifications
-- Fang Kuai Boiler Co., LTD — 3 tons steam split condensing boiler quotation (16 June 2026)
+- FAMSUN 5T/H Pet Food Line — Equipment water specifications and Performance Guarantee Annex
 - Soufiane Incendie / INGenios — Schema Synoptique Surpresseur (PCI Plan)
 - BCAT — NSI ERT PET FACTORY MAROC, Dossier N° CAS-0003311-AK/23
 - FAMSUN Chiller Solution V08 — Note de synthèse (6 May 2026)

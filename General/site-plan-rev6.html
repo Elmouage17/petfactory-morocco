@@ -597,32 +597,37 @@
     <rect x="651" y="350" width="8" height="8" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.5"/>
     <rect x="651" y="500" width="8" height="8" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.5"/>
 
-    <!-- ==================== CHAUFFERIE SUD (lean-to extension) ==================== -->
-    <rect x="270" y="602" width="140" height="75" rx="5"
+    <!-- ==================== CHAUFFERIE SUD (lean-to on SW wall, clear of court) ==================== -->
+    <rect x="155" y="603" width="140" height="65" rx="5"
           fill="var(--chaufferie-light)" stroke="var(--chaufferie)" stroke-width="3"/>
-    <text x="340" y="622" text-anchor="middle" font-size="13" font-weight="700" fill="var(--chaufferie)">CHAUFFERIE</text>
-    <text x="340" y="638" text-anchor="middle" font-size="9" font-weight="600" fill="var(--chaufferie)">2 &times; 4 t/h Chaudi&egrave;res</text>
-    <text x="340" y="651" text-anchor="middle" font-size="7" fill="var(--text-muted)">B&acirc;che 8m&sup3; + RO 6m&sup3;/h + Chemin&eacute;e 20m</text>
-    <text x="340" y="662" text-anchor="middle" font-size="7" fill="var(--text-muted)">12m &times; 8m &middot; Chaudi&egrave;re 6,59 &times; 2,51m (EGFI)</text>
+    <text x="225" y="621" text-anchor="middle" font-size="12" font-weight="700" fill="var(--chaufferie)">CHAUFFERIE</text>
+    <text x="225" y="635" text-anchor="middle" font-size="8" font-weight="600" fill="var(--chaufferie)">2 &times; 4 t/h Chaudi&egrave;res</text>
+    <text x="225" y="648" text-anchor="middle" font-size="7" fill="var(--text-muted)">12m &times; 8m &middot; EGFI 336/26</text>
+    <text x="225" y="659" text-anchor="middle" font-size="7" fill="var(--text-muted)">B&acirc;che 8m&sup3; + RO 6m&sup3;/h + Chemin&eacute;e 20m</text>
 
     <!-- "NEW" badge -->
-    <rect x="382" y="596" width="30" height="14" rx="3" fill="var(--chaufferie)"/>
-    <text x="397" y="606" text-anchor="middle" font-size="8" font-weight="700" fill="#FFF">NEW</text>
+    <rect x="268" y="597" width="30" height="14" rx="3" fill="var(--chaufferie)"/>
+    <text x="283" y="607" text-anchor="middle" font-size="8" font-weight="700" fill="#FFF">NEW</text>
 
     <!-- South wall annotation -->
-    <text x="340" y="688" text-anchor="middle" font-size="7" fill="var(--text-muted)" font-style="italic">Appentis sur mur sud &middot; Chemin&eacute;e orient&eacute;e &#x2191; Nord</text>
+    <text x="225" y="680" text-anchor="middle" font-size="7" fill="var(--text-muted)" font-style="italic">Appentis mur sud-ouest &middot; Chemin&eacute;e &#x2191; Nord</text>
+
+    <!-- Truck access path to central court (now clear) -->
+    <line x1="377" y1="795" x2="377" y2="605" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 3"/>
+    <polygon points="374,608 377,600 380,608" fill="var(--text-muted)"/>
+    <text x="395" y="700" font-size="8" fill="var(--text-muted)" transform="rotate(-90 395 700)">Acc&egrave;s camions &#x2192; Cour</text>
 
     <!-- ==================== SOUTH EXTERNAL FACILITIES ==================== -->
 
-    <!-- Poste Transfo -->
-    <rect x="145" y="618" width="60" height="34" rx="3" fill="var(--electrical-light)" stroke="var(--electrical)" stroke-width="1.8"/>
-    <text x="175" y="633" text-anchor="middle" font-size="7" font-weight="700" fill="var(--electrical)">Poste</text>
-    <text x="175" y="644" text-anchor="middle" font-size="7" font-weight="700" fill="var(--electrical)">Transfo</text>
+    <!-- Poste Transfo (below Chaufferie, SW) -->
+    <rect x="155" y="674" width="60" height="34" rx="3" fill="var(--electrical-light)" stroke="var(--electrical)" stroke-width="1.8"/>
+    <text x="185" y="689" text-anchor="middle" font-size="7" font-weight="700" fill="var(--electrical)">Poste</text>
+    <text x="185" y="700" text-anchor="middle" font-size="7" font-weight="700" fill="var(--electrical)">Transfo</text>
 
-    <!-- Local TGBT 2 -->
-    <rect x="210" y="618" width="55" height="34" rx="3" fill="var(--electrical-light)" stroke="var(--electrical)" stroke-width="1.2"/>
-    <text x="237" y="635" text-anchor="middle" font-size="7" font-weight="600" fill="var(--electrical)">TGBT 2</text>
-    <text x="237" y="646" text-anchor="middle" font-size="6" fill="var(--text-muted)">local</text>
+    <!-- Local TGBT 2 (next to Poste Transfo) -->
+    <rect x="220" y="674" width="55" height="34" rx="3" fill="var(--electrical-light)" stroke="var(--electrical)" stroke-width="1.2"/>
+    <text x="247" y="691" text-anchor="middle" font-size="7" font-weight="600" fill="var(--electrical)">TGBT 2</text>
+    <text x="247" y="702" text-anchor="middle" font-size="6" fill="var(--text-muted)">local</text>
 
     <!-- LOCAL PLG (propane local - already designated on plan!) -->
     <rect x="415" y="618" width="55" height="34" rx="3" fill="var(--propane-light)" stroke="var(--propane)" stroke-width="1.8"/>
@@ -693,30 +698,30 @@
 
     <!-- ==================== PIPE ROUTES ==================== -->
 
-    <!-- Steam: Chaufferie sud &rarr; Dry line (west block) -->
-    <path d="M300,602 L300,385 L228,385" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
-    <rect x="282" y="480" width="40" height="14" rx="2" fill="var(--bg)"/>
-    <text x="302" y="490" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~20m</text>
+    <!-- Steam: Chaufferie SW &rarr; Dry line (west block, straight up) -->
+    <path d="M225,603 L225,385" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
+    <rect x="230" y="490" width="40" height="14" rx="2" fill="var(--bg)"/>
+    <text x="250" y="500" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~20m</text>
 
-    <!-- Steam: Chaufferie sud &rarr; Wet line (east block) -->
-    <path d="M390,610 L540,610 L540,450" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
-    <rect x="545" y="530" width="40" height="14" rx="2" fill="var(--bg)"/>
-    <text x="565" y="540" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~35m</text>
+    <!-- Steam: Chaufferie SW &rarr; Wet line (east block, via south) -->
+    <path d="M295,630 L540,630 L540,450" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
+    <rect x="430" y="632" width="40" height="14" rx="2" fill="var(--bg)"/>
+    <text x="450" y="642" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~40m</text>
 
-    <!-- Water: Treatment &rarr; Chaufferie (short!) -->
-    <path d="M315,742 L315,680" fill="none" stroke="var(--pipe-water)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-water)"/>
-    <rect x="318" y="702" width="38" height="14" rx="2" fill="var(--bg)"/>
-    <text x="337" y="712" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-water)" class="mono">~10m</text>
+    <!-- Water: Treatment &rarr; Chaufferie (short, adjacent SW) -->
+    <path d="M270,742 L225,742 L225,668" fill="none" stroke="var(--pipe-water)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-water)"/>
+    <rect x="230" y="718" width="38" height="14" rx="2" fill="var(--bg)"/>
+    <text x="249" y="728" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-water)" class="mono">~10m</text>
 
-    <!-- Gas: Vaporizer &rarr; Chaufferie (short!) -->
-    <path d="M548,760 L440,760 L440,680 L410,650" fill="none" stroke="var(--pipe-gas)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-gas)"/>
-    <rect x="442" y="712" width="38" height="14" rx="2" fill="var(--bg)"/>
-    <text x="461" y="722" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-gas)" class="mono">~15m</text>
+    <!-- Gas: Vaporizer &rarr; LOCAL PLG &rarr; Chaufferie SW -->
+    <path d="M548,760 L442,760 L442,650 L295,650" fill="none" stroke="var(--pipe-gas)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-gas)"/>
+    <rect x="355" y="652" width="38" height="14" rx="2" fill="var(--bg)"/>
+    <text x="374" y="662" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-gas)" class="mono">~25m</text>
 
     <!-- ==================== ANNOTATIONS ==================== -->
 
-    <!-- Chimney arrow (north orientation) -->
-    <g transform="translate(280, 696)">
+    <!-- Chimney arrow (north orientation, above Chaufferie SW) -->
+    <g transform="translate(170, 695)">
       <line x1="0" y1="0" x2="0" y2="-16" stroke="var(--chaufferie)" stroke-width="1.5"/>
       <polygon points="-3,-16 0,-22 3,-16" fill="var(--chaufferie)"/>
       <text x="8" y="-8" font-size="7" fill="var(--chaufferie)">Chemin&eacute;e &#x2191;</text>
@@ -742,8 +747,8 @@
 
     <!-- Electrical infrastructure badge -->
     <rect x="300" y="870" width="230" height="42" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
-    <text x="310" y="887" font-size="9" font-weight="600" fill="var(--electrical)">&#x26A1; Infra &eacute;lectrique c&ocirc;t&eacute; sud :</text>
-    <text x="310" y="902" font-size="8" fill="var(--text-muted)">Poste Transfo + TGBT 2 + Local PLG</text>
+    <text x="310" y="887" font-size="9" font-weight="600" fill="var(--electrical)">&#x26A1; Infra &eacute;lectrique sud-ouest :</text>
+    <text x="310" y="902" font-size="8" fill="var(--text-muted)">Poste Transfo + TGBT 2 (sous Chaufferie)</text>
 
     <!-- Pipe legend -->
     <g transform="translate(80, 618)">
@@ -815,7 +820,7 @@
       <tr>
         <td>Gaz GPL (vaporisateur &rarr; chaudi&egrave;re)</td>
         <td>~50 m souterrain</td>
-        <td class="winner">~15 m (3&times; plus court)</td>
+        <td class="winner">~25 m (2&times; plus court)</td>
       </tr>
       <tr>
         <td>Eau trait&eacute;e (traitement &rarr; chaudi&egrave;re)</td>
@@ -830,7 +835,7 @@
       <tr>
         <td>Vapeur &rarr; ligne humide</td>
         <td class="winner">20&ndash;35 m</td>
-        <td>~35 m (via cour centrale)</td>
+        <td>~40 m (via sud vers bloc est)</td>
       </tr>
       <tr>
         <td>Proximit&eacute; TGBT 2 / Poste Transfo</td>
@@ -875,7 +880,7 @@
       <li>Dalle b&eacute;ton ~12m &times; 8m (~96 m&sup2;) &mdash; 2 chaudi&egrave;res + accessoires</li>
       <li>Franchises EGFI : 4m avant, 0,6m arri&egrave;re, 1,2m c&ocirc;t&eacute; service, 1,8m dessus</li>
       <li>Chemin&eacute;e 20 m orient&eacute;e <strong>nord</strong> (&eacute;loign&eacute;e des citernes GPL)</li>
-      <li><span class="highlight">Gaz GPL &agrave; ~15m</span> au lieu de ~50m</li>
+      <li><span class="highlight">Gaz GPL &agrave; ~25m</span> au lieu de ~50m</li>
       <li><span class="highlight">Eau trait&eacute;e &agrave; ~10m</span> au lieu de ~35m</li>
       <li>Adjacent au Poste Transfo + TGBT 2 + LOCAL PLG</li>
       <li>Lib&egrave;re ~100 m&sup2; int&eacute;rieur (ex-Chaudi&egrave;re/TGBT)</li>
@@ -907,7 +912,7 @@
     <h3><div class="dot" style="background: var(--propane)"></div> Citernes GPL &mdash; Sud-Est</h3>
     <ul>
       <li>2 &times; 30 000 L a&eacute;riennes = 15,2 jours autonomie</li>
-      <li><span class="highlight">~15 m vers la Chaufferie sud</span></li>
+      <li><span class="highlight">~25 m vers la Chaufferie sud-ouest</span></li>
       <li>Zone ATEX + bassin de r&eacute;tention + cl&ocirc;ture</li>
       <li>LOCAL PLG d&eacute;j&agrave; pr&eacute;vu sur Plan de Masse</li>
       <li>Espace pour 3&egrave;me citerne future</li>

@@ -2,8 +2,9 @@
 ## Propane (LPG) Tank Options Analysis
 
 **Project:** PetFactory Morocco — Sidi Bouathmane, Benguerir  
-**Date:** 2026-09-20  
-**Context:** A provider proposed 6 small underground tanks. This document evaluates all configurations to identify the optimal solution.
+**Date:** 2026-09-20 (Rev. 2: 2026-09-23 — Corrected per Règlement Général GPL Art. 97)  
+**Context:** A provider proposed 6 small underground tanks. This document evaluates all configurations to identify the optimal solution.  
+**Rev. 2 Note:** Safety distances are capacity-tiered per Article 97 of the Règlement Général sur les GPL (source: AFRIQUIAGAZ Réf. 02). The Rev. 1 recommendation (Option G: 2 × 30,000 L) is invalidated — only installations ≤24,000 L (≤10 tonnes) fit the 7.5 m distances compatible with this lot.
 
 ---
 
@@ -251,7 +252,9 @@
 - Visible — may need architectural screening
 - Higher safety distances from property line (15 m)
 
-**Verdict: STRONG OPTION** — Best value for money, easy to maintain and expand.
+**Verdict (Rev. 1): STRONG OPTION** — Best value for money, easy to maintain and expand.
+
+> **Rev. 2 UPDATE: NON CONFORME on this lot.** Total capacity 50,000 L = ~21.7 tonnes → exceeds the 10-tonne threshold → requires 10 m+ distances (Art. 97) → property lines B39-B40 too close. Same issue as Option G and the Vetogas 50 m³ proposal.
 
 ---
 
@@ -276,7 +279,9 @@
 - More complex than a single-type installation
 - Marginal benefit over all above-ground
 
-**Verdict: POSSIBLE but adds unnecessary complexity over Option E.**
+**Verdict (Rev. 1): POSSIBLE but adds unnecessary complexity over Option E.**
+
+> **Rev. 2 UPDATE: NON CONFORME on this lot.** The above-ground 30,000 L component alone exceeds 24,000 L → 10 m+ distances required → incompatible with lot dimensions.
 
 ---
 
@@ -309,7 +314,9 @@
 - Must be located away from buildings and property line
 - Needs fencing and possibly architectural screening
 
-**Verdict: BEST OPTION — meets all requirements with room to grow.**
+**Verdict (Rev. 1): BEST OPTION — meets all requirements with room to grow.**
+
+> **Rev. 2 UPDATE: NON CONFORME on this lot.** Total capacity 60,000 L = ~26 tonnes → exceeds the 10-tonne threshold → requires 10 m+ distances (Art. 97) → 10 m circles encroach on property boundaries B39-B40 (confirmed by PNV overlay). The Vetogas 50 m³ single-tank proposal has the same problem.
 
 ---
 
@@ -330,6 +337,9 @@
 | **Footprint (total)** | 120 m² | 80 m² | 60 m² | 45 m² | 250 m² | 200 m² | **300 m²** |
 | **Permit complexity** | High | Medium | Medium | Medium | Medium | High | **Medium** |
 | **OVERALL SCORE** | 3/10 | 5/10 | 6/10 | 4/10 | 8/10 | 6/10 | **9/10** |
+| **Rev. 2 Compliance** | UG rules | UG rules | UG rules | UG rules | **NON CONFORME** | **NON CONFORME** | **NON CONFORME** |
+
+> **Rev. 2 Note:** Options E, F, G are all NON CONFORME on this lot because their above-ground capacity exceeds 24,000 L, triggering 10 m+ distances (Art. 97) that encroach on property boundaries. The revised recommendation is AFRIQUIAGAZ 22 m³ (22,000 L) — the only above-ground option in the 12,000–24,000 L tier (7.5 m distances). See Section 6.
 
 ---
 
@@ -347,14 +357,25 @@
 | **ONEE/Ministère de l'Énergie** guidelines | Energy infrastructure standards |
 | **Règlement de construction parasismique (RPS 2011)** | Seismic design for tank foundations (Zone II for Benguerir) |
 
-### 4.2 Key Regulatory Requirements
+### 4.2 Key Regulatory Requirements (Rev. 2 — Capacity-Tiered per Article 97)
 
-**Safety distances (above-ground tanks > 3,200 L):**
-- 7.5 m minimum from any building
-- 15 m from property boundary
-- 3 m between tanks
-- 15 m from any flame source or electrical installation
-- Fenced perimeter with locked gate
+**Safety distances are classified by total storage capacity (Article 97, Règlement Général GPL):**
+
+| Distance requirement | ≤3,200 L (<1.4 t) | 3,200–12,000 L (1.4–5.2 t) | 12,000–24,000 L (5.2–10.4 t) | >24,000 L (>10.4 t) |
+|---|---|---|---|---|
+| From buildings | 3 m | 5 m | **7.5 m** | **10 m+** |
+| From property line | 3 m | 5 m | **7.5 m** | **10 m+** |
+| From flammable materials | 3 m | 5 m | **7.5 m** | **10 m+** |
+| From delivery truck | 3 m | 3 m | 5 m | 5 m+ |
+| From public establishments | — | 15 m | 40 m | 40 m+ |
+
+> **Rev. 2 correction:** Rev. 1 used generic distances (7.5 m from buildings, 15 m from property) for all above-ground tanks. The actual regulation classifies distances by capacity. On this lot (101 × 108 m), only the 12,000–24,000 L tier (7.5 m distances) is compatible. Installations >24,000 L require 10 m+ distances that encroach on property boundaries B39-B40.
+
+**Additional regulatory articles (source: AFRIQUIAGAZ Réf. 02):**
+- **Article 99:** Truck access must allow evacuation "sans manoeuvre et en marche avant"
+- **Article 101:** Electrical equipment within 7.5 m of tank openings must be safety-rated
+- **Article 102:** Tank must be in open air, accessible, not under inhabited building, not enclosed, not underground
+- **Article 103:** Minimum 10 kg powder fire extinguisher + water post with hose and lance (RIA)
 
 **Safety distances (underground tanks):**
 - 1.5 m from buildings (reduced because of burial protection)
@@ -403,79 +424,99 @@
 
 ---
 
-## 6. Final Recommendation
+## 6. Final Recommendation (Rev. 2 — Revised)
 
-### Primary: Option G — 2 × 30,000 L Above-Ground Tanks
+> **Rev. 2 supersedes Rev. 1.** The original recommendation (Option G: 2 × 30,000 L) is invalidated by Article 97 of the Règlement Général GPL. See Section 4.2 for the corrected capacity-tiered distances.
 
-**Why this is the best choice:**
+### Three-Way Supplier Comparison
 
-1. **Adequate autonomy:** 15.2 days exceeds the 14-day recommendation, ensuring uninterrupted production during holidays, supply disruptions, or price negotiations.
+| | Vetogas | AFRIQUIAGAZ | Option G (Rev. 1) |
+|---|---|---|---|
+| **Configuration** | 1 × 50 m³ | 1 × 22 m³ | 2 × 30,000 L |
+| **Total capacity** | 50,000 L | 22,000 L | 60,000 L |
+| **Mass at 85% fill** | ~21.7 tonnes | ~9.5 tonnes | ~26 tonnes |
+| **Regulatory tier** | >10 tonnes | **5–10 tonnes** | >10 tonnes |
+| **Required distance** | 10 m | **7.5 m (Art. 97)** | 10 m+ |
+| **Autonomy** | 12.7 days | 5.6 days | 15.2 days |
+| **Art. 103 extincteur** | 9 kg (NON) | **10 kg (OK)** | Not specified |
+| **Verdict** | **NON CONFORME** | **CONFORME** | **NON CONFORME** |
 
-2. **Lowest total cost of ownership:** No excavation, no cathodic protection, no underground leak detection. Simple concrete pads and retention basin. Estimated saving of 100,000–200,000 MAD vs. underground options.
+### Primary: AFRIQUIAGAZ — 1 × 22,000 L Above-Ground Tank
 
-3. **Easy maintenance:** Visual inspection catches corrosion, leaks, or damage immediately. Accessible piping for repairs. Simple repainting every 5–7 years.
+**Why this is the only compliant choice on this lot:**
 
-4. **Redundancy:** Lead/lag operation means one tank can be taken offline for maintenance or inspection while the other sustains production.
+1. **Regulatory compliance:** 22,000 L falls within the 12,000–24,000 L tier of Article 97. Required safety distance is 7.5 m. The SE corner of the lot provides >15 m in all directions — more than double the requirement. Confirmed by AFRIQUIAGAZ implantation plan Réf. 01 (dated 05-02-2026, CONFORME).
 
-5. **Expandability:** Pre-pour a 3rd concrete pad. When production grows (new line, longer shifts), adding a 3rd tank is a 2-week project, not a major construction.
+2. **Complete safety equipment:** Per Article 103 — extincteur 10 kg poudre, RIA (Robinet d'Incendie Armé), clôture grillagée Ø6mm hauteur 2 m, alimentation en eau 1"½ - 2 bars.
 
-6. **Fast installation:** 3–4 weeks from order to operation, vs. 6–8 weeks for underground.
+3. **Lowest installation cost:** Single tank, no excavation, 1 concrete pad, 1 retention basin. Estimated ~240,000 MAD total installation.
 
-7. **Better supplier terms:** Larger storage = fewer, larger deliveries = lower per-kg price. At 513 tonnes/year, even 0.25 MAD/kg savings = 128,000 MAD/year.
+4. **Fast installation:** 2–3 weeks from order to operation.
 
-### Why NOT the provider's suggestion (6 small underground tanks)
+5. **Local supplier:** AFRIQUIAGAZ (Groupe AKWA) — 139, Bd Moulay Ismail, Roches Noires, Casablanca. Largest Moroccan GPL distributor. Strong presence in Marrakech-Safi region.
 
-The provider's proposal of 6 small underground tanks is the **worst option** evaluated:
+### The Trade-off: Reduced Autonomy
 
-| Issue | Impact |
-|---|---|
-| Only 7.6 days of supply | Production at risk during any delivery delay |
-| 6× civil works (excavation + concrete cradle) | Highest installation cost |
-| 6× cathodic protection systems | Highest ongoing maintenance cost |
-| Complex 6-branch piping manifold | Most failure points |
-| 6× periodic inspections | Most administrative burden |
-| Cannot visually inspect underground tanks | Corrosion may go undetected |
-| Slow refueling (6 sequential fills) | Longer tanker time on site |
+| | AFRIQUIAGAZ 22 m³ | Old Option G |
+|---|---|---|
+| Autonomy | **5.6 days** | 15.2 days |
+| Deliveries needed | ~5×/month | 2×/month |
+| Regulatory compliance | **CONFORME** | NON CONFORME |
 
-**The provider may have suggested this configuration because:**
-- They stock 5,000 L tanks and want to sell existing inventory
-- Underground tanks have higher installation margins
-- They are accustomed to smaller commercial clients, not industrial
-- They did not calculate the factory's actual daily consumption
+**Mitigation strategies:**
+1. **Regular deliveries every 4 days** — AFRIQUIAGAZ based in Casablanca (~250 km from Benguerir)
+2. **Automatic reorder threshold at 40%** (8,800 L usable) = 2.6 days of margin before stockout
+3. **Future 2nd tank (to validate):** Consult AFRIQUIAGAZ on whether 2 × 22,000 L as separate installations each remain in the 5–10 t category, or if the 44,000 L total is classified as >10 t
 
-### Site Layout Requirement
+### Why NOT the other proposals
 
-The 2 × 30,000 L above-ground installation requires a dedicated zone:
-- Tank pad: ~15 m × 5 m (2 tanks side by side, 3 m apart)
-- Safety perimeter: 7.5 m from nearest building wall
-- Fenced area: ~25 m × 12 m (~300 m²)
-- Located near the boiler room for short piping run
-- Tanker access road capable of 25-tonne vehicle
-- Retention basin (bac de rétention) under both tanks
+**Vetogas (50 m³) — NON CONFORME for 3 reasons:**
+1. ~21.7 tonnes → exceeds 10-tonne threshold → 10 m distances required
+2. 10 m circles encroach on property lines B39-B40 (confirmed by PNV overlay)
+3. Fire extinguisher specified at 9 kg — below the 10 kg minimum of Article 103
 
-### Action Items
+**Option G (2 × 30,000 L) — NON CONFORME:**
+- 60,000 L total = ~26 tonnes → same >10-tonne tier as Vetogas
+- Same 10 m+ distance problem on this lot
+- Rev. 1 analysis used generic distances without capacity classification
 
-1. **Request quotes** from Afriquia Gaz, Vivo Energy, and National Gaz for 2 × 30,000 L above-ground GPL storage with supply contract
-2. **Ask about tank rental programs** — supplier-owned tanks in exchange for multi-year supply agreement
-3. **Confirm site layout** — identify a 300 m² zone near the boiler room that meets safety distances
-4. **Commission fire safety update** — the existing NSI ERT study (Soufiane Incendie) may need revision to include GPL storage
-5. **Submit permit application** — dossier d'autorisation to the Prefecture de Benguerir with GPL storage plan
+**Original provider (6 × 5,000 L underground) — NOT RECOMMENDED:**
+- Highest cost (1,005,000 MAD over 5 years), most complex, marginal autonomy (7.6 days)
+
+### Site Layout Requirement (Revised)
+
+The AFRIQUIAGAZ 22 m³ above-ground installation requires:
+- Tank pad: single horizontal tank (~6.2 m × 2.2 m)
+- Safety perimeter: 7.5 m from nearest building wall (Art. 97)
+- Fenced enclosure with locked gate (clôture grillagée Ø6mm, H 2m)
+- Located at SE corner near the chaufferie for short piping run
+- Tanker access for delivery truck (Art. 99: marche avant, sans manoeuvre)
+- Retention basin (bac de rétention) under tank
+- RIA + extincteur 10 kg (Art. 103)
+
+### Action Items (Revised)
+
+1. **Confirm order with AFRIQUIAGAZ** — 1 × 22 m³ aérienne. Negotiate tank rental program (citerne gratuite vs contrat pluriannuel).
+2. **Clarify 2nd tank regulation** — Ask AFRIQUIAGAZ if 2 × 22 m³ (separate installations) stay in the 5–10 t category each, or if total 44,000 L triggers >10 t classification.
+3. **Establish delivery contract** — GPL vrac, frequency every 4 days, automatic reorder threshold at 40%.
+4. **Update fire safety study** — Revise NSI ERT (Soufiane Incendie) to include GPL 22 m³ storage and Art. 103 equipment.
+5. **Submit permit application** — dossier d'autorisation to the Prefecture de Benguerir with AFRIQUIAGAZ plan Réf. 01.
 
 ---
 
-## 7. Cost Summary (Estimated, MAD)
+## 7. Cost Summary (Estimated, MAD) — Rev. 2
 
-| Cost Element | Option A (6×5k UG) | **Option G (2×30k AG)** | Savings |
+| Cost Element | Option A (6×5k UG) | **AFRIQUIAGAZ 22 m³ (Rev. 2)** | Savings |
 |---|---|---|---|
-| Tank supply | 180,000 | 200,000 | (20,000) |
-| Excavation & civil works | 200,000 | 60,000 | **140,000** |
+| Tank supply | 180,000 | ~120,000 | **60,000** |
+| Excavation & civil works | 200,000 | 40,000 | **160,000** |
 | Cathodic protection | 90,000 | 0 | **90,000** |
-| Piping & manifold | 80,000 | 35,000 | **45,000** |
-| Safety equipment | 50,000 | 40,000 | **10,000** |
-| Fencing & retention | 0 | 25,000 | (25,000) |
-| **Total installation** | **600,000** | **360,000** | **240,000** |
-| Annual maintenance | 45,000 | 15,000 | **30,000/yr** |
-| Annual inspections | 36,000 | 12,000 | **24,000/yr** |
-| **5-year total cost** | **1,005,000** | **495,000** | **510,000** |
+| Piping & manifold | 80,000 | 25,000 | **55,000** |
+| Safety equipment | 50,000 | 35,000 | **15,000** |
+| Fencing & retention | 0 | 20,000 | (20,000) |
+| **Total installation** | **600,000** | **240,000** | **360,000** |
+| Maintenance (5 years) | 225,000 | 60,000 | **165,000** |
+| Inspections (5 years) | 180,000 | 50,000 | **130,000** |
+| **5-year total cost** | **1,005,000** | **350,000** | **655,000** |
 
-> These are estimates for comparison purposes. Actual costs will depend on supplier quotes and site conditions. Tank rental programs may eliminate the tank supply cost entirely.
+> These are estimates for comparison purposes. Actual costs will depend on supplier quotes and site conditions. Tank rental programs may eliminate the tank supply cost entirely. More frequent delivery costs (~5×/month vs 2×/month) are offset by the lower installation cost.

@@ -1,0 +1,1051 @@
+<title>PetFactory Implantation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #F4F6F8;
+    --surface: #FFFFFF;
+    --text: #1B2838;
+    --text-muted: #5A6B7F;
+    --border: #D1D9E0;
+    --lot-bg: #EEF2E6;
+    --lot-border: #7CA356;
+    --building-fill: #E8ECF0;
+    --building-stroke: #3A4F63;
+    --chaufferie: #C0392B;
+    --chaufferie-light: #F5D0CC;
+    --water: #2471A3;
+    --water-light: #C5DDF0;
+    --propane: #D4820E;
+    --propane-light: #FAE5C5;
+    --fire: #922B21;
+    --fire-light: #F0C6C2;
+    --production-dry: #6C7A89;
+    --production-wet: #5B738B;
+    --warehouse: #8E9EAB;
+    --admin: #7D6B91;
+    --admin-light: #E8DFF0;
+    --electrical: #2E7D32;
+    --electrical-light: #C8E6C9;
+    --safety-zone: rgba(212, 130, 14, 0.08);
+    --safety-stroke: rgba(212, 130, 14, 0.35);
+    --pipe-steam: #C0392B;
+    --pipe-water: #2471A3;
+    --pipe-gas: #D4820E;
+    --accent: #2471A3;
+    --dim: #8B6D4A;
+    --dim-line: #A08060;
+    --freed: #27AE60;
+    --freed-light: #D5F5E3;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1419;
+      --surface: #1A2332;
+      --text: #E2E8F0;
+      --text-muted: #8899AA;
+      --border: #2D3D4F;
+      --lot-bg: #1A2518;
+      --lot-border: #4A7A30;
+      --building-fill: #222D3A;
+      --building-stroke: #5A7A94;
+      --chaufferie: #E05A4F;
+      --chaufferie-light: #3A1A18;
+      --water: #4A9FD6;
+      --water-light: #1A2D3F;
+      --propane: #E8A030;
+      --propane-light: #3A2D18;
+      --fire: #D45A50;
+      --fire-light: #3A1815;
+      --production-dry: #7A8A99;
+      --production-wet: #6B88A5;
+      --warehouse: #6A7A8A;
+      --admin: #A08AB8;
+      --admin-light: #2A2232;
+      --electrical: #66BB6A;
+      --electrical-light: #1A2E1A;
+      --safety-zone: rgba(232, 160, 48, 0.06);
+      --safety-stroke: rgba(232, 160, 48, 0.25);
+      --pipe-steam: #E05A4F;
+      --pipe-water: #4A9FD6;
+      --pipe-gas: #E8A030;
+      --accent: #4A9FD6;
+      --dim: #C4A070;
+      --dim-line: #9A7A58;
+      --freed: #52D489;
+      --freed-light: #1A3A28;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1419;
+    --surface: #1A2332;
+    --text: #E2E8F0;
+    --text-muted: #8899AA;
+    --border: #2D3D4F;
+    --lot-bg: #1A2518;
+    --lot-border: #4A7A30;
+    --building-fill: #222D3A;
+    --building-stroke: #5A7A94;
+    --chaufferie: #E05A4F;
+    --chaufferie-light: #3A1A18;
+    --water: #4A9FD6;
+    --water-light: #1A2D3F;
+    --propane: #E8A030;
+    --propane-light: #3A2D18;
+    --fire: #D45A50;
+    --fire-light: #3A1815;
+    --production-dry: #7A8A99;
+    --production-wet: #6B88A5;
+    --warehouse: #6A7A8A;
+    --admin: #A08AB8;
+    --admin-light: #2A2232;
+    --electrical: #66BB6A;
+    --electrical-light: #1A2E1A;
+    --safety-zone: rgba(232, 160, 48, 0.06);
+    --safety-stroke: rgba(232, 160, 48, 0.25);
+    --pipe-steam: #E05A4F;
+    --pipe-water: #4A9FD6;
+    --pipe-gas: #E8A030;
+    --accent: #4A9FD6;
+    --dim: #C4A070;
+    --dim-line: #9A7A58;
+    --freed: #52D489;
+    --freed-light: #1A3A28;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    padding-block: 0;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .header {
+    padding: 28px 0 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    letter-spacing: -0.3px;
+    text-wrap: balance;
+  }
+  .header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .header .rev {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--chaufferie-light);
+    color: var(--chaufferie);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .header .source {
+    display: inline-block;
+    margin-top: 6px;
+    margin-left: 6px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--electrical-light);
+    color: var(--electrical);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .diagram-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .diagram-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .legend-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .compare {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+  }
+  .compare h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+  .compare table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .compare th {
+    text-align: left;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .compare td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compare tr:last-child td { border-bottom: none; }
+  .compare .winner { font-weight: 700; color: var(--freed); }
+  .compare .neutral { color: var(--text-muted); }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .info-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-card h3 .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .info-card ul {
+    margin: 0;
+    padding: 0 0 0 18px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+  .info-card li { margin-bottom: 2px; }
+  .info-card .highlight { color: var(--freed); font-weight: 600; }
+
+  .distances {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .distances h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+  .distances table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .distances th {
+    text-align: left;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .distances td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .distances tr:last-child td { border-bottom: none; }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tag-ok { background: #D5F5E3; color: #1E8449; }
+  .tag-verify { background: #FDEBD0; color: #B9770E; }
+  .tag-note { background: var(--chaufferie-light); color: var(--chaufferie); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .tag-ok { background: #1A3A28; color: #52D489; }
+    :root:not([data-theme="light"]) .tag-verify { background: #3A2D18; color: #E8A030; }
+    :root:not([data-theme="light"]) .tag-note { background: #3A1A18; color: #E05A4F; }
+  }
+  :root[data-theme="dark"] .tag-ok { background: #1A3A28; color: #52D489; }
+  :root[data-theme="dark"] .tag-verify { background: #3A2D18; color: #E8A030; }
+  :root[data-theme="dark"] .tag-note { background: #3A1A18; color: #E05A4F; }
+
+  .footer {
+    padding: 16px 0 28px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  }
+
+  svg text { font-family: 'DM Sans', system-ui, sans-serif; }
+  svg .mono { font-family: 'JetBrains Mono', monospace; }
+</style>
+
+<div class="header">
+  <h1>Plan d'Implantation &mdash; Chaudi&egrave;re Sud, Eau &amp; GPL</h1>
+  <p>PetFactory Morocco &mdash; Sidi Bouathmane, Benguerir &middot; 5 TPH Dry + 2.5 TPH Wet &middot; 2 &times; 4 t/h Boilers</p>
+  <span class="rev">Rev 7 &mdash; Citerne GPL 22 m&sup3; AFRIQUIAGAZ</span>
+  <span class="source">Source: Plan de Masse CFO + Devis EGFI 336/26 + AFRIQUIAGAZ 05/02/2026</span>
+</div>
+
+<div class="diagram-wrap">
+  <svg viewBox="0 0 840 960" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="hatch-propane" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="var(--propane)" stroke-width="0.7" stroke-opacity="0.25"/>
+      </pattern>
+      <pattern id="hatch-water" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(-45)">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="var(--water)" stroke-width="0.7" stroke-opacity="0.25"/>
+      </pattern>
+      <pattern id="hatch-freed" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="8" stroke="var(--freed)" stroke-width="0.6" stroke-opacity="0.3"/>
+      </pattern>
+      <marker id="arrow-steam" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+        <path d="M0,0 L6,2 L0,4" fill="var(--pipe-steam)"/>
+      </marker>
+      <marker id="arrow-water" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+        <path d="M0,0 L6,2 L0,4" fill="var(--pipe-water)"/>
+      </marker>
+      <marker id="arrow-gas" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+        <path d="M0,0 L6,2 L0,4" fill="var(--pipe-gas)"/>
+      </marker>
+      <filter id="shadow-sm">
+        <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.08"/>
+      </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect x="0" y="0" width="840" height="960" fill="var(--bg)"/>
+
+    <!-- ==================== LOT BOUNDARY ==================== -->
+    <polygon points="60,60 750,60 750,800 60,800 60,290"
+             fill="var(--lot-bg)" stroke="var(--lot-border)" stroke-width="2.5" stroke-dasharray="10 5"/>
+
+    <!-- Dimensions - North -->
+    <line x1="60" y1="44" x2="750" y2="44" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="60" y1="38" x2="60" y2="50" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="750" y1="38" x2="750" y2="50" stroke="var(--dim-line)" stroke-width="1"/>
+    <rect x="350" y="33" width="110" height="18" rx="3" fill="var(--bg)"/>
+    <text x="405" y="46" text-anchor="middle" font-size="11" font-weight="700" fill="var(--dim)" class="mono">101,37 m</text>
+
+    <!-- Dimensions - East -->
+    <line x1="765" y1="60" x2="765" y2="800" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="760" y1="60" x2="770" y2="60" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="760" y1="800" x2="770" y2="800" stroke="var(--dim-line)" stroke-width="1"/>
+    <rect x="770" y="422" width="64" height="16" rx="3" fill="var(--bg)"/>
+    <text x="802" y="433" text-anchor="middle" font-size="9" font-weight="600" fill="var(--dim)" class="mono">107,63 m</text>
+
+    <!-- Dimensions - West upper -->
+    <line x1="45" y1="60" x2="45" y2="290" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="40" y1="60" x2="50" y2="60" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="40" y1="290" x2="50" y2="290" stroke="var(--dim-line)" stroke-width="1"/>
+    <rect x="8" y="168" width="60" height="16" rx="3" fill="var(--bg)"/>
+    <text x="38" y="179" text-anchor="middle" font-size="9" font-weight="600" fill="var(--dim)" class="mono">33,88</text>
+
+    <!-- Dimensions - West lower -->
+    <line x1="45" y1="290" x2="45" y2="800" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="40" y1="800" x2="50" y2="800" stroke="var(--dim-line)" stroke-width="1"/>
+    <rect x="8" y="538" width="60" height="16" rx="3" fill="var(--bg)"/>
+    <text x="38" y="549" text-anchor="middle" font-size="9" font-weight="600" fill="var(--dim)" class="mono">74,71</text>
+
+    <!-- Dimensions - South -->
+    <line x1="60" y1="815" x2="750" y2="815" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="60" y1="810" x2="60" y2="820" stroke="var(--dim-line)" stroke-width="1"/>
+    <line x1="750" y1="810" x2="750" y2="820" stroke="var(--dim-line)" stroke-width="1"/>
+    <rect x="350" y="808" width="110" height="18" rx="3" fill="var(--bg)"/>
+    <text x="405" y="821" text-anchor="middle" font-size="11" font-weight="700" fill="var(--dim)" class="mono">101,33 m</text>
+
+    <!-- Corner labels -->
+    <text x="65" y="58" font-size="10" font-weight="700" fill="var(--lot-border)" class="mono">B33</text>
+    <text x="725" y="58" font-size="10" font-weight="700" fill="var(--lot-border)" class="mono">B32</text>
+    <text x="725" y="813" font-size="10" font-weight="700" fill="var(--lot-border)" class="mono">B39</text>
+    <text x="65" y="813" font-size="10" font-weight="700" fill="var(--lot-border)" class="mono">B40</text>
+    <text x="65" y="288" font-size="10" font-weight="700" fill="var(--lot-border)" class="mono">B44</text>
+
+    <!-- North arrow -->
+    <g transform="translate(405, 78)">
+      <text text-anchor="middle" font-size="12" font-weight="700" fill="var(--text-muted)" letter-spacing="2">&#x25B2; NORD</text>
+    </g>
+
+    <!-- Compass -->
+    <g transform="translate(730, 100)">
+      <circle cx="0" cy="0" r="20" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+      <path d="M0,-16 L3.5,-5 L0,-7.5 L-3.5,-5 Z" fill="var(--chaufferie)"/>
+      <path d="M0,16 L3.5,5 L0,7.5 L-3.5,5 Z" fill="var(--text-muted)"/>
+      <text y="-8" text-anchor="middle" font-size="8" font-weight="700" fill="var(--chaufferie)">N</text>
+    </g>
+
+    <!-- 10m setback -->
+    <rect x="128" y="128" width="555" height="605" rx="2" fill="none" stroke="var(--text-muted)" stroke-width="0.7" stroke-dasharray="4 4" opacity="0.4"/>
+    <text x="135" y="125" font-size="8" fill="var(--text-muted)" opacity="0.6">Recul 10 m</text>
+
+    <!-- ==================== ADMINISTRATION (separate building, north) ==================== -->
+    <rect x="480" y="95" width="215" height="52" rx="3"
+          fill="var(--admin-light)" stroke="var(--admin)" stroke-width="1.8" filter="url(#shadow-sm)"/>
+    <text x="587" y="114" text-anchor="middle" font-size="10" font-weight="700" fill="var(--admin)">ADMINISTRATION</text>
+    <text x="587" y="128" text-anchor="middle" font-size="8" fill="var(--text-muted)">Bureaux &middot; Cantine &middot; Salle R&eacute;union &middot; RH</text>
+    <text x="587" y="140" text-anchor="middle" font-size="7" fill="var(--text-muted)">HSP: 3,70 m &middot; +0,60 m</text>
+
+    <!-- Hall de Reception / Caisse -->
+    <rect x="420" y="95" width="60" height="28" rx="3"
+          fill="var(--admin-light)" stroke="var(--admin)" stroke-width="1"/>
+    <text x="450" y="112" text-anchor="middle" font-size="7" font-weight="600" fill="var(--admin)">Hall R&eacute;cep.</text>
+    <text x="450" y="121" text-anchor="middle" font-size="6" fill="var(--text-muted)">Caisse</text>
+
+    <!-- ==================== GUARD HOUSES (Gu&eacute;rite) ==================== -->
+    <rect x="700" y="132" width="32" height="22" rx="2" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="1.2"/>
+    <text x="716" y="146" text-anchor="middle" font-size="6" font-weight="600" fill="var(--building-stroke)">Gu&eacute;rite</text>
+
+    <rect x="700" y="740" width="32" height="22" rx="2" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="1.2"/>
+    <text x="716" y="754" text-anchor="middle" font-size="6" font-weight="600" fill="var(--building-stroke)">Gu&eacute;rite</text>
+
+    <!-- ==================== MAIN BUILDING (West Block + Central Court + East Block) ==================== -->
+
+    <!-- Overall building outline -->
+    <rect x="135" y="155" width="520" height="445" rx="3"
+          fill="none" stroke="var(--building-stroke)" stroke-width="2.5" filter="url(#shadow-sm)"/>
+
+    <!-- ===== WEST BLOCK (x=135..330) — Production & Warehouses ===== -->
+    <rect x="135" y="155" width="195" height="445" fill="var(--building-fill)"/>
+
+    <!-- Magasin Produit Fini (top, full width of west block) -->
+    <rect x="138" y="158" width="189" height="88" fill="var(--building-fill)" stroke="var(--warehouse)" stroke-width="1"/>
+    <text x="232" y="196" text-anchor="middle" font-size="11" font-weight="600" fill="var(--warehouse)">Magasin</text>
+    <text x="232" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="var(--warehouse)">Produit Fini</text>
+    <text x="232" y="226" text-anchor="middle" font-size="9" fill="var(--text-muted)">845 m&sup2;</text>
+    <rect x="142" y="161" width="32" height="10" rx="1" fill="var(--bg)" stroke="var(--building-stroke)" stroke-width="0.5"/>
+    <text x="158" y="169" text-anchor="middle" font-size="5" fill="var(--text-muted)">HSP 12m</text>
+
+    <!-- Left sub-column (x=138..228) -->
+
+    <!-- Salle d'Emballage -->
+    <rect x="138" y="246" width="90" height="70" fill="var(--building-fill)" stroke="var(--warehouse)" stroke-width="1"/>
+    <text x="183" y="278" text-anchor="middle" font-size="9" font-weight="600" fill="var(--warehouse)">Salle</text>
+    <text x="183" y="291" text-anchor="middle" font-size="9" font-weight="600" fill="var(--warehouse)">d'Emballage</text>
+
+    <!-- Unit&eacute; Sec Croquette -->
+    <rect x="138" y="316" width="90" height="132" fill="var(--building-fill)" stroke="var(--production-dry)" stroke-width="1.5"/>
+    <text x="183" y="372" text-anchor="middle" font-size="10" font-weight="600" fill="var(--production-dry)">Unit&eacute; Sec</text>
+    <text x="183" y="387" text-anchor="middle" font-size="10" font-weight="600" fill="var(--production-dry)">Croquette</text>
+    <rect x="142" y="319" width="32" height="10" rx="1" fill="var(--bg)" stroke="var(--building-stroke)" stroke-width="0.5"/>
+    <text x="158" y="327" text-anchor="middle" font-size="5" fill="var(--text-muted)">HSP 18,5m</text>
+
+    <!-- Right sub-column (x=228..327) — Service rooms -->
+
+    <!-- Stockage -->
+    <rect x="228" y="246" width="99" height="44" fill="var(--building-fill)" stroke="var(--building-stroke)" stroke-width="0.8"/>
+    <text x="277" y="272" text-anchor="middle" font-size="8" fill="var(--text-muted)">Stockage</text>
+
+    <!-- TGBT (existing internal) -->
+    <rect x="228" y="290" width="48" height="36" fill="var(--building-fill)" stroke="var(--building-stroke)" stroke-width="0.8"/>
+    <text x="252" y="312" text-anchor="middle" font-size="7" font-weight="600" fill="var(--building-stroke)">TGBT</text>
+
+    <!-- FREED SPACE (ex-Chaudi&egrave;re PNV) -->
+    <rect x="276" y="290" width="51" height="36" rx="3"
+          fill="url(#hatch-freed)" stroke="var(--freed)" stroke-width="1.8" stroke-dasharray="5 2"/>
+    <text x="301" y="305" text-anchor="middle" font-size="7" font-weight="600" fill="var(--freed)">ESPACE</text>
+    <text x="301" y="316" text-anchor="middle" font-size="7" font-weight="600" fill="var(--freed)">LIB&Eacute;R&Eacute;</text>
+
+    <!-- Maintenance -->
+    <rect x="228" y="326" width="99" height="40" fill="var(--building-fill)" stroke="var(--building-stroke)" stroke-width="0.8"/>
+    <text x="277" y="350" text-anchor="middle" font-size="8" fill="var(--text-muted)">Maintenance</text>
+
+    <!-- Grand Stockage d'Huile -->
+    <rect x="228" y="366" width="99" height="52" fill="var(--building-fill)" stroke="var(--building-stroke)" stroke-width="0.8"/>
+    <text x="277" y="390" text-anchor="middle" font-size="8" fill="var(--text-muted)">Grand Stockage</text>
+    <text x="277" y="402" text-anchor="middle" font-size="8" fill="var(--text-muted)">d'Huile</text>
+
+    <!-- B&acirc;che + Surpresseur (fire) -->
+    <rect x="228" y="418" width="99" height="30" fill="var(--fire-light)" stroke="var(--fire)" stroke-width="1"/>
+    <text x="277" y="437" text-anchor="middle" font-size="7" font-weight="600" fill="var(--fire)">B&acirc;che + Surpresseur 35m&sup3;</text>
+
+    <!-- Magasin R&eacute;ception (bottom, full width of west block) -->
+    <rect x="138" y="448" width="189" height="149" fill="var(--building-fill)" stroke="var(--warehouse)" stroke-width="1"/>
+    <text x="232" y="515" text-anchor="middle" font-size="11" font-weight="600" fill="var(--warehouse)">Magasin</text>
+    <text x="232" y="531" text-anchor="middle" font-size="11" font-weight="600" fill="var(--warehouse)">R&eacute;ception</text>
+    <text x="232" y="547" text-anchor="middle" font-size="9" fill="var(--text-muted)">1 233 m&sup2;</text>
+    <rect x="142" y="451" width="25" height="10" rx="1" fill="var(--bg)" stroke="var(--building-stroke)" stroke-width="0.5"/>
+    <text x="155" y="459" text-anchor="middle" font-size="5" fill="var(--text-muted)">HSP 8m</text>
+
+    <!-- ===== CENTRAL TRUCK COURT (x=330..425) ===== -->
+    <rect x="330" y="155" width="95" height="445" fill="var(--border)" stroke="var(--building-stroke)" stroke-width="1" opacity="0.6"/>
+    <rect x="330" y="155" width="95" height="445" fill="none" stroke="var(--building-stroke)" stroke-width="1.5"/>
+
+    <!-- Court label -->
+    <text x="377" y="310" text-anchor="middle" font-size="10" font-weight="700" fill="var(--building-stroke)">COUR</text>
+    <text x="377" y="325" text-anchor="middle" font-size="10" font-weight="700" fill="var(--building-stroke)">CAMIONS</text>
+    <text x="377" y="345" text-anchor="middle" font-size="7" fill="var(--text-muted)">Chargement</text>
+    <text x="377" y="357" text-anchor="middle" font-size="7" fill="var(--text-muted)">D&eacute;chargement</text>
+
+    <!-- Truck symbols (simplified top-view) -->
+    <rect x="362" y="205" width="14" height="30" rx="2" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.8"/>
+    <rect x="367" y="207" width="4" height="4" rx="1" fill="var(--building-stroke)" opacity="0.4"/>
+    <rect x="362" y="400" width="14" height="30" rx="2" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.8"/>
+    <rect x="367" y="402" width="4" height="4" rx="1" fill="var(--building-stroke)" opacity="0.4"/>
+    <rect x="362" y="500" width="14" height="30" rx="2" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.8"/>
+    <rect x="367" y="502" width="4" height="4" rx="1" fill="var(--building-stroke)" opacity="0.4"/>
+
+    <!-- Court access arrows (N/S openings) -->
+    <text x="377" y="172" text-anchor="middle" font-size="7" fill="var(--text-muted)">&#x25BC; Acc&egrave;s</text>
+    <text x="377" y="593" text-anchor="middle" font-size="7" fill="var(--text-muted)">Acc&egrave;s &#x25B2;</text>
+
+    <!-- ===== EAST BLOCK — UNIT&Eacute; HUMIDE (x=425..655) ===== -->
+    <rect x="425" y="155" width="230" height="445" fill="var(--building-fill)" stroke="var(--production-wet)" stroke-width="1.5"/>
+    <text x="540" y="235" text-anchor="middle" font-size="13" font-weight="700" fill="var(--production-wet)">Unit&eacute; Humide</text>
+    <text x="540" y="251" text-anchor="middle" font-size="9" fill="var(--text-muted)">2 000 m&sup2; &middot; HSP: 8m</text>
+
+    <!-- Sub-zones (lower portion, matching PNV equipment) -->
+    <rect x="435" y="350" width="105" height="45" rx="3" fill="none" stroke="var(--production-wet)" stroke-width="0.6" stroke-dasharray="3 2"/>
+    <text x="487" y="370" text-anchor="middle" font-size="8" font-weight="500" fill="var(--production-wet)">Zone de</text>
+    <text x="487" y="382" text-anchor="middle" font-size="8" font-weight="500" fill="var(--production-wet)">St&eacute;rilisation</text>
+
+    <rect x="545" y="350" width="105" height="45" rx="3" fill="none" stroke="var(--production-wet)" stroke-width="0.6" stroke-dasharray="3 2"/>
+    <text x="597" y="370" text-anchor="middle" font-size="8" font-weight="500" fill="var(--production-wet)">Zone de</text>
+    <text x="597" y="382" text-anchor="middle" font-size="8" font-weight="500" fill="var(--production-wet)">Refroidissement</text>
+
+    <rect x="435" y="400" width="105" height="45" rx="3" fill="none" stroke="var(--production-wet)" stroke-width="0.6" stroke-dasharray="3 2"/>
+    <text x="487" y="426" text-anchor="middle" font-size="8" font-weight="500" fill="var(--production-wet)">Zone de Cuisson</text>
+
+    <rect x="545" y="400" width="105" height="45" rx="3" fill="none" stroke="var(--production-wet)" stroke-width="0.6" stroke-dasharray="3 2"/>
+    <text x="597" y="426" text-anchor="middle" font-size="8" font-weight="500" fill="var(--production-wet)">Zone Sertissage</text>
+
+    <rect x="435" y="450" width="105" height="45" rx="3" fill="none" stroke="var(--production-wet)" stroke-width="0.6" stroke-dasharray="3 2"/>
+    <text x="487" y="476" text-anchor="middle" font-size="8" font-weight="500" fill="var(--production-wet)">Refroidissement 2</text>
+
+    <rect x="545" y="450" width="105" height="45" rx="3" fill="none" stroke="var(--production-wet)" stroke-width="0.6" stroke-dasharray="3 2"/>
+    <text x="597" y="470" text-anchor="middle" font-size="8" font-weight="500" fill="var(--production-wet)">Pr&eacute;p. Viande</text>
+    <text x="597" y="482" text-anchor="middle" font-size="7" fill="var(--text-muted)">Salle d&eacute;di&eacute;e</text>
+
+    <!-- Chambre N&eacute;gative -->
+    <rect x="435" y="502" width="75" height="42" rx="3" fill="none" stroke="var(--production-wet)" stroke-width="0.8"/>
+    <text x="472" y="521" text-anchor="middle" font-size="7" font-weight="500" fill="var(--production-wet)">Chambre</text>
+    <text x="472" y="532" text-anchor="middle" font-size="7" font-weight="500" fill="var(--production-wet)">N&eacute;gative</text>
+
+    <!-- Chambre Positive -->
+    <rect x="515" y="502" width="75" height="42" rx="3" fill="none" stroke="var(--production-wet)" stroke-width="0.8"/>
+    <text x="552" y="521" text-anchor="middle" font-size="7" font-weight="500" fill="var(--production-wet)">Chambre</text>
+    <text x="552" y="532" text-anchor="middle" font-size="7" font-weight="500" fill="var(--production-wet)">Positive</text>
+
+    <!-- Cooling Tower -->
+    <rect x="595" y="555" width="52" height="28" rx="4" fill="var(--water-light)" stroke="var(--water)" stroke-width="1.5"/>
+    <text x="621" y="570" text-anchor="middle" font-size="7" font-weight="600" fill="var(--water)">Cooling</text>
+    <text x="621" y="580" text-anchor="middle" font-size="7" font-weight="600" fill="var(--water)">Tower</text>
+
+    <!-- SAS entries (on east wall of east block) -->
+    <rect x="651" y="200" width="8" height="8" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.5"/>
+    <rect x="651" y="350" width="8" height="8" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.5"/>
+    <rect x="651" y="500" width="8" height="8" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.5"/>
+
+    <!-- ==================== CHAUFFERIE SUD (lean-to on SW wall, clear of court) ==================== -->
+    <rect x="155" y="603" width="140" height="65" rx="5"
+          fill="var(--chaufferie-light)" stroke="var(--chaufferie)" stroke-width="3"/>
+    <text x="225" y="621" text-anchor="middle" font-size="12" font-weight="700" fill="var(--chaufferie)">CHAUFFERIE</text>
+    <text x="225" y="635" text-anchor="middle" font-size="8" font-weight="600" fill="var(--chaufferie)">2 &times; 4 t/h Chaudi&egrave;res</text>
+    <text x="225" y="648" text-anchor="middle" font-size="7" fill="var(--text-muted)">12m &times; 8m &middot; EGFI 336/26</text>
+    <text x="225" y="659" text-anchor="middle" font-size="7" fill="var(--text-muted)">B&acirc;che 8m&sup3; + RO 6m&sup3;/h + Chemin&eacute;e 20m</text>
+
+    <!-- "NEW" badge -->
+    <rect x="268" y="597" width="30" height="14" rx="3" fill="var(--chaufferie)"/>
+    <text x="283" y="607" text-anchor="middle" font-size="8" font-weight="700" fill="#FFF">NEW</text>
+
+    <!-- South wall annotation -->
+    <text x="225" y="680" text-anchor="middle" font-size="7" fill="var(--text-muted)" font-style="italic">Appentis mur sud-ouest &middot; Chemin&eacute;e &#x2191; Nord</text>
+
+    <!-- Truck access path to central court (now clear) -->
+    <line x1="377" y1="795" x2="377" y2="605" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 3"/>
+    <polygon points="374,608 377,600 380,608" fill="var(--text-muted)"/>
+    <text x="395" y="700" font-size="8" fill="var(--text-muted)" transform="rotate(-90 395 700)">Acc&egrave;s camions &#x2192; Cour</text>
+
+    <!-- ==================== SOUTH EXTERNAL FACILITIES ==================== -->
+
+    <!-- Poste Transfo (below Chaufferie, SW) -->
+    <rect x="155" y="674" width="60" height="34" rx="3" fill="var(--electrical-light)" stroke="var(--electrical)" stroke-width="1.8"/>
+    <text x="185" y="689" text-anchor="middle" font-size="7" font-weight="700" fill="var(--electrical)">Poste</text>
+    <text x="185" y="700" text-anchor="middle" font-size="7" font-weight="700" fill="var(--electrical)">Transfo</text>
+
+    <!-- Local TGBT 2 (next to Poste Transfo) -->
+    <rect x="220" y="674" width="55" height="34" rx="3" fill="var(--electrical-light)" stroke="var(--electrical)" stroke-width="1.2"/>
+    <text x="247" y="691" text-anchor="middle" font-size="7" font-weight="600" fill="var(--electrical)">TGBT 2</text>
+    <text x="247" y="702" text-anchor="middle" font-size="6" fill="var(--text-muted)">local</text>
+
+    <!-- LOCAL PLG (propane local - already designated on plan!) -->
+    <rect x="415" y="618" width="55" height="34" rx="3" fill="var(--propane-light)" stroke="var(--propane)" stroke-width="1.8"/>
+    <text x="442" y="633" text-anchor="middle" font-size="7" font-weight="700" fill="var(--propane)">LOCAL</text>
+    <text x="442" y="644" text-anchor="middle" font-size="7" font-weight="700" fill="var(--propane)">PLG</text>
+    <rect x="445" y="612" width="36" height="12" rx="2" fill="var(--propane)"/>
+    <text x="463" y="621" text-anchor="middle" font-size="6" font-weight="700" fill="#FFF">sur plan</text>
+
+    <!-- 200T Silo -->
+    <rect x="480" y="608" width="42" height="42" rx="2" fill="var(--building-fill)" stroke="var(--building-stroke)" stroke-width="1"/>
+    <text x="501" y="627" text-anchor="middle" font-size="8" font-weight="600" fill="var(--building-stroke)">Silo</text>
+    <text x="501" y="640" text-anchor="middle" font-size="8" fill="var(--building-stroke)">200T</text>
+    <rect x="488" y="602" width="32" height="10" rx="1" fill="var(--bg)" stroke="var(--building-stroke)" stroke-width="0.5"/>
+    <text x="504" y="610" text-anchor="middle" font-size="5" fill="var(--text-muted)">HSP 12m</text>
+
+    <!-- P&egrave;se essieux (truck axle scale) -->
+    <rect x="540" y="608" width="65" height="22" rx="3" fill="var(--building-fill)" stroke="var(--building-stroke)" stroke-width="1"/>
+    <text x="572" y="623" text-anchor="middle" font-size="7" fill="var(--building-stroke)">P&egrave;se essieux</text>
+
+    <!-- ==================== WATER TANK FARM (SW) ==================== -->
+    <rect x="70" y="715" width="260" height="78" rx="8"
+          fill="url(#hatch-water)" stroke="var(--water)" stroke-width="2.5"/>
+    <text x="200" y="731" text-anchor="middle" font-size="11" font-weight="700" fill="var(--water)">PARC D'EAU</text>
+
+    <circle cx="130" cy="762" r="24" fill="var(--water-light)" stroke="var(--water)" stroke-width="1.5"/>
+    <text x="130" y="759" text-anchor="middle" font-size="8" font-weight="700" fill="var(--water)">BRUT</text>
+    <text x="130" y="770" text-anchor="middle" font-size="8" font-weight="700" fill="var(--water)">250m&sup3;</text>
+
+    <circle cx="195" cy="754" r="15" fill="var(--water-light)" stroke="var(--water)" stroke-width="1.2"/>
+    <text x="195" y="752" text-anchor="middle" font-size="7" font-weight="600" fill="var(--water)">Proc.</text>
+    <text x="195" y="762" text-anchor="middle" font-size="7" font-weight="600" fill="var(--water)">30m&sup3;</text>
+
+    <circle cx="195" cy="782" r="12" fill="var(--water-light)" stroke="var(--water)" stroke-width="1"/>
+    <text x="195" y="785" text-anchor="middle" font-size="6" font-weight="600" fill="var(--water)">Ret.25</text>
+
+    <rect x="250" y="742" width="65" height="38" rx="3" fill="var(--water-light)" stroke="var(--water)" stroke-width="1.2"/>
+    <text x="282" y="759" text-anchor="middle" font-size="7" font-weight="600" fill="var(--water)">Traitement</text>
+    <text x="282" y="770" text-anchor="middle" font-size="7" fill="var(--water)">RO+Adouc.</text>
+
+    <!-- Well + ONEE -->
+    <circle cx="95" cy="782" r="8" fill="var(--surface)" stroke="var(--water)" stroke-width="2"/>
+    <text x="95" y="785" text-anchor="middle" font-size="7" font-weight="700" fill="var(--water)">W</text>
+
+    <line x1="50" y1="762" x2="70" y2="762" stroke="var(--water)" stroke-width="2" stroke-dasharray="4 2"/>
+    <text x="42" y="775" font-size="7" font-weight="600" fill="var(--water)" text-anchor="end">ONEE</text>
+    <text x="42" y="784" font-size="6" fill="var(--water)" text-anchor="end">DN100</text>
+
+    <!-- ==================== PROPANE TANK — AFRIQUIAGAZ 22 m³ (SE) ==================== -->
+
+    <!-- 7.5m regulatory safety radius (red dashed circle per AFRIQUIAGAZ plan) -->
+    <circle cx="605" cy="718" r="52" fill="var(--safety-zone)" stroke="var(--chaufferie)" stroke-width="1.3" stroke-dasharray="5 3" opacity="0.6"/>
+
+    <!-- 7.5m distance annotations -->
+    <line x1="605" y1="718" x2="605" y2="666" stroke="var(--chaufferie)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.4"/>
+    <text x="614" y="690" font-size="7" font-weight="600" fill="var(--chaufferie)">7,5 m</text>
+    <line x1="605" y1="718" x2="657" y2="718" stroke="var(--chaufferie)" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.4"/>
+    <text x="640" y="712" font-size="7" font-weight="600" fill="var(--chaufferie)">7,5 m</text>
+
+    <!-- ATEX zone label -->
+    <text x="605" y="661" text-anchor="middle" font-size="8" fill="var(--propane)" font-style="italic">Zone ATEX &mdash; NM 03.4.072</text>
+
+    <!-- Fenced enclosure (cl&ocirc;ture grillag&eacute;e &Oslash;6mm, H=2m) -->
+    <rect x="562" y="695" width="86" height="48" rx="4"
+          fill="url(#hatch-propane)" stroke="var(--propane)" stroke-width="2.5"/>
+
+    <!-- Tank farm title -->
+    <text x="605" y="685" text-anchor="middle" font-size="11" font-weight="700" fill="var(--propane)">CITERNE GPL</text>
+
+    <!-- Single 22 m&sup3; horizontal tank (capsule shape) -->
+    <rect x="574" y="706" width="62" height="22" rx="11" fill="var(--propane-light)" stroke="var(--propane)" stroke-width="2.5"/>
+    <text x="605" y="721" text-anchor="middle" font-size="10" font-weight="700" fill="var(--propane)">22 000 L</text>
+
+    <!-- CONFORME badge -->
+    <rect x="625" y="692" width="55" height="13" rx="3" fill="#1E8449"/>
+    <text x="652" y="702" text-anchor="middle" font-size="7" font-weight="700" fill="#FFF">CONFORME</text>
+
+    <!-- Enclosure annotation -->
+    <text x="605" y="737" text-anchor="middle" font-size="6" fill="var(--text-muted)">Cl&ocirc;ture grillag&eacute;e &Oslash;6mm &middot; H 2m</text>
+
+    <!-- Safety equipment markers -->
+    <circle cx="557" cy="726" r="6" fill="var(--fire-light)" stroke="var(--fire)" stroke-width="1"/>
+    <text x="557" y="729" text-anchor="middle" font-size="5.5" font-weight="700" fill="var(--fire)">R</text>
+    <text x="557" y="741" text-anchor="middle" font-size="5" fill="var(--fire)">RIA</text>
+
+    <circle cx="653" cy="726" r="6" fill="var(--fire-light)" stroke="var(--fire)" stroke-width="1"/>
+    <text x="653" y="729" text-anchor="middle" font-size="5.5" font-weight="700" fill="var(--fire)">E</text>
+    <text x="653" y="741" text-anchor="middle" font-size="5" fill="var(--fire)">9kg</text>
+
+    <!-- Vaporizer -->
+    <rect x="578" y="750" width="54" height="14" rx="3" fill="var(--propane-light)" stroke="var(--propane)" stroke-width="1"/>
+    <text x="605" y="760" text-anchor="middle" font-size="7" font-weight="600" fill="var(--propane)">Vaporisateur</text>
+
+    <!-- Water supply for fire safety -->
+    <text x="560" y="774" font-size="6" fill="var(--water)">Eau 1&quot;&frac12; &mdash; 2 bars</text>
+
+    <!-- Source reference -->
+    <rect x="555" y="778" width="100" height="12" rx="2" fill="var(--bg)" stroke="var(--propane)" stroke-width="0.5"/>
+    <text x="605" y="787" text-anchor="middle" font-size="6" font-weight="500" fill="var(--propane)">AFRIQUIAGAZ &mdash; R&eacute;f. 01</text>
+
+    <!-- Rejected 50 m³ note -->
+    <text x="490" y="787" text-anchor="end" font-size="6" fill="var(--text-muted)" font-style="italic" text-decoration="line-through">50 m&sup3; NON CONFORME</text>
+
+    <!-- ==================== PIPE ROUTES ==================== -->
+
+    <!-- Steam: Chaufferie SW &rarr; Dry line (west block, straight up) -->
+    <path d="M225,603 L225,385" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
+    <rect x="230" y="490" width="40" height="14" rx="2" fill="var(--bg)"/>
+    <text x="250" y="500" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~20m</text>
+
+    <!-- Steam: Chaufferie SW &rarr; Wet line (east block, via south) -->
+    <path d="M295,630 L540,630 L540,450" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
+    <rect x="430" y="632" width="40" height="14" rx="2" fill="var(--bg)"/>
+    <text x="450" y="642" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~40m</text>
+
+    <!-- Water: Treatment &rarr; Chaufferie (short, adjacent SW) -->
+    <path d="M270,742 L225,742 L225,668" fill="none" stroke="var(--pipe-water)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-water)"/>
+    <rect x="230" y="718" width="38" height="14" rx="2" fill="var(--bg)"/>
+    <text x="249" y="728" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-water)" class="mono">~10m</text>
+
+    <!-- Gas: Vaporizer &rarr; LOCAL PLG &rarr; Chaufferie SW -->
+    <path d="M578,757 L442,757 L442,650 L295,650" fill="none" stroke="var(--pipe-gas)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-gas)"/>
+    <rect x="355" y="652" width="38" height="14" rx="2" fill="var(--bg)"/>
+    <text x="374" y="662" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-gas)" class="mono">~25m</text>
+
+    <!-- ==================== ANNOTATIONS ==================== -->
+
+    <!-- Chimney arrow (north orientation, above Chaufferie SW) -->
+    <g transform="translate(170, 695)">
+      <line x1="0" y1="0" x2="0" y2="-16" stroke="var(--chaufferie)" stroke-width="1.5"/>
+      <polygon points="-3,-16 0,-22 3,-16" fill="var(--chaufferie)"/>
+      <text x="8" y="-8" font-size="7" fill="var(--chaufferie)">Chemin&eacute;e &#x2191;</text>
+    </g>
+
+    <!-- Tanker access -->
+    <line x1="350" y1="840" x2="720" y2="840" stroke="var(--text-muted)" stroke-width="2"/>
+    <polygon points="720,837 730,840 720,843" fill="var(--text-muted)"/>
+    <text x="535" y="855" text-anchor="middle" font-size="10" fill="var(--text-muted)" font-weight="500">Acc&egrave;s camions (eau + GPL + pi&egrave;ces chaudi&egrave;re)</text>
+
+    <!-- Wind -->
+    <g transform="translate(95, 120)">
+      <path d="M20,0 L0,24" stroke="var(--text-muted)" stroke-width="1.2" opacity="0.4"/>
+      <polygon points="-2,24 0,28 2,24" fill="var(--text-muted)" opacity="0.4"/>
+      <text x="0" y="-6" font-size="8" fill="var(--text-muted)">Vent NE&#x2192;SW</text>
+    </g>
+
+    <!-- Lot area badge -->
+    <rect x="80" y="870" width="200" height="42" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+    <text x="90" y="887" font-size="9" font-weight="600" fill="var(--text)">Terrain :</text>
+    <text x="150" y="887" font-size="10" font-weight="700" fill="var(--accent)" class="mono">~10 900 m&sup2;</text>
+    <text x="90" y="902" font-size="8" fill="var(--text-muted)">101,37 &times; 107,63 m (PNV)</text>
+
+    <!-- Electrical infrastructure badge -->
+    <rect x="300" y="870" width="230" height="42" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+    <text x="310" y="887" font-size="9" font-weight="600" fill="var(--electrical)">&#x26A1; Infra &eacute;lectrique sud-ouest :</text>
+    <text x="310" y="902" font-size="8" fill="var(--text-muted)">Poste Transfo + TGBT 2 (sous Chaufferie)</text>
+
+    <!-- Pipe legend -->
+    <g transform="translate(80, 618)">
+      <rect x="-8" y="-12" width="78" height="55" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="0.7"/>
+      <text x="0" y="0" font-size="8" font-weight="700" fill="var(--text-muted)">R&eacute;seaux</text>
+      <line x1="0" y1="10" x2="25" y2="10" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3"/>
+      <text x="30" y="14" font-size="8" fill="var(--pipe-steam)">Vapeur</text>
+      <line x1="0" y1="24" x2="25" y2="24" stroke="var(--pipe-water)" stroke-width="1.8" stroke-dasharray="5 3"/>
+      <text x="30" y="28" font-size="8" fill="var(--pipe-water)">Eau</text>
+      <line x1="0" y1="38" x2="25" y2="38" stroke="var(--pipe-gas)" stroke-width="1.8" stroke-dasharray="5 3"/>
+      <text x="30" y="42" font-size="8" fill="var(--pipe-gas)">GPL</text>
+    </g>
+
+  </svg>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--chaufferie)"></div>
+    Chaufferie Sud (2 &times; 4 t/h)
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--water)"></div>
+    Parc d'Eau (355 m&sup3;)
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--propane)"></div>
+    Citerne GPL (1 &times; 22 m&sup3; AFRIQUIAGAZ)
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--fire)"></div>
+    B&acirc;che Incendie (35 m&sup3;)
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--freed)"></div>
+    Espace lib&eacute;r&eacute; (~100 m&sup2;)
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--admin)"></div>
+    Administration
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--electrical)"></div>
+    Poste Transfo / TGBT
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--production-wet)"></div>
+    Unit&eacute; Humide / Sec
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background: var(--building-stroke)"></div>
+    Cour Camions (central)
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="compare">
+  <h3>Comparatif : Chaufferie Centre vs. Sud</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Crit&egrave;re</th>
+        <th>Centre (PNV actuel)</th>
+        <th>Sud (propos&eacute;)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Gaz GPL (vaporisateur &rarr; chaudi&egrave;re)</td>
+        <td>~50 m souterrain</td>
+        <td class="winner">~25 m (2&times; plus court)</td>
+      </tr>
+      <tr>
+        <td>Eau trait&eacute;e (traitement &rarr; chaudi&egrave;re)</td>
+        <td>~35 m</td>
+        <td class="winner">~10 m (3&times; plus court)</td>
+      </tr>
+      <tr>
+        <td>Vapeur &rarr; ligne s&egrave;che</td>
+        <td class="winner">15&ndash;25 m</td>
+        <td>~20 m (comparable)</td>
+      </tr>
+      <tr>
+        <td>Vapeur &rarr; ligne humide</td>
+        <td class="winner">20&ndash;35 m</td>
+        <td>~40 m (via sud vers bloc est)</td>
+      </tr>
+      <tr>
+        <td>Proximit&eacute; TGBT 2 / Poste Transfo</td>
+        <td>~20 m (adj. TGBT 1)</td>
+        <td class="winner">Adjacent (c&ocirc;t&eacute; sud commun)</td>
+      </tr>
+      <tr>
+        <td>Chemin&eacute;e / &eacute;vacuation fum&eacute;es</td>
+        <td>Traverser le toit (double hauteur)</td>
+        <td class="winner">Mur ext&eacute;rieur direct</td>
+      </tr>
+      <tr>
+        <td>Ventilation chaufferie</td>
+        <td>Forc&eacute;e (local int&eacute;rieur)</td>
+        <td class="winner">Naturelle (fa&ccedil;ade sud)</td>
+      </tr>
+      <tr>
+        <td>Acc&egrave;s maintenance / grue</td>
+        <td>Par l'int&eacute;rieur du b&acirc;timent</td>
+        <td class="winner">Direct depuis la cour</td>
+      </tr>
+      <tr>
+        <td>Espace int&eacute;rieur lib&eacute;r&eacute;</td>
+        <td>0 m&sup2;</td>
+        <td class="winner">~100 m&sup2; r&eacute;cup&eacute;r&eacute;s</td>
+      </tr>
+      <tr>
+        <td>Permis de construire</td>
+        <td class="winner">D&eacute;j&agrave; approuv&eacute;</td>
+        <td><span class="tag tag-note">Modification PNV</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Info cards -->
+<div class="info-grid">
+  <div class="info-card">
+    <h3><div class="dot" style="background: var(--chaufferie)"></div> Chaufferie Sud &mdash; Implantation Propos&eacute;e</h3>
+    <ul>
+      <li>Appentis / extension sur le <strong>mur sud</strong> du b&acirc;timent</li>
+      <li>Dalle b&eacute;ton ~12m &times; 8m (~96 m&sup2;) &mdash; 2 chaudi&egrave;res + accessoires</li>
+      <li>Franchises EGFI : 4m avant, 0,6m arri&egrave;re, 1,2m c&ocirc;t&eacute; service, 1,8m dessus</li>
+      <li>Chemin&eacute;e 20 m orient&eacute;e <strong>nord</strong> (&eacute;loign&eacute;e des citernes GPL)</li>
+      <li><span class="highlight">Gaz GPL &agrave; ~25m</span> au lieu de ~50m</li>
+      <li><span class="highlight">Eau trait&eacute;e &agrave; ~10m</span> au lieu de ~35m</li>
+      <li>Adjacent au Poste Transfo + TGBT 2 + LOCAL PLG</li>
+      <li>Lib&egrave;re ~100 m&sup2; int&eacute;rieur (ex-Chaudi&egrave;re/TGBT)</li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3><div class="dot" style="background: var(--chaufferie)"></div> Configuration Chaufferie (Devis EGFI 336/26)</h3>
+    <ul>
+      <li>2 &times; 4 t/h chaudi&egrave;res &laquo;wet back&raquo; 12 bars propane</li>
+      <li>Br&ucirc;leur ECOFLAM BLU4000.1 PR modulant (875&ndash;3 900 kW)</li>
+      <li>Encombrement / chaudi&egrave;re: <strong>6,59 &times; 2,51 m</strong> (21,6 t en charge)</li>
+      <li>B&acirc;che alimentaire 8 m&sup3; + &eacute;conomiseur + O&sup2; analyseur</li>
+      <li>Chemin&eacute;e 20 m + RO osmotec 6 m&sup3;/h</li>
+      <li>Automate PLC + PC supervision</li>
+      <li>D&eacute;tection gaz propane + vanne d'arr&ecirc;t d'urgence</li>
+      <li><strong>Budget : ~2,9 M DH / chaudi&egrave;re HT</strong></li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3><div class="dot" style="background: var(--water)"></div> Parc d'Eau &mdash; Sud-Ouest</h3>
+    <ul>
+      <li>Brut 250 m&sup3; + Process 30 m&sup3; + Retort 25 m&sup3;</li>
+      <li>Station de traitement (RO + adoucisseur)</li>
+      <li>Forage priv&eacute; + raccordement ONEE DN100</li>
+      <li><span class="highlight">~10 m vers la Chaufferie sud</span></li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3><div class="dot" style="background: var(--propane)"></div> Citerne GPL &mdash; Sud-Est (AFRIQUIAGAZ)</h3>
+    <ul>
+      <li><strong>1 &times; 22 000 L (22 m&sup3;)</strong> a&eacute;rienne &mdash; <span class="tag tag-ok">CONFORME</span></li>
+      <li>Distance r&eacute;glementaire : <strong>7,5 m</strong> (b&acirc;timent + limite propri&eacute;t&eacute;)</li>
+      <li><span style="text-decoration: line-through; color: var(--text-muted);">50 m&sup3; NON CONFORME</span> (n&eacute;cessite 10 m, hors gabarit)</li>
+      <li>Cl&ocirc;ture grillag&eacute;e &Oslash;6mm, H 2m + RIA + Extincteur 9kg</li>
+      <li>Alimentation eau : 1&quot;&frac12; &mdash; 2 bars</li>
+      <li><span class="highlight">~25 m vers la Chaufferie sud-ouest</span></li>
+      <li>LOCAL PLG d&eacute;j&agrave; pr&eacute;vu sur Plan de Masse</li>
+      <li>Autonomie : ~5&ndash;6 jours (livraisons fr&eacute;quentes)</li>
+      <li>Espace disponible pour 2&egrave;me citerne 22 m&sup3; future</li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3><div class="dot" style="background: var(--electrical)"></div> Infrastructure &Eacute;lectrique &mdash; C&ocirc;t&eacute; Sud</h3>
+    <ul>
+      <li><strong>Poste Transfo</strong> avec cellules HTA (6 cellules)</li>
+      <li><strong>Local TGBT 2</strong> pour distribution BT</li>
+      <li><strong>LOCAL PLG</strong> pour r&eacute;gulation gaz</li>
+      <li>Mise &agrave; la terre radier cuivre &Oslash;28mm&sup2;</li>
+      <li>Regards MT 0,8 &times; 0,8 &times; 1,0 m</li>
+      <li>Synergies avec la Chaufferie Sud propos&eacute;e</li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3><div class="dot" style="background: var(--admin)"></div> Administration &mdash; B&acirc;timent S&eacute;par&eacute;</h3>
+    <ul>
+      <li>B&acirc;timent ind&eacute;pendant au <strong>nord-est</strong> du terrain</li>
+      <li>Bureau achat &middot; Bureau logistique &middot; Bureau RH</li>
+      <li>Plateau commercial &middot; Salle de r&eacute;union</li>
+      <li>Cantine &middot; Hall de r&eacute;ception &middot; Caisse</li>
+      <li>HSP: 3,70 m &middot; Niveau: +0,60 m</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Safety distances -->
+<div class="distances">
+  <h3>Distances de S&eacute;curit&eacute; &mdash; Citerne 22 m&sup3; AFRIQUIAGAZ (NM 03.4.072)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Contr&ocirc;le</th>
+        <th>Requis</th>
+        <th>Disponible</th>
+        <th>Statut</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Citerne 22 m&sup3; &rarr; b&acirc;timent (mur sud)</td>
+        <td class="mono">&ge; 7,5 m</td>
+        <td>~15&ndash;20 m</td>
+        <td><span class="tag tag-ok">OK</span></td>
+      </tr>
+      <tr>
+        <td>Citerne 22 m&sup3; &rarr; limite propri&eacute;t&eacute; (sud)</td>
+        <td class="mono">&ge; 7,5 m</td>
+        <td>~20&ndash;25 m</td>
+        <td><span class="tag tag-ok">OK</span></td>
+      </tr>
+      <tr>
+        <td>Citerne 22 m&sup3; &rarr; limite propri&eacute;t&eacute; (est)</td>
+        <td class="mono">&ge; 7,5 m</td>
+        <td>~15&ndash;20 m</td>
+        <td><span class="tag tag-ok">OK</span></td>
+      </tr>
+      <tr>
+        <td>Citerne 22 m&sup3; &rarr; Chaufferie sud (flamme)</td>
+        <td class="mono">&ge; 15 m</td>
+        <td>~20&ndash;25 m</td>
+        <td><span class="tag tag-ok">OK</span></td>
+      </tr>
+      <tr>
+        <td>Chemin&eacute;e &rarr; citerne GPL</td>
+        <td class="mono">&ge; 15 m</td>
+        <td>~20&ndash;25 m (orient&eacute;e nord)</td>
+        <td><span class="tag tag-ok">OK si nord</span></td>
+      </tr>
+      <tr>
+        <td>Parc d'eau &rarr; Chaufferie sud</td>
+        <td>Court</td>
+        <td>~10 m (adjacent)</td>
+        <td><span class="tag tag-ok">OK</span></td>
+      </tr>
+      <tr>
+        <td>Extension chaufferie &rarr; limite sud</td>
+        <td>Recul 10 m</td>
+        <td>~12&ndash;15 m</td>
+        <td><span class="tag tag-verify">V&eacute;rifier g&eacute;om&egrave;tre</span></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="font-style: italic; color: var(--text-muted); font-size: 12px;">
+          <span style="text-decoration: line-through;">Citerne 50 m&sup3;</span> rejet&eacute;e : distance r&eacute;glementaire 10 m incompatible avec le gabarit du terrain (NON CONFORME)
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  PetFactory Morocco &mdash; Sidi Bouathmane, Benguerir &middot;
+  Sources: Plan de Masse CFO INGenios (10/10/2025) &middot; Devis EGFI 336/26 V1 (29/07/2026) &middot; PNV &middot;
+  AFRIQUIAGAZ &mdash; Plan d'implantation citerne 22 m&sup3; (05/02/2026, R&eacute;f. 01) &middot;
+  NM 03.4.072 &middot; Sept. 2026
+</div>

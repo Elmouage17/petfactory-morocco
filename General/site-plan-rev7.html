@@ -346,9 +346,9 @@
 </style>
 
 <div class="header">
-  <h1>Plan d'Implantation &mdash; 4 Zones Distribu&eacute;es</h1>
+  <h1>Plan d'Implantation &mdash; Utilit&eacute;s Distribu&eacute;es</h1>
   <p>PetFactory Morocco &mdash; Sidi Bouathmane, Benguerir &middot; 5 TPH Dry + 2.5 TPH Wet &middot; 2 &times; 4 t/h Boilers</p>
-  <span class="rev">Rev 8 &mdash; Implantation 4-Zone (Est&middot;Sud-Centre&middot;SO&middot;Sud)</span>
+  <span class="rev">Rev 9 &mdash; Implantation Distribu&eacute;e (Est&middot;SO&middot;Sud)</span>
   <span class="source">Source: Plan de Masse CFO + Devis EGFI 336/26 + AFRIQUIAGAZ 05/02/2026</span>
 </div>
 
@@ -595,29 +595,29 @@
     <rect x="651" y="350" width="8" height="8" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.5"/>
     <rect x="651" y="500" width="8" height="8" fill="var(--surface)" stroke="var(--building-stroke)" stroke-width="0.5"/>
 
-    <!-- ==================== ZONE SUD-CENTRE — CHAUFFERIE (south of truck court) ==================== -->
-    <rect x="307" y="608" width="140" height="65" rx="5"
+    <!-- ==================== CHAUFFERIE — South of West Block (east end, clears truck lane) ==================== -->
+    <rect x="185" y="608" width="140" height="65" rx="5"
           fill="var(--chaufferie-light)" stroke="var(--chaufferie)" stroke-width="3"/>
-    <text x="377" y="626" text-anchor="middle" font-size="12" font-weight="700" fill="var(--chaufferie)">CHAUFFERIE</text>
-    <text x="377" y="640" text-anchor="middle" font-size="8" font-weight="600" fill="var(--chaufferie)">2 &times; 4 t/h Chaudi&egrave;res</text>
-    <text x="377" y="653" text-anchor="middle" font-size="7" fill="var(--text-muted)">12m &times; 8m &middot; EGFI 336/26</text>
-    <text x="377" y="664" text-anchor="middle" font-size="7" fill="var(--text-muted)">B&acirc;che 8m&sup3; + RO 6m&sup3;/h + Chemin&eacute;e 20m</text>
+    <text x="255" y="626" text-anchor="middle" font-size="12" font-weight="700" fill="var(--chaufferie)">CHAUFFERIE</text>
+    <text x="255" y="640" text-anchor="middle" font-size="8" font-weight="600" fill="var(--chaufferie)">2 &times; 4 t/h Chaudi&egrave;res</text>
+    <text x="255" y="653" text-anchor="middle" font-size="7" fill="var(--text-muted)">12m &times; 8m &middot; EGFI 336/26</text>
+    <text x="255" y="664" text-anchor="middle" font-size="7" fill="var(--text-muted)">B&acirc;che 8m&sup3; + RO 6m&sup3;/h + Chemin&eacute;e 20m</text>
 
     <!-- "NEW" badge -->
-    <rect x="420" y="602" width="30" height="14" rx="3" fill="var(--chaufferie)"/>
-    <text x="435" y="612" text-anchor="middle" font-size="8" font-weight="700" fill="#FFF">NEW</text>
+    <rect x="298" y="602" width="30" height="14" rx="3" fill="var(--chaufferie)"/>
+    <text x="313" y="612" text-anchor="middle" font-size="8" font-weight="700" fill="#FFF">NEW</text>
 
-    <!-- South-centre annotation -->
-    <text x="377" y="685" text-anchor="middle" font-size="7" fill="var(--text-muted)" font-style="italic">Zone Sud-Centre &middot; Chemin&eacute;e &#x2191; Nord</text>
+    <!-- Chaufferie annotation -->
+    <text x="255" y="685" text-anchor="middle" font-size="7" fill="var(--text-muted)" font-style="italic">Sud Bloc Ouest &middot; Chemin&eacute;e &#x2191; Nord</text>
 
     <!-- TGBT 2 (next to Chaufferie) -->
-    <rect x="310" y="678" width="55" height="28" rx="3" fill="var(--electrical-light)" stroke="var(--electrical)" stroke-width="1.2"/>
-    <text x="337" y="694" text-anchor="middle" font-size="7" font-weight="600" fill="var(--electrical)">TGBT 2</text>
+    <rect x="188" y="678" width="55" height="28" rx="3" fill="var(--electrical-light)" stroke="var(--electrical)" stroke-width="1.2"/>
+    <text x="215" y="694" text-anchor="middle" font-size="7" font-weight="600" fill="var(--electrical)">TGBT 2</text>
 
-    <!-- Truck access path to central court (now clear, shifted east of chaufferie) -->
-    <line x1="460" y1="795" x2="460" y2="605" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 3"/>
-    <polygon points="457,608 460,600 463,608" fill="var(--text-muted)"/>
-    <text x="478" y="700" font-size="8" fill="var(--text-muted)" transform="rotate(-90 478 700)">Acc&egrave;s camions &#x2192; Cour</text>
+    <!-- Truck access path to central court (clear lane, centered in truck court) -->
+    <line x1="380" y1="795" x2="380" y2="605" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 3"/>
+    <polygon points="377,608 380,600 383,608" fill="var(--text-muted)"/>
+    <text x="398" y="700" font-size="8" fill="var(--text-muted)" transform="rotate(-90 398 700)">Acc&egrave;s camions &#x2192; Cour</text>
 
     <!-- ==================== ZONE EST — &Eacute;QUIPEMENTS &Eacute;LECTRIQUES + REFROIDISSEMENT ==================== -->
 
@@ -744,35 +744,35 @@
 
     <!-- ==================== PIPE ROUTES (4-Zone Layout) ==================== -->
 
-    <!-- Steam: Chaufferie Sud-Centre &rarr; Dry line (west block) -->
-    <path d="M340,608 L225,608 L225,385" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
-    <rect x="230" y="490" width="52" height="14" rx="2" fill="var(--bg)"/>
-    <text x="256" y="500" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~20-25m</text>
+    <!-- Steam: Chaufferie Sud &rarr; Dry line (west block, very short — adjacent) -->
+    <path d="M240,608 L240,385" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
+    <rect x="245" y="490" width="52" height="14" rx="2" fill="var(--bg)"/>
+    <text x="271" y="500" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~15-20m</text>
 
-    <!-- Steam: Chaufferie Sud-Centre &rarr; Wet line (east block, short east route) -->
-    <path d="M447,630 L540,630 L540,450" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
-    <rect x="465" y="632" width="52" height="14" rx="2" fill="var(--bg)"/>
-    <text x="491" y="642" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~20-25m</text>
+    <!-- Steam: Chaufferie Sud &rarr; Wet line (east block, across truck court) -->
+    <path d="M325,630 L540,630 L540,450" fill="none" stroke="var(--pipe-steam)" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow-steam)"/>
+    <rect x="400" y="632" width="52" height="14" rx="2" fill="var(--bg)"/>
+    <text x="426" y="642" text-anchor="middle" font-size="7" font-weight="600" fill="var(--pipe-steam)" class="mono">~30-35m</text>
 
-    <!-- Water: Treatment SW &rarr; Chaufferie Sud-Centre (~20m) -->
-    <path d="M270,742 L377,742 L377,673" fill="none" stroke="var(--pipe-water)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-water)"/>
-    <rect x="332" y="718" width="38" height="14" rx="2" fill="var(--bg)"/>
-    <text x="351" y="728" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-water)" class="mono">~20m</text>
+    <!-- Water: Treatment SW &rarr; Chaufferie Sud (~15m, co-located in Zone SO) -->
+    <path d="M270,742 L255,742 L255,673" fill="none" stroke="var(--pipe-water)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-water)"/>
+    <rect x="210" y="718" width="38" height="14" rx="2" fill="var(--bg)"/>
+    <text x="229" y="728" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-water)" class="mono">~15m</text>
 
-    <!-- Gas: Vaporizer Est &rarr; Chaufferie Sud-Centre (~25-30m) -->
-    <path d="M578,757 L448,757 L448,673" fill="none" stroke="var(--pipe-gas)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-gas)"/>
-    <rect x="488" y="740" width="52" height="14" rx="2" fill="var(--bg)"/>
-    <text x="514" y="750" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-gas)" class="mono">~25-30m</text>
+    <!-- Gas: Vaporizer Est &rarr; Chaufferie Sud-Ouest (~35-40m) -->
+    <path d="M578,757 L325,757 L325,673" fill="none" stroke="var(--pipe-gas)" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-gas)"/>
+    <rect x="430" y="740" width="52" height="14" rx="2" fill="var(--bg)"/>
+    <text x="456" y="750" text-anchor="middle" font-size="7" font-weight="700" fill="var(--pipe-gas)" class="mono">~35-40m</text>
 
     <!-- ==================== ANNOTATIONS ==================== -->
 
-    <!-- Zone labels (4-Zone Distributed Layout) -->
-    <text x="200" y="730" text-anchor="middle" font-size="9" font-weight="700" fill="var(--water)" opacity="0.7">ZONE SUD-OUEST</text>
-    <text x="377" y="750" text-anchor="middle" font-size="9" font-weight="700" fill="var(--chaufferie)" opacity="0.7">ZONE SUD-CENTRE</text>
+    <!-- Zone labels (Distributed Layout) -->
+    <text x="220" y="730" text-anchor="middle" font-size="9" font-weight="700" fill="var(--water)" opacity="0.7">ZONE SUD-OUEST</text>
+    <text x="220" y="742" text-anchor="middle" font-size="7" fill="var(--chaufferie)" opacity="0.6">Chaufferie + Parc d'Eau</text>
     <text x="425" y="800" text-anchor="middle" font-size="9" font-weight="700" fill="var(--water)" opacity="0.6">ZONE SUD</text>
 
-    <!-- Chimney arrow (north orientation, above Chaufferie Sud-Centre) -->
-    <g transform="translate(320, 700)">
+    <!-- Chimney arrow (north orientation, above Chaufferie Sud-Ouest) -->
+    <g transform="translate(200, 700)">
       <line x1="0" y1="0" x2="0" y2="-16" stroke="var(--chaufferie)" stroke-width="1.5"/>
       <polygon points="-3,-16 0,-22 3,-16" fill="var(--chaufferie)"/>
       <text x="8" y="-8" font-size="7" fill="var(--chaufferie)">Chemin&eacute;e &#x2191;</text>
@@ -796,10 +796,10 @@
     <text x="150" y="887" font-size="10" font-weight="700" fill="var(--accent)" class="mono">~10 900 m&sup2;</text>
     <text x="90" y="902" font-size="8" fill="var(--text-muted)">101,37 &times; 107,63 m (PNV)</text>
 
-    <!-- 4-Zone Layout badge -->
-    <rect x="300" y="870" width="250" height="42" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
-    <text x="310" y="887" font-size="9" font-weight="600" fill="var(--chaufferie)">&#x2699; Implantation 4 Zones :</text>
-    <text x="310" y="902" font-size="8" fill="var(--text-muted)">Est (GPL+Transfo) &middot; Sud-Centre (Chauff.) &middot; SO (Eau) &middot; S (STEP)</text>
+    <!-- Distributed Layout badge -->
+    <rect x="300" y="870" width="260" height="42" rx="5" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+    <text x="310" y="887" font-size="9" font-weight="600" fill="var(--chaufferie)">&#x2699; Utilit&eacute;s Distribu&eacute;es :</text>
+    <text x="310" y="902" font-size="8" fill="var(--text-muted)">Est (GPL+Transfo) &middot; SO (Chauff.+Eau) &middot; S (STEP)</text>
 
     <!-- Pipe legend -->
     <g transform="translate(80, 618)">
@@ -820,7 +820,7 @@
 <div class="legend">
   <div class="legend-item">
     <div class="legend-swatch" style="background: var(--chaufferie)"></div>
-    Chaufferie Sud-Centre (2 &times; 4 t/h)
+    Chaufferie Sud-Ouest (2 &times; 4 t/h)
   </div>
   <div class="legend-item">
     <div class="legend-swatch" style="background: var(--water)"></div>
@@ -854,35 +854,35 @@
 
 <!-- COMPARISON TABLE -->
 <div class="compare">
-  <h3>Comparatif : PNV Centre vs. Sud-Centre (4-Zone Distribu&eacute;)</h3>
+  <h3>Comparatif : PNV Centre vs. Sud-Ouest (Distribu&eacute;)</h3>
   <table>
     <thead>
       <tr>
         <th>Crit&egrave;re</th>
         <th>Centre (PNV actuel)</th>
-        <th>Sud-Centre (4-Zone)</th>
+        <th>Sud-Ouest (Distribu&eacute;)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Gaz GPL (vaporisateur &rarr; chaudi&egrave;re)</td>
         <td>~50 m souterrain</td>
-        <td class="winner">~25&ndash;30 m (GPL c&ocirc;t&eacute; est)</td>
+        <td class="winner">~35&ndash;40 m (GPL c&ocirc;t&eacute; est)</td>
       </tr>
       <tr>
         <td>Eau trait&eacute;e (traitement &rarr; chaudi&egrave;re)</td>
         <td>~35 m</td>
-        <td class="winner">~20 m (parc d'eau SO)</td>
+        <td class="winner">~15 m (co-localis&eacute;e Zone SO)</td>
       </tr>
       <tr>
         <td>Vapeur &rarr; ligne s&egrave;che</td>
-        <td class="winner">15&ndash;25 m</td>
-        <td>~20&ndash;25 m (comparable)</td>
+        <td>15&ndash;25 m</td>
+        <td class="winner">~15&ndash;20 m (adjacente)</td>
       </tr>
       <tr>
         <td>Vapeur &rarr; ligne humide</td>
-        <td>20&ndash;35 m</td>
-        <td class="winner">~20&ndash;25 m (&eacute;quilibr&eacute;)</td>
+        <td class="winner">20&ndash;35 m</td>
+        <td>~30&ndash;35 m (via cour camions)</td>
       </tr>
       <tr>
         <td>Proximit&eacute; TGBT 2</td>
@@ -921,14 +921,14 @@
 <!-- Info cards -->
 <div class="info-grid">
   <div class="info-card">
-    <h3><div class="dot" style="background: var(--chaufferie)"></div> Chaufferie Sud-Centre &mdash; 4-Zone Distribu&eacute;</h3>
+    <h3><div class="dot" style="background: var(--chaufferie)"></div> Chaufferie Sud-Ouest &mdash; Distribu&eacute;</h3>
     <ul>
-      <li>Position <strong>sud-centre</strong> (sous la cour camions) &mdash; &eacute;quilibre vapeur</li>
+      <li>Position <strong>sud du bloc ouest</strong> (c&ocirc;t&eacute; est) &mdash; acc&egrave;s camions d&eacute;gag&eacute;</li>
       <li>Dalle b&eacute;ton ~12m &times; 8m (~96 m&sup2;) &mdash; 2 chaudi&egrave;res + accessoires</li>
       <li>Franchises EGFI : 4m avant, 0,6m arri&egrave;re, 1,2m c&ocirc;t&eacute; service, 1,8m dessus</li>
       <li>Chemin&eacute;e 20 m orient&eacute;e <strong>nord</strong> (&eacute;loign&eacute;e des citernes GPL)</li>
-      <li><span class="highlight">Vapeur &eacute;quilibr&eacute;e : ~20&ndash;25m vers les 2 lignes</span></li>
-      <li>Gaz GPL &agrave; ~25&ndash;30m (Zone Est) &middot; Eau &agrave; ~20m (Zone SO)</li>
+      <li><span class="highlight">Vapeur sec ~15&ndash;20m (adjacente) &middot; Vapeur humide ~30&ndash;35m</span></li>
+      <li>Gaz GPL &agrave; ~35&ndash;40m (Zone Est) &middot; Eau &agrave; ~15m (co-localis&eacute;e Zone SO)</li>
       <li>TGBT 2 adjacent &middot; Poste Transfo &agrave; la Zone Est</li>
       <li>Lib&egrave;re ~100 m&sup2; int&eacute;rieur (ex-Chaudi&egrave;re/TGBT)</li>
     </ul>
@@ -952,7 +952,7 @@
       <li>Brut 250 m&sup3; (double usage : r&eacute;serve incendie) + Process 30 m&sup3; + Retort 25 m&sup3;</li>
       <li>Station de traitement (RO + adoucisseur)</li>
       <li>Forage priv&eacute; + raccordement ONEE DN100</li>
-      <li><span class="highlight">~20 m vers la Chaufferie sud-centre</span></li>
+      <li><span class="highlight">~15 m vers la Chaufferie (co-localis&eacute;e Zone SO)</span></li>
     </ul>
   </div>
   <div class="info-card">
@@ -969,10 +969,10 @@
     </ul>
   </div>
   <div class="info-card">
-    <h3><div class="dot" style="background: var(--electrical)"></div> Infrastructure &Eacute;lectrique &mdash; Zone Est + Sud-Centre</h3>
+    <h3><div class="dot" style="background: var(--electrical)"></div> Infrastructure &Eacute;lectrique &mdash; Zone Est + Sud-Ouest</h3>
     <ul>
       <li><strong>Poste Transfo</strong> (5&times;4m) + <strong>G&eacute;n&eacute;rateur</strong> + <strong>Cooling Tower</strong> &rarr; Zone Est</li>
-      <li><strong>Local TGBT 2</strong> &rarr; adjacent Chaufferie Sud-Centre</li>
+      <li><strong>Local TGBT 2</strong> &rarr; adjacent Chaufferie Sud-Ouest</li>
       <li><strong>LOCAL PLG</strong> + Vaporisateur &rarr; Zone Est (pr&egrave;s citerne GPL)</li>
       <li>Mise &agrave; la terre radier cuivre &Oslash;28mm&sup2;</li>
       <li>STEP 150&ndash;200 m&sup2; &rarr; Zone Sud (raccordement assainissement)</li>
@@ -1022,9 +1022,9 @@
         <td><span class="tag tag-ok">OK</span></td>
       </tr>
       <tr>
-        <td>Citerne 22 m&sup3; &rarr; Chaufferie sud-centre (flamme)</td>
+        <td>Citerne 22 m&sup3; &rarr; Chaufferie sud-ouest (flamme)</td>
         <td class="mono">&ge; 15 m</td>
-        <td>~25&ndash;30 m</td>
+        <td>~35&ndash;40 m</td>
         <td><span class="tag tag-ok">OK</span></td>
       </tr>
       <tr>
@@ -1034,9 +1034,9 @@
         <td><span class="tag tag-ok">OK</span></td>
       </tr>
       <tr>
-        <td>Parc d'eau SO &rarr; Chaufferie sud-centre</td>
+        <td>Parc d'eau SO &rarr; Chaufferie sud-ouest</td>
         <td>Court</td>
-        <td>~20 m</td>
+        <td>~15 m (co-localis&eacute;)</td>
         <td><span class="tag tag-ok">OK</span></td>
       </tr>
       <tr>
@@ -1058,5 +1058,5 @@
   PetFactory Morocco &mdash; Sidi Bouathmane, Benguerir &middot;
   Sources: Plan de Masse CFO INGenios (10/10/2025) &middot; Devis EGFI 336/26 V1 (29/07/2026) &middot; PNV &middot;
   AFRIQUIAGAZ &mdash; Plan d'implantation citerne 22 m&sup3; (05/02/2026, R&eacute;f. 01) &middot;
-  NM 03.4.072 &middot; Rev 8 &mdash; 4-Zone Distribu&eacute; &middot; Sept. 2026
+  NM 03.4.072 &middot; Rev 9 &mdash; Distribu&eacute; &middot; Sept. 2026
 </div>

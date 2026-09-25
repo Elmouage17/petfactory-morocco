@@ -1,0 +1,1030 @@
+<title>PetFactory Utility Premortem</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F0EDEA;
+    --surface: #FFFFFF;
+    --card: #FAFAF8;
+    --text: #1B2D45;
+    --text-mid: #3D5068;
+    --text-muted: #7A8BA0;
+    --border: #D6D2CC;
+    --border-light: #E8E4DF;
+    --navy: #1B2D45;
+    --steel: #4A7C9B;
+    --steel-bg: #E8F0F5;
+    --green: #2D6A4F;
+    --green-bg: #E3F0EA;
+    --orange: #C67A1A;
+    --orange-bg: #FDF0DC;
+    --red: #B5423A;
+    --red-bg: #FCEAE8;
+    --red-border: #E0A09C;
+    --purple: #6B4C8A;
+    --purple-bg: #F0E8F5;
+    --amber: #8B6914;
+    --amber-bg: #FEF7E0;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12181F;
+      --surface: #1A2332;
+      --card: #1E2A38;
+      --text: #E2E8F0;
+      --text-mid: #B0BEC5;
+      --text-muted: #6B7D8F;
+      --border: #2D3D4F;
+      --border-light: #253040;
+      --navy: #8BB5D9;
+      --steel: #6AADD4;
+      --steel-bg: #162535;
+      --green: #5DB88A;
+      --green-bg: #142A20;
+      --orange: #E8A030;
+      --orange-bg: #2A2010;
+      --red: #E07068;
+      --red-bg: #2A1815;
+      --red-border: #5A2A28;
+      --purple: #B08ADA;
+      --purple-bg: #201830;
+      --amber: #D4A930;
+      --amber-bg: #2A2210;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12181F;
+    --surface: #1A2332;
+    --card: #1E2A38;
+    --text: #E2E8F0;
+    --text-mid: #B0BEC5;
+    --text-muted: #6B7D8F;
+    --border: #2D3D4F;
+    --border-light: #253040;
+    --navy: #8BB5D9;
+    --steel: #6AADD4;
+    --steel-bg: #162535;
+    --green: #5DB88A;
+    --green-bg: #142A20;
+    --orange: #E8A030;
+    --orange-bg: #2A2010;
+    --red: #E07068;
+    --red-bg: #2A1815;
+    --red-border: #5A2A28;
+    --purple: #B08ADA;
+    --purple-bg: #201830;
+    --amber: #D4A930;
+    --amber-bg: #2A2210;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    max-width: 820px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 0;
+    line-height: 1.6;
+  }
+
+  header {
+    padding: 32px 0 24px;
+    border-bottom: 2px solid var(--navy);
+    margin-bottom: 28px;
+  }
+  header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: var(--navy);
+    letter-spacing: -0.4px;
+    text-wrap: balance;
+  }
+  header .subtitle {
+    font-size: 14px;
+    color: var(--text-mid);
+    margin: 0 0 10px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .meta span {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .meta .site { background: var(--green-bg); color: var(--green); }
+  .meta .date { background: var(--steel-bg); color: var(--steel); }
+  .meta .type { background: var(--orange-bg); color: var(--orange); }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 36px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: -0.3px;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 8px;
+  }
+
+  .summary-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .summary-box p {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: var(--text-mid);
+  }
+  .summary-box p:last-child { margin-bottom: 0; }
+
+  .lot-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .lot-fact {
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .lot-fact .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+  .lot-fact .value {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text);
+  }
+
+  .zone-map {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .zone-map svg { display: block; width: 100%; height: auto; }
+
+  .utility-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .utility-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .utility-header:hover { background: var(--card); }
+  .utility-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .utility-header h3 { margin: 0; flex: 1; font-size: 15px; }
+  .utility-verdict {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .verdict-ok { background: var(--green-bg); color: var(--green); }
+  .verdict-risk { background: var(--orange-bg); color: var(--orange); }
+  .verdict-critical { background: var(--red-bg); color: var(--red); }
+  .verdict-missing { background: var(--purple-bg); color: var(--purple); }
+
+  .chevron {
+    width: 16px; height: 16px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
+  .utility-card.open .chevron { transform: rotate(90deg); }
+
+  .utility-body {
+    display: none;
+    padding: 0 18px 18px;
+    font-size: 14px;
+    color: var(--text-mid);
+  }
+  .utility-card.open .utility-body { display: block; }
+
+  .loc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  @media (max-width: 560px) {
+    .loc-grid { grid-template-columns: 1fr; }
+  }
+  .loc-box {
+    border-radius: 6px;
+    padding: 12px 14px;
+    border: 1px solid;
+  }
+  .loc-box h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+  .loc-box ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .loc-current {
+    background: var(--card);
+    border-color: var(--border);
+  }
+  .loc-current h4 { color: var(--text-muted); }
+  .loc-optimal {
+    background: var(--green-bg);
+    border-color: var(--green);
+  }
+  .loc-optimal h4 { color: var(--green); }
+
+  .risk-list {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .risk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .risk-item .icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+  .risk-high { background: var(--red-bg); color: var(--red); }
+  .risk-med { background: var(--orange-bg); color: var(--orange); }
+  .risk-low { background: var(--amber-bg); color: var(--amber); }
+  .risk-ok { background: var(--green-bg); color: var(--green); }
+
+  .deps {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .deps strong { color: var(--text-mid); }
+
+  .matrix-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+  }
+  th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: var(--card);
+    position: sticky;
+    top: 0;
+  }
+  td { color: var(--text-mid); }
+  tr:last-child td { border-bottom: none; }
+  .cell-ok { color: var(--green); font-weight: 600; }
+  .cell-warn { color: var(--orange); font-weight: 600; }
+  .cell-bad { color: var(--red); font-weight: 600; }
+  .cell-na { color: var(--text-muted); }
+
+  .reg-note {
+    background: var(--orange-bg);
+    border-left: 3px solid var(--orange);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--orange);
+    margin: 14px 0;
+  }
+
+  .section-intro {
+    font-size: 14px;
+    color: var(--text-mid);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  footer {
+    padding: 20px 0 32px;
+    border-top: 1px solid var(--border);
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+</style>
+
+<header>
+  <h1>Premortem: Utility Placement Analysis</h1>
+  <p class="subtitle">PetFactory Maroc — 5 TPH Dry Kibble + 2.5 TPH Wet Pet Food, Benguerir (Sidi Bouatmane)</p>
+  <div class="meta">
+    <span class="site">Lot 23 ZI Sidi Bouatmane</span>
+    <span class="date">2026-09-25</span>
+    <span class="type">Pre-Construction Review</span>
+  </div>
+</header>
+
+<div class="summary-box">
+  <p><strong>Purpose:</strong> Identify what could go wrong with the placement of every utility system before construction begins. For each system: evaluate the proposed location, flag risks, and recommend the optimal position on the 101 m &times; 108 m lot.</p>
+  <p><strong>Constraint envelope:</strong> 10 m urbanistic setbacks on all 4 sides, west block (dry production) + central truck court + east block (wet + admin), 2 access points from the south, single storey industrial with HSP up to 18.5 m.</p>
+</div>
+
+<div class="lot-facts">
+  <div class="lot-fact">
+    <div class="label">Lot Dimensions</div>
+    <div class="value">101 &times; 108 m</div>
+  </div>
+  <div class="lot-fact">
+    <div class="label">Gross Area</div>
+    <div class="value">~10,900 m&sup2;</div>
+  </div>
+  <div class="lot-fact">
+    <div class="label">Buildable</div>
+    <div class="value">~7,300 m&sup2;</div>
+  </div>
+  <div class="lot-fact">
+    <div class="label">Setbacks (4 sides)</div>
+    <div class="value">10 m each</div>
+  </div>
+  <div class="lot-fact">
+    <div class="label">Steam Demand</div>
+    <div class="value">5.50 t/h peak</div>
+  </div>
+  <div class="lot-fact">
+    <div class="label">Propane</div>
+    <div class="value">142 kg/h peak</div>
+  </div>
+</div>
+
+<!-- ZONE MAP -->
+<div class="zone-map">
+  <svg viewBox="0 0 720 780" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="z-hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="8" stroke="var(--border)" stroke-width="0.5"/>
+      </pattern>
+    </defs>
+    <!-- Lot boundary -->
+    <rect x="40" y="30" width="640" height="700" fill="url(#z-hatch)" stroke="var(--green)" stroke-width="2" rx="2"/>
+    <!-- 10m setback -->
+    <rect x="103" y="93" width="514" height="574" fill="var(--surface)" stroke="var(--border)" stroke-width="1" stroke-dasharray="6 3" rx="1"/>
+    <!-- Setback labels -->
+    <text x="72" y="380" font-size="9" fill="var(--text-muted)" font-family="JetBrains Mono, monospace" transform="rotate(-90 72 380)" text-anchor="middle">10 m setback</text>
+    <text x="360" y="80" font-size="9" fill="var(--text-muted)" font-family="JetBrains Mono, monospace" text-anchor="middle">10 m setback</text>
+
+    <!-- NORTH label -->
+    <text x="360" y="22" font-size="10" font-weight="700" fill="var(--navy)" font-family="DM Sans, sans-serif" text-anchor="middle">NORTH</text>
+
+    <!-- Corner labels -->
+    <text x="36" y="24" font-size="9" font-weight="600" fill="var(--green)" font-family="JetBrains Mono, monospace">B33</text>
+    <text x="660" y="24" font-size="9" font-weight="600" fill="var(--green)" font-family="JetBrains Mono, monospace">B32</text>
+    <text x="36" y="746" font-size="9" font-weight="600" fill="var(--green)" font-family="JetBrains Mono, monospace">B40</text>
+    <text x="660" y="746" font-size="9" font-weight="600" fill="var(--green)" font-family="JetBrains Mono, monospace">B39</text>
+
+    <!-- WEST BLOCK (Dry Production) -->
+    <rect x="110" y="100" width="230" height="460" fill="#E8ECF0" stroke="var(--navy)" stroke-width="1.5" rx="2"/>
+    <text x="225" y="130" font-size="12" font-weight="700" fill="var(--navy)" font-family="DM Sans, sans-serif" text-anchor="middle">WEST BLOCK</text>
+    <text x="225" y="145" font-size="9" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Dry Production</text>
+    <!-- Sub areas -->
+    <rect x="115" y="155" width="220" height="60" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
+    <text x="225" y="190" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Magasin Produit Fini (HSP 12m)</text>
+    <rect x="115" y="220" width="220" height="100" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
+    <text x="225" y="275" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Unit&eacute; Sec Croquette (HSP 18.5m)</text>
+    <rect x="115" y="325" width="110" height="30" fill="#E3F0EA" stroke="var(--green)" stroke-width="0.8"/>
+    <text x="170" y="344" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">TGBT 1</text>
+    <rect x="230" y="325" width="105" height="30" fill="#E3F0EA" stroke="var(--green)" stroke-width="0.8"/>
+    <text x="282" y="339" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">ESPACE</text>
+    <text x="282" y="350" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">LIB&Eacute;R&Eacute;</text>
+    <rect x="115" y="460" width="220" height="95" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
+    <text x="225" y="512" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Magasin R&eacute;ception (HSP 8m)</text>
+
+    <!-- CENTRAL COURT -->
+    <rect x="345" y="100" width="120" height="460" fill="#FAFAF8" stroke="var(--border)" stroke-width="1" rx="1"/>
+    <text x="405" y="290" font-size="9" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle" transform="rotate(-90 405 290)">TRUCK COURT</text>
+
+    <!-- EAST BLOCK (Wet + Admin) -->
+    <rect x="470" y="100" width="150" height="300" fill="#E0E8F0" stroke="var(--navy)" stroke-width="1.5" rx="2"/>
+    <text x="545" y="130" font-size="11" font-weight="700" fill="var(--navy)" font-family="DM Sans, sans-serif" text-anchor="middle">EAST BLOCK</text>
+    <text x="545" y="145" font-size="9" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Wet Production</text>
+
+    <rect x="470" y="410" width="150" height="150" fill="#E8DFF0" stroke="var(--purple)" stroke-width="1" rx="2"/>
+    <text x="545" y="490" font-size="10" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">Administration</text>
+
+    <!-- UTILITY ZONE SOUTH -->
+    <!-- Chaufferie -->
+    <rect x="140" y="565" width="120" height="60" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" rx="3"/>
+    <text x="200" y="593" font-size="10" font-weight="700" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">CHAUFFERIE</text>
+    <text x="200" y="607" font-size="7" fill="var(--red)" font-family="JetBrains Mono, monospace" text-anchor="middle">2&times;4t/h 12m&times;8m</text>
+
+    <!-- Poste Transfo -->
+    <rect x="140" y="632" width="55" height="35" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.2" rx="2"/>
+    <text x="167" y="651" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">Transfo</text>
+    <text x="167" y="662" font-size="6" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">HTA/BT</text>
+
+    <!-- TGBT 2 -->
+    <rect x="200" y="632" width="40" height="35" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1" rx="2"/>
+    <text x="220" y="651" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">TGBT2</text>
+
+    <!-- LOCAL PLG -->
+    <rect x="245" y="632" width="40" height="35" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="1" rx="2"/>
+    <text x="265" y="651" font-size="7" font-weight="600" fill="var(--orange)" font-family="DM Sans, sans-serif" text-anchor="middle">PLG</text>
+
+    <!-- WATER PARK -->
+    <rect x="100" y="676" width="210" height="60" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1.5" rx="3"/>
+    <text x="205" y="698" font-size="10" font-weight="700" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">PARC D'EAU</text>
+    <text x="205" y="714" font-size="7" fill="var(--steel)" font-family="JetBrains Mono, monospace" text-anchor="middle">250m&sup3; brut + 30m&sup3; proc + 25m&sup3; retort + WTP</text>
+
+    <!-- Well -->
+    <circle cx="80" cy="706" r="10" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1.5"/>
+    <text x="80" y="710" font-size="7" font-weight="700" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">W</text>
+
+    <!-- GPL Tank -->
+    <rect x="480" y="650" width="80" height="30" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" rx="12"/>
+    <text x="520" y="669" font-size="8" font-weight="700" fill="var(--orange)" font-family="DM Sans, sans-serif" text-anchor="middle">GPL 22m&sup3;</text>
+    <!-- Safety circle -->
+    <circle cx="520" cy="665" r="50" fill="none" stroke="var(--orange)" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.5"/>
+    <text x="520" y="625" font-size="7" fill="var(--orange)" font-family="JetBrains Mono, monospace" text-anchor="middle">7.5m safety</text>
+
+    <!-- Cooling Tower -->
+    <rect x="510" y="560" width="50" height="30" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1" rx="2"/>
+    <text x="535" y="579" font-size="7" font-weight="600" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">Cooling</text>
+
+    <!-- Fire -->
+    <rect x="115" y="395" width="100" height="30" fill="var(--red-bg)" stroke="var(--red)" stroke-width="0.8" rx="2"/>
+    <text x="165" y="414" font-size="7" font-weight="600" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">B&acirc;che+Surpr. 35m&sup3;</text>
+
+    <!-- NOT YET PLACED markers -->
+    <!-- Compressed Air -->
+    <rect x="295" y="570" width="70" height="25" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.2" rx="2" stroke-dasharray="4 2"/>
+    <text x="330" y="587" font-size="7" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">Air Compr.?</text>
+
+    <!-- STEP -->
+    <rect x="380" y="682" width="75" height="35" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.2" rx="2" stroke-dasharray="4 2"/>
+    <text x="417" y="700" font-size="7" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">STEP?</text>
+    <text x="417" y="712" font-size="6" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">Wastewater</text>
+
+    <!-- Generator -->
+    <rect x="295" y="635" width="65" height="25" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.2" rx="2" stroke-dasharray="4 2"/>
+    <text x="327" y="652" font-size="7" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">G&eacute;n&eacute;ratrice?</text>
+
+    <!-- Fosse Septique -->
+    <rect x="345" y="520" width="55" height="25" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="0.8" rx="2"/>
+    <text x="372" y="536" font-size="6" font-weight="600" fill="var(--amber)" font-family="DM Sans, sans-serif" text-anchor="middle">Fosse Sept.</text>
+
+    <!-- Parking -->
+    <rect x="470" y="695" width="140" height="30" fill="var(--card)" stroke="var(--border)" stroke-width="0.8" rx="2"/>
+    <text x="540" y="714" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Parking (54 places)</text>
+
+    <!-- Entry arrows -->
+    <text x="300" y="752" font-size="9" font-weight="600" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">SOUTH ENTRIES</text>
+
+    <!-- Legend -->
+    <rect x="40" y="750" width="8" height="8" fill="var(--red-bg)" stroke="var(--red)" stroke-width="0.8" rx="1"/>
+    <text x="52" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">Thermal</text>
+    <rect x="110" y="750" width="8" height="8" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="0.8" rx="1"/>
+    <text x="122" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">Water</text>
+    <rect x="165" y="750" width="8" height="8" fill="var(--green-bg)" stroke="var(--green)" stroke-width="0.8" rx="1"/>
+    <text x="177" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">Electrical</text>
+    <rect x="240" y="750" width="8" height="8" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="0.8" rx="1"/>
+    <text x="252" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">GPL/Gas</text>
+    <rect x="310" y="750" width="8" height="8" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="0.8" rx="2" stroke-dasharray="2 1"/>
+    <text x="322" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">Not yet placed</text>
+  </svg>
+</div>
+
+<h2>Utility Systems &mdash; Location Analysis</h2>
+<p class="section-intro">Each utility is assessed for its proposed location on this specific lot. Cards are ordered by risk severity. Click to expand.</p>
+
+<!-- 1. PROPANE -->
+<div class="utility-card open" id="u-propane">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--orange)"></div>
+    <h3>1. Propane/GPL Storage &mdash; AFRIQUIAGAZ 22 m&sup3;</h3>
+    <span class="utility-verdict verdict-ok">Placed &mdash; Conforme</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Location: SE Corner</h4>
+        <ul>
+          <li>Single 22,000 L horizontal above-ground tank</li>
+          <li>Fenced enclosure with locked gate</li>
+          <li>~20&ndash;25 m from property lines (south &amp; east)</li>
+          <li>~25 m to Chaufferie via LOCAL PLG</li>
+          <li>Tanker access from south entry, forward-only path</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>Why SE &mdash; Not Elsewhere</h4>
+        <ul>
+          <li>Art. 97: 7.5 m clearance satisfied in all directions</li>
+          <li>Art. 99: Truck loop through court &rarr; exit south (no reversing)</li>
+          <li>Art. 102: Open air, not under building</li>
+          <li>Away from admin (NE) and main entries</li>
+          <li>Short piping to chaufferie at south wall</li>
+        </ul>
+      </div>
+    </div>
+    <div class="reg-note">
+      <strong>Regulatory lock-in:</strong> Only the 12,000&ndash;24,000 L tier (Art. 97) fits this lot. Any capacity &gt;24,000 L requires 10 m distances that encroach on B39-B40. A second 22 m&sup3; tank may push total to &gt;10 t &mdash; confirm with AFRIQUIAGAZ before ordering.
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>5.6-day autonomy</strong> is tight. A delivery delay during Ramadan, national holiday, or supplier truck breakdown could halt steam production within 48h of the reorder threshold.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Tanker access conflict:</strong> GPL delivery trucks share the south entry with raw material trucks. Simultaneous arrivals could block the forward-only loop required by Art. 99.</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Solar heating:</strong> Tank in full sun in Benguerir (40&deg;C+ summers). Excess temperature raises tank pressure and increases vaporization losses. Needs shade structure or reflective paint.</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Legend error:</strong> AFRIQUIAGAZ plan specifies 9 kg extinguisher but Art. 103 requires 10 kg minimum. Ensure 10 kg is actually installed.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> Chaufferie (steam user), Poste Transfo (safety electrical), LOCAL PLG (gas regulation), Fire fighting (RIA + extinguisher)</div>
+  </div>
+</div>
+
+<!-- 2. CHAUFFERIE -->
+<div class="utility-card" id="u-chaufferie">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--red)"></div>
+    <h3>2. Chaufferie (Boiler House) &mdash; 2&times;4 t/h</h3>
+    <span class="utility-verdict verdict-risk">Proposed &mdash; Verify</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Optimal: South Wall Lean-to (SW)</h4>
+        <ul>
+          <li>12 m &times; 8 m concrete slab &mdash; 96 m&sup2;</li>
+          <li>Lean-to against south face of west block</li>
+          <li>~25 m from GPL, ~10 m from Water Park</li>
+          <li>Chimney 20 m pointed north (away from GPL)</li>
+          <li>Natural ventilation via south fa&ccedil;ade</li>
+          <li>Frees ~100 m&sup2; interior (old TGBT/Chaufferie zone)</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>PNV Position: Internal (Mid-West Block)</h4>
+        <ul>
+          <li>Interior location between TGBT and Maintenance</li>
+          <li>~50 m GPL piping run</li>
+          <li>~35 m from water treatment</li>
+          <li>Forced ventilation required (enclosed)</li>
+          <li>Chimney must traverse full roof height (18.5 m)</li>
+          <li>No crane/maintenance access from outside</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Setback violation:</strong> The south wall lean-to adds ~8 m beyond the building footprint. If the existing building is already at ~12 m from the south property line (B40), the chaufferie extension could encroach into the 10 m urbanistic setback. A surveyor must confirm before permit.</li>
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>PNV modification required:</strong> Moving the chaufferie from its PNV-approved internal position requires a formal modification request to the Prefecture. This could delay construction by 2&ndash;4 months if contested.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Steam pipe length to wet line:</strong> From the SW position, steam must travel ~40 m to the east block (wet production). Heat loss, condensate accumulation, and water hammer risk increase with distance. Insulation and steam traps are critical.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Chimney orientation:</strong> 20 m chimney pointing north sits above the production building. Prevailing winds from the Atlantic (W/NW) could push exhaust toward the east block or parking. Need wind rose analysis for Benguerir.</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Foundation loads:</strong> Each boiler is 21.6 tonnes in service. The lean-to slab must be designed for this concentrated load &mdash; not a standard floor slab.</li>
+      <li class="risk-item risk-ok"><span class="icon">&#10003;</span> <strong>Gas piping halved:</strong> SW position cuts GPL piping from ~50 m to ~25 m &mdash; reducing cost, leak points, and pressure drop.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> GPL tank (fuel), Water Park (boiler feed), Poste Transfo (power), TGBT 2 (motor control), Dry &amp; Wet lines (steam users)</div>
+  </div>
+</div>
+
+<!-- 3. WATER PARK -->
+<div class="utility-card" id="u-water">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--steel)"></div>
+    <h3>3. Water Storage &amp; Treatment &mdash; Parc d'Eau</h3>
+    <span class="utility-verdict verdict-ok">Placed &mdash; Good</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Location: SW Corner</h4>
+        <ul>
+          <li>Raw water tank: 250 m&sup3; (3-day reserve)</li>
+          <li>Process water: 30 m&sup3; (RO-treated)</li>
+          <li>Retort water: 25 m&sup3; (for sterilization)</li>
+          <li>Treatment: RO + softener station</li>
+          <li>Private well + ONEE DN100 connection</li>
+          <li>~10 m to Chaufferie (south position)</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>Why SW &mdash; Optimal Rationale</h4>
+        <ul>
+          <li>ONEE mains from south (DN100) &rarr; shortest connection</li>
+          <li>Private well on west boundary &rarr; direct intake</li>
+          <li>Adjacent to chaufferie (feed water = short run)</li>
+          <li>Gravity advantage: ground tanks feed pumps below building floor</li>
+          <li>Away from GPL (no contamination risk)</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Retort water distance:</strong> The 25 m&sup3; retort tank at SW is ~60 m from the east block wet line (sterilization). Retort cooling requires rapid circulation of large water volumes. Long piping = slow response, higher pump energy, and temperature stratification. Consider a secondary retort tank near the wet line.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Well yield unknown:</strong> Private well at Sidi Bouatmane &mdash; groundwater table depth and sustainable yield not confirmed. If the well runs dry in summer (Benguerir is semi-arid), the entire 250 m&sup3; tank depends on ONEE alone, which has its own rationing history.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>250 m&sup3; tank foundation:</strong> A full 250 m&sup3; tank weighs ~260 tonnes. The SW corner soil bearing capacity must be verified &mdash; Sidi Bouatmane is on the Rhamna plateau with variable geology.</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Cross-contamination:</strong> Water park is ~20 m from GPL tank. While water doesn't contaminate gas, a GPL leak pooling downhill toward the water tanks creates a fire risk near the boiler feed. Verify grading drains away from the water park.</li>
+      <li class="risk-item risk-ok"><span class="icon">&#10003;</span> <strong>Boiler feed proximity:</strong> ~10 m to chaufferie south &mdash; minimizes heat loss in condensate return and softened water supply.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> Well (raw water), ONEE (backup supply), Chaufferie (feed water consumer), Wet line (retort/process water), STEP (return water treatment)</div>
+  </div>
+</div>
+
+<!-- 4. ELECTRICAL -->
+<div class="utility-card" id="u-electrical">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--green)"></div>
+    <h3>4. Electrical Distribution &mdash; Transfo + TGBT</h3>
+    <span class="utility-verdict verdict-ok">Placed &mdash; Good</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Poste Transfo + TGBT 2: South</h4>
+        <ul>
+          <li>HTA/BT transformer with 6 cells</li>
+          <li>TGBT 2 for BT distribution (south zone)</li>
+          <li>Adjacent to chaufferie (motor loads)</li>
+          <li>ONEE HTA feed from south boundary</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>TGBT 1: Internal West Block</h4>
+        <ul>
+          <li>Main distribution for dry production</li>
+          <li>Central to extruder/dryer motor loads</li>
+          <li>Existing PNV-approved position</li>
+          <li>Connected to Transfo via buried cable run</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Art. 101 conflict:</strong> Poste Transfo at south is ~15&ndash;20 m from the GPL tank. But Art. 101 requires all electrical equipment within 7.5 m to be safety-rated (ATEX). Verify the Transfo is outside the 7.5 m ATEX zone. If borderline, the Transfo needs ATEX-rated switchgear (significant cost).</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Cable route length to TGBT 1:</strong> TGBT 2 at south to TGBT 1 internal is ~30&ndash;40 m. For the heavy motor loads (extruder ~300 kW, dryer ~200 kW), voltage drop at this distance may require upsized cables (35 mm&sup2; &rarr; 70 mm&sup2;).</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Single transformer risk:</strong> One transformer serves the entire factory. Failure = total production stop. Consider whether a second transformer bay should be roughed in now (civil works cheaper during construction).</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Flood risk at south position:</strong> Rainwater runoff flows downhill toward the south boundary. The transformer pit must be above grade or protected from water ingress.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> ONEE HTA feed, all production loads, Chaufferie (boiler controls), GPL (Art. 101 ATEX zone), Emergency generator</div>
+  </div>
+</div>
+
+<!-- 5. COMPRESSED AIR -->
+<div class="utility-card" id="u-air">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--purple)"></div>
+    <h3>5. Compressed Air System</h3>
+    <span class="utility-verdict verdict-missing">Not Yet Placed</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <p>A kibble + wet pet food plant requires compressed air (6&ndash;8 bar) for pneumatic conveyors, packaging machines, actuators, cleaning, and instrument air. Estimated demand: 15&ndash;25 m&sup3;/min at 7 bar.</p>
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Optimal: South Side of West Block (Interior)</h4>
+        <ul>
+          <li>Near the freed TGBT/Chaufferie space</li>
+          <li>Central to dry line (largest air consumer)</li>
+          <li>Short piping to packaging &amp; pneumatic conveyors</li>
+          <li>Adjacent to maintenance shop for servicing</li>
+          <li>Noise contained within building envelope</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>Alternative: Chaufferie Lean-to Annex</h4>
+        <ul>
+          <li>Extend lean-to by ~4 m to house compressors</li>
+          <li>Natural ventilation (critical for air-cooled units)</li>
+          <li>Direct exhaust to exterior</li>
+          <li>Risk: longer piping run to production</li>
+          <li>Risk: adds load to lean-to foundation</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Forgotten system:</strong> Compressed air is not shown on the AFRIQUIAGAZ DWG or the current site plan. If space is not allocated now, it will be retrofitted into whatever corner remains &mdash; typically with undersized piping, poor ventilation, and excessive pressure drop.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Heat rejection:</strong> Compressors reject ~80% of input energy as heat. In an enclosed room in Benguerir summer (40&deg;C+), inlet temperature rises above rated spec (typically 40&deg;C max), causing thermal shutdown. Ventilation or an air-cooled aftercooler is mandatory.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Condensate drainage:</strong> Compressed air dryers produce condensate with trace oil. Must be connected to oil-water separator before draining to STEP, not to the fosse septique.</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Noise:</strong> Screw compressors generate 75&ndash;85 dB(A). If placed near admin block (east), noise complaints from office staff. Interior west block location keeps noise within the production envelope.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> TGBT 1 (power ~100&ndash;200 kW), Maintenance shop (servicing), Dry line (main consumer), Wet line (secondary), STEP (condensate disposal)</div>
+  </div>
+</div>
+
+<!-- 6. WASTEWATER -->
+<div class="utility-card" id="u-step">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--purple)"></div>
+    <h3>6. Wastewater Treatment (STEP)</h3>
+    <span class="utility-verdict verdict-critical">Not Placed &mdash; Critical</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <p>Pet food production generates high-BOD wastewater from meat preparation, cooking, CIP (clean-in-place), and retort cooling. Moroccan law (Loi 36-15 sur l'eau) requires on-site pre-treatment before discharge. Estimated effluent: 30&ndash;50 m&sup3;/day, BOD 2,000&ndash;5,000 mg/L.</p>
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Optimal: South Boundary, East of Water Park</h4>
+        <ul>
+          <li>Gravity flow from both production blocks (buildings higher)</li>
+          <li>Downhill toward south boundary</li>
+          <li>Near municipal sewer connection point</li>
+          <li>Accessible for sludge truck removal</li>
+          <li>Downwind of buildings (odor management)</li>
+          <li>Footprint: ~150&ndash;200 m&sup2; for DAF + equalization + aeration</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>Current: Only a Fosse Septique (SW Court)</h4>
+        <ul>
+          <li>Sized for domestic sewage only</li>
+          <li>Cannot handle industrial BOD loads</li>
+          <li>No fat/oil/grease separation</li>
+          <li>No equalization basin</li>
+          <li>Will overflow or breach permit within weeks of production start</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Regulatory showstopper:</strong> Loi 36-15 requires industrial pre-treatment. Without a STEP, the autorisation d'exploiter may be refused or revoked. Pet food effluent with BOD &gt;1,000 mg/L cannot legally discharge to municipal sewer untreated.</li>
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Grease trap missing:</strong> Wet line meat/oil waste will rapidly clog any downstream drainage. A DAF (dissolved air flotation) or at minimum a grease interceptor must be placed at the wet block drain manifold before the STEP.</li>
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Space not reserved:</strong> A proper STEP for this effluent load requires 150&ndash;200 m&sup2;. If not planned now, there may be no space left once the parking, GPL safety zone, and water park are built.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Odor complaints:</strong> Aeration basins treating meat/fat waste produce hydrogen sulfide (H&sub2;S). Benguerir's prevailing winds are from the NW/W &mdash; a STEP at the south boundary pushes odor away from the factory and toward open land (good), but verify neighboring lots are not residential.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Sludge disposal route:</strong> STEP produces 2&ndash;5 m&sup3;/week of sludge. Must have truck access for periodic removal. Locate near the south entry for tanker access.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> Wet line (primary effluent source), Dry line (CIP wash), Water Park (treated water for potential reuse), Fosse septique (domestic only), Municipal sewer connection</div>
+  </div>
+</div>
+
+<!-- 7. EMERGENCY GENERATOR -->
+<div class="utility-card" id="u-genset">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--purple)"></div>
+    <h3>7. Emergency Generator (Groupe &Eacute;lectrog&egrave;ne)</h3>
+    <span class="utility-verdict verdict-missing">Not Yet Placed</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <p>Benguerir industrial zone has intermittent ONEE outages (2&ndash;6 per month, typically 30 min&ndash;4 h). A diesel generator set (500&ndash;800 kVA) is essential for critical loads: cold rooms, boiler controls, lighting, fire pumps, sterilization autoclaves (batch cannot be interrupted).</p>
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Optimal: Adjacent to Poste Transfo (South)</h4>
+        <ul>
+          <li>Shortest cable run to ATS (automatic transfer switch)</li>
+          <li>Shared fuel storage with chaufferie area</li>
+          <li>Natural ventilation (exterior position)</li>
+          <li>Acoustic enclosure, exhaust pointing south (away from factory)</li>
+          <li>Diesel tank underground, &le; 3,000 L (no special permit)</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>Alternative: NE Corner</h4>
+        <ul>
+          <li>Near admin block (UPS/critical IT loads)</li>
+          <li>Risk: far from main production loads</li>
+          <li>Risk: voltage drop over long cable run</li>
+          <li>Risk: noise disturbs office workers</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Retort batch loss:</strong> If power fails mid-sterilization cycle (120&deg;C, 20&ndash;40 min), the entire batch (~2,500 cans) may be condemned. Without a generator, every ONEE outage during a retort cycle = direct product loss (15,000&ndash;30,000 MAD per batch).</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>GPL ATEX zone:</strong> A diesel generator near the GPL tank creates an ignition source. Must be placed &gt;7.5 m from the GPL tank (Art. 97/101). The south position near Transfo is ~15&ndash;20 m from GPL &mdash; safe, but verify.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Cold chain continuity:</strong> Chambres positive/n&eacute;gative in the wet block store perishable raw materials. Without generator backup, 4 h of outage in summer = product spoilage (meat, not kibble).</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Diesel supply chain:</strong> Separate fuel from propane logistics. Diesel tank must be &ge;5 m from GPL per Moroccan ICPE regulations.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> Poste Transfo (ATS connection), TGBT 1 &amp; 2 (load shedding logic), Cold rooms (critical load), Retort autoclaves (critical load), Fire pumps (life safety load)</div>
+  </div>
+</div>
+
+<!-- 8. COOLING TOWER -->
+<div class="utility-card" id="u-cooling">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--steel)"></div>
+    <h3>8. Cooling Tower</h3>
+    <span class="utility-verdict verdict-risk">Placed &mdash; Verify</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Current: East Side, Near Wet Block</h4>
+        <ul>
+          <li>Adjacent to retort/sterilization area</li>
+          <li>Short cooling water loop</li>
+          <li>Open air position (good airflow)</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>Rationale</h4>
+        <ul>
+          <li>Retorts need rapid cooling (120&deg;C &rarr; 40&deg;C)</li>
+          <li>Proximity minimizes thermal loss in cooling loop</li>
+          <li>Make-up water from process tank (30 m&sup3;)</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Legionella risk:</strong> Cooling towers are regulated sources of Legionella in Morocco (Arr&ecirc;t&eacute; 2014). Located near the admin building air intakes (NE), aerosolized droplets could enter the HVAC system. Verify prevailing wind direction does not carry drift toward building air intakes.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Water consumption:</strong> Evaporative cooling at Benguerir's ambient temperature (~35&ndash;40&deg;C summer) uses 3&ndash;5 m&sup3;/h of makeup water. This is not accounted for in the Water Park sizing. Add ~60&ndash;80 m&sup3;/day to water demand calculations.</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Chemical treatment drain:</strong> Blowdown water contains biocides and scale inhibitors. Must route to STEP, not to ground or fosse septique.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> Water Park (make-up water), Wet line retorts (heat load), STEP (blowdown disposal), TGBT (fan/pump power)</div>
+  </div>
+</div>
+
+<!-- 9. FIRE FIGHTING -->
+<div class="utility-card" id="u-fire">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--red)"></div>
+    <h3>9. Fire Fighting System &mdash; B&acirc;che + Surpresseur</h3>
+    <span class="utility-verdict verdict-risk">Placed &mdash; Verify Coverage</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <div class="loc-grid">
+      <div class="loc-box loc-optimal">
+        <h4>Current: West Block Interior (Mid-South)</h4>
+        <ul>
+          <li>35 m&sup3; fire water reserve + booster pump</li>
+          <li>Local technique de lutte contre l'incendie</li>
+          <li>Feeds RIA (Robinet d'Incendie Arm&eacute;) network</li>
+        </ul>
+      </div>
+      <div class="loc-box loc-current">
+        <h4>GPL Zone: Separate RIA + 10 kg Extinguisher</h4>
+        <ul>
+          <li>Art. 103: RIA + 10 kg powder at GPL tank</li>
+          <li>Water supply 1&frac12;" at 2 bar minimum</li>
+          <li>Connected to fire network via underground pipe</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>35 m&sup3; may be insufficient:</strong> For a 10,900 m&sup2; industrial site with propane storage, Protection Civile typically requires 120 m&sup3; (2 hours at 1,000 L/min). The current 35 m&sup3; reserve provides only ~35 minutes. This will likely be flagged during the fire safety inspection.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Pump power backup:</strong> Fire pumps must operate during a power failure (ONEE outage). Without a dedicated fire pump diesel driver or generator backup, the RIA network is dead during blackouts. NF EN 12845 requires an independent power source.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>East block coverage:</strong> The fire tank is in the west block. The east block (wet production + cold rooms) and admin are ~60&ndash;80 m away. Verify flow rate and pressure at the farthest RIA point &mdash; friction loss over 80 m of pipe may drop below the 2.5 bar minimum.</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Fire truck access:</strong> Two south entries, but the lot has no perimeter fire access road. Protection Civile may require a 4 m wide access route around at least 3 sides of the building.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> Water Park (feed), Emergency generator (pump backup), GPL tank (Art. 103), All buildings (RIA coverage), Protection Civile approval</div>
+  </div>
+</div>
+
+<!-- 10. FOSSE SEPTIQUE -->
+<div class="utility-card" id="u-fosse">
+  <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
+    <div class="utility-dot" style="background: var(--amber)"></div>
+    <h3>10. Fosse Septique (Sanitary)</h3>
+    <span class="utility-verdict verdict-ok">Placed &mdash; Domestic Only</span>
+    <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+  <div class="utility-body">
+    <p>Currently placed at SW of the central truck court. Handles domestic sewage from admin toilets, cantine, and vestiaires only. This is correct &mdash; industrial wastewater must go to the STEP, not here.</p>
+    <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
+    <ul class="risk-list">
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Cross-connection risk:</strong> During construction, it is common for floor drains in production areas to be accidentally connected to the fosse septique instead of the industrial drain manifold. A single mis-connection routes greasy, high-BOD wash water into the fosse &rarr; rapid saturation, overflow, groundwater contamination.</li>
+      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Sizing for staff growth:</strong> A pet food factory of this size may grow from ~80 to ~150 workers. Verify fosse is sized for peak staff count including canteen wastewater.</li>
+    </ul>
+    <div class="deps"><strong>Depends on:</strong> Admin/cantine (sewage source), STEP (must NOT receive industrial waste)</div>
+  </div>
+</div>
+
+<h2>Integration Matrix &mdash; Required Proximities</h2>
+<p class="section-intro">Minimum and maximum distances between utility systems, based on regulation (R), engineering best practice (E), and safety (S).</p>
+
+<div class="matrix-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>From &rarr; To</th>
+        <th>Distance</th>
+        <th>Basis</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>GPL tank &rarr; Chaufferie</td><td>&ge; 15 m</td><td>R: Art. 97 (flame source)</td><td class="cell-ok">~20&ndash;25 m OK</td></tr>
+      <tr><td>GPL tank &rarr; Poste Transfo</td><td>&ge; 7.5 m</td><td>R: Art. 101 (ATEX)</td><td class="cell-ok">~15&ndash;20 m OK</td></tr>
+      <tr><td>GPL tank &rarr; Property line</td><td>&ge; 7.5 m</td><td>R: Art. 97</td><td class="cell-ok">~20&ndash;25 m OK</td></tr>
+      <tr><td>GPL tank &rarr; Generator</td><td>&ge; 7.5 m</td><td>R: Art. 97 (ignition)</td><td class="cell-warn">Verify</td></tr>
+      <tr><td>Chaufferie &rarr; Water Park</td><td>&le; 15 m</td><td>E: Minimize feed pipe</td><td class="cell-ok">~10 m OK</td></tr>
+      <tr><td>Chaufferie &rarr; Dry line</td><td>&le; 30 m</td><td>E: Steam heat loss</td><td class="cell-ok">~20 m OK</td></tr>
+      <tr><td>Chaufferie &rarr; Wet line</td><td>&le; 50 m</td><td>E: Steam heat loss</td><td class="cell-warn">~40 m &mdash; insulate well</td></tr>
+      <tr><td>Chaufferie &rarr; S. boundary</td><td>&ge; 10 m</td><td>R: Urbanistic setback</td><td class="cell-warn">~12&ndash;15 m &mdash; verify surveyor</td></tr>
+      <tr><td>Cooling tower &rarr; Retorts</td><td>&le; 20 m</td><td>E: Cooling response</td><td class="cell-ok">Adjacent OK</td></tr>
+      <tr><td>Cooling tower &rarr; Admin HVAC</td><td>&ge; 30 m</td><td>S: Legionella drift</td><td class="cell-warn">~25 m &mdash; check wind</td></tr>
+      <tr><td>STEP &rarr; Production drain</td><td>Gravity path</td><td>E: No lift stations</td><td class="cell-warn">Not yet routed</td></tr>
+      <tr><td>STEP &rarr; Well</td><td>&ge; 35 m</td><td>S: Groundwater protection</td><td class="cell-warn">Verify</td></tr>
+      <tr><td>Generator &rarr; Transfo</td><td>&le; 10 m</td><td>E: ATS cable length</td><td class="cell-ok">Adjacent OK</td></tr>
+      <tr><td>Fire tank &rarr; Farthest RIA</td><td>&le; 80 m</td><td>E: Pressure drop</td><td class="cell-bad">~80 m &mdash; marginal</td></tr>
+      <tr><td>Compressed air &rarr; Dry line</td><td>&le; 30 m</td><td>E: Pressure drop</td><td class="cell-na">Not placed</td></tr>
+      <tr><td>Diesel gen. &rarr; GPL</td><td>&ge; 7.5 m</td><td>R: ICPE / ATEX</td><td class="cell-na">Not placed</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Top 5 Risks &mdash; Priority Actions</h2>
+
+<div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+  <div class="risk-item risk-high" style="border-left: 3px solid var(--red);">
+    <span class="icon">1</span>
+    <div><strong>No STEP planned.</strong> Industrial wastewater treatment is a legal requirement (Loi 36-15). Reserve 150&ndash;200 m&sup2; at the south boundary now. Commission a BOD/COD characterization study based on the production recipes.</div>
+  </div>
+  <div class="risk-item risk-high" style="border-left: 3px solid var(--red);">
+    <span class="icon">2</span>
+    <div><strong>Fire water reserve insufficient.</strong> 35 m&sup3; provides ~35 min. Protection Civile likely requires 120 m&sup3;. Either upsize the bâche or designate the 250 m&sup3; raw water tank as a dual-purpose fire reserve with a dedicated fire suction pipe.</div>
+  </div>
+  <div class="risk-item risk-high" style="border-left: 3px solid var(--red);">
+    <span class="icon">3</span>
+    <div><strong>No emergency generator.</strong> ONEE outages during retort cycles = batch loss. During cold room operation = spoilage. Size for critical loads (cold rooms + retort + fire pump + lighting), place adjacent to Transfo, verify ATEX clearance from GPL.</div>
+  </div>
+  <div class="risk-item risk-med" style="border-left: 3px solid var(--orange);">
+    <span class="icon">4</span>
+    <div><strong>Chaufferie setback not surveyed.</strong> The lean-to south extension may encroach into the 10 m urbanistic setback. Commission a surveyor to confirm clearance before submitting the PNV modification.</div>
+  </div>
+  <div class="risk-item risk-med" style="border-left: 3px solid var(--orange);">
+    <span class="icon">5</span>
+    <div><strong>Compressed air not allocated.</strong> Reserve space in the freed interior zone (ex-TGBT/Chaufferie) for 2&ndash;3 compressors, dryer, receiver, and adequate ventilation. Size the electrical feed at TGBT 1 now.</div>
+  </div>
+</div>
+
+<h2>Recommended Utility Zoning</h2>
+<div class="summary-box">
+  <p><strong>South Utility Corridor (the winning strategy):</strong> Cluster all major utilities along the south boundary of the lot, between the building south wall and the 10 m setback. This zone is ~101 m wide &times; ~15 m deep (~1,500 m&sup2;) and should contain, from west to east:</p>
+  <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 2; margin-top: 8px;">
+    [Well] &rarr; [Water Park 250+30+25 m&sup3;] &rarr; [Chaufferie 12&times;8m] &rarr; [Transfo+TGBT2+PLG] &rarr; [Generator] &rarr; [STEP 150 m&sup2;] &rarr; [GPL 22 m&sup3; + safety zone]
+  </p>
+  <p style="margin-top: 10px;"><strong>Benefits:</strong> All utilities accessible from the south for maintenance without entering production. All hazardous systems (GPL, boiler, generator) at maximum distance from occupied buildings. All piping runs between utilities are short (&le;25 m). Truck access for GPL delivery, sludge removal, and diesel refill from the south entries. Single cable trench from Transfo to all motor loads.</p>
+  <p><strong>Interior (freed zone):</strong> Compressed air + maintenance shop + fire pump room. Central to production, no regulatory distance requirements.</p>
+  <p><strong>East side:</strong> Cooling tower only &mdash; must be close to retorts, positioned so drift blows away from admin building (prevailing W/NW wind pushes drift east, away from factory).</p>
+</div>
+
+<footer>
+  PetFactory Maroc &mdash; Utility Premortem &mdash; Benguerir (Sidi Bouatmane) &mdash; Lot 23 ZI, TF 976/72 &mdash; Rev. 1, 25 Sept 2026
+</footer>
+
+<script>
+document.querySelectorAll('.utility-card').forEach((card, i) => {
+  if (i > 0) card.classList.remove('open');
+});
+</script>

@@ -457,13 +457,14 @@
     <rect x="345" y="100" width="120" height="460" fill="#FAFAF8" stroke="var(--border)" stroke-width="1" rx="1"/>
     <text x="405" y="290" font-size="9" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle" transform="rotate(-90 405 290)">TRUCK COURT</text>
 
-    <!-- EAST BLOCK (Wet + Admin) -->
-    <rect x="470" y="100" width="150" height="300" fill="#E0E8F0" stroke="var(--navy)" stroke-width="1.5" rx="2"/>
+    <!-- EAST BLOCK (Wet + Cold rooms — extends to 10m setback south) -->
+    <rect x="470" y="100" width="150" height="460" fill="#E0E8F0" stroke="var(--navy)" stroke-width="1.5" rx="2"/>
     <text x="545" y="130" font-size="11" font-weight="700" fill="var(--navy)" font-family="DM Sans, sans-serif" text-anchor="middle">EAST BLOCK</text>
     <text x="545" y="145" font-size="9" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Wet Production</text>
-
-    <rect x="470" y="410" width="150" height="150" fill="#E8DFF0" stroke="var(--purple)" stroke-width="1" rx="2"/>
-    <text x="545" y="490" font-size="10" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">Administration</text>
+    <rect x="475" y="480" width="140" height="40" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
+    <text x="545" y="505" font-size="7" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Chambres Neg. / Pos.</text>
+    <rect x="475" y="525" width="140" height="35" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
+    <text x="545" y="547" font-size="7" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Quais chargement</text>
 
     <!-- UTILITY ZONE SOUTH -->
     <!-- Chaufferie -->
@@ -493,12 +494,15 @@
     <circle cx="80" cy="706" r="10" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1.5"/>
     <text x="80" y="710" font-size="7" font-weight="700" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">W</text>
 
-    <!-- GPL Tank -->
-    <rect x="480" y="650" width="80" height="30" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" rx="12"/>
-    <text x="520" y="669" font-size="8" font-weight="700" fill="var(--orange)" font-family="DM Sans, sans-serif" text-anchor="middle">GPL 22m&sup3;</text>
-    <!-- Safety circle -->
-    <circle cx="520" cy="665" r="50" fill="none" stroke="var(--orange)" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.5"/>
-    <text x="520" y="625" font-size="7" fill="var(--orange)" font-family="JetBrains Mono, monospace" text-anchor="middle">7.5m safety</text>
+    <!-- GPL Tank — NON CONFORME at SE corner -->
+    <rect x="480" y="600" width="80" height="30" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2.5" rx="12"/>
+    <text x="520" y="619" font-size="8" font-weight="700" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">GPL 22m&sup3;</text>
+    <!-- Safety circle overlaps building and property line -->
+    <circle cx="520" cy="615" r="50" fill="none" stroke="var(--red)" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.6"/>
+    <text x="520" y="575" font-size="7" font-weight="700" fill="var(--red)" font-family="JetBrains Mono, monospace" text-anchor="middle">7.5m CONFLICTS</text>
+    <!-- Conflict markers -->
+    <text x="520" y="648" font-size="8" font-weight="700" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">NON CONFORME</text>
+    <text x="520" y="660" font-size="6" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">10m gap &lt; 15m needed</text>
 
     <!-- Cooling Tower -->
     <rect x="510" y="560" width="50" height="30" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1" rx="2"/>
@@ -555,41 +559,44 @@
   <div class="utility-header" onclick="this.parentElement.classList.toggle('open')">
     <div class="utility-dot" style="background: var(--orange)"></div>
     <h3>1. Propane/GPL Storage &mdash; AFRIQUIAGAZ 22 m&sup3;</h3>
-    <span class="utility-verdict verdict-ok">Placed &mdash; Conforme</span>
+    <span class="utility-verdict verdict-critical">SE Corner &mdash; NON CONFORME</span>
     <svg class="chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
   </div>
   <div class="utility-body">
+    <div style="background: var(--red-bg); border: 2px solid var(--red); border-radius: 6px; padding: 14px 16px; margin-bottom: 14px; font-size: 13px; color: var(--red);">
+      <strong>CRITICAL &mdash; Geometric impossibility at SE corner (confirmed by PNV blueprint).</strong> The east block (Chambres N&eacute;gative/Positive, parking) extends to ~10 m from both the south and east property lines. Art. 97 requires 7.5 m from buildings AND 7.5 m from property lines = 15 m needed, but only 10 m available. <strong>The AFRIQUIAGAZ 22 m&sup3; cannot be placed at the SE corner as currently planned.</strong>
+    </div>
     <div class="loc-grid">
-      <div class="loc-box loc-optimal">
-        <h4>Location: SE Corner</h4>
+      <div class="loc-box" style="background: var(--red-bg); border-color: var(--red);">
+        <h4 style="color: var(--red);">Proposed: SE Corner &mdash; FAILS Art. 97</h4>
         <ul>
-          <li>Single 22,000 L horizontal above-ground tank</li>
-          <li>Fenced enclosure with locked gate</li>
-          <li>~20&ndash;25 m from property lines (south &amp; east)</li>
-          <li>~25 m to Chaufferie via LOCAL PLG</li>
-          <li>Tanker access from south entry, forward-only path</li>
+          <li>Building south wall &rarr; south property line: <strong>~10 m</strong></li>
+          <li>Building east wall &rarr; east property line: <strong>~10 m</strong></li>
+          <li>7.5 m (from building) + 7.5 m (from property) = <strong>15 m needed</strong></li>
+          <li>Only 10 m available &rarr; <strong>5 m deficit</strong></li>
+          <li>Parking (54 places) already occupies this zone near B39</li>
         </ul>
       </div>
-      <div class="loc-box loc-current">
-        <h4>Why SE &mdash; Not Elsewhere</h4>
+      <div class="loc-box loc-optimal">
+        <h4>Resolution Options</h4>
         <ul>
-          <li>Art. 97: 7.5 m clearance satisfied in all directions</li>
-          <li>Art. 99: Truck loop through court &rarr; exit south (no reversing)</li>
-          <li>Art. 102: Open air, not under building</li>
-          <li>Away from admin (NE) and main entries</li>
-          <li>Short piping to chaufferie at south wall</li>
+          <li><strong>Option A:</strong> Pull east block south wall 5&ndash;8 m northward (shorten cold rooms / relocate parking) to create 15&ndash;18 m gap</li>
+          <li><strong>Option B:</strong> Place tank south of central truck court (open area between blocks), but verify Art. 99 truck access</li>
+          <li><strong>Option C:</strong> Underground (enterr&eacute;) tank &mdash; different regulatory distance tier under NM 03.4.072</li>
+          <li><strong>Option D:</strong> Relocate parking to north; dedicate full SE corner exclusively to GPL with modified building footprint</li>
         </ul>
       </div>
     </div>
     <div class="reg-note">
-      <strong>Regulatory lock-in:</strong> Only the 12,000&ndash;24,000 L tier (Art. 97) fits this lot. Any capacity &gt;24,000 L requires 10 m distances that encroach on B39-B40. A second 22 m&sup3; tank may push total to &gt;10 t &mdash; confirm with AFRIQUIAGAZ before ordering.
+      <strong>Regulatory lock-in:</strong> Only the 12,000&ndash;24,000 L tier (Art. 97) fits this lot. Any capacity &gt;24,000 L requires 10 m distances that make placement even harder. The AFRIQUIAGAZ plan (R&eacute;f. 01, 05/02/2026) was marked CONFORME but must be re-verified against the actual PNV building footprint &mdash; the east block extends further south than the AFRIQUIAGAZ layout assumed.
     </div>
     <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
     <ul class="risk-list">
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Art. 97 NON CONFORME at SE corner:</strong> With building walls at 10 m from property lines, it is mathematically impossible to achieve 7.5 m clearance from both the building and the property boundary simultaneously. The tank position must be redesigned before the autorisation d'exploiter can be obtained.</li>
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>AFRIQUIAGAZ plan mismatch:</strong> The supplier's implantation plan (R&eacute;f. 01) shows the tank CONFORME, but the PNV &ldquo;RDC Modifi&eacute;&rdquo; blueprint shows the east block extending to the 10 m setback at the SE corner. Either the AFRIQUIAGAZ plan used a different building footprint, or the building footprint changed after their study. This must be reconciled with AFRIQUIAGAZ before construction.</li>
       <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>5.6-day autonomy</strong> is tight. A delivery delay during Ramadan, national holiday, or supplier truck breakdown could halt steam production within 48h of the reorder threshold.</li>
       <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Tanker access conflict:</strong> GPL delivery trucks share the south entry with raw material trucks. Simultaneous arrivals could block the forward-only loop required by Art. 99.</li>
       <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Solar heating:</strong> Tank in full sun in Benguerir (40&deg;C+ summers). Excess temperature raises tank pressure and increases vaporization losses. Needs shade structure or reflective paint.</li>
-      <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Legend error:</strong> AFRIQUIAGAZ plan specifies 9 kg extinguisher but Art. 103 requires 10 kg minimum. Ensure 10 kg is actually installed.</li>
     </ul>
     <div class="deps"><strong>Depends on:</strong> Chaufferie (steam user), Poste Transfo (safety electrical), LOCAL PLG (gas regulation), Fire fighting (RIA + extinguisher)</div>
   </div>
@@ -963,9 +970,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>GPL tank &rarr; Chaufferie</td><td>&ge; 15 m</td><td>R: Art. 97 (flame source)</td><td class="cell-ok">~20&ndash;25 m OK</td></tr>
-      <tr><td>GPL tank &rarr; Poste Transfo</td><td>&ge; 7.5 m</td><td>R: Art. 101 (ATEX)</td><td class="cell-ok">~15&ndash;20 m OK</td></tr>
-      <tr><td>GPL tank &rarr; Property line</td><td>&ge; 7.5 m</td><td>R: Art. 97</td><td class="cell-ok">~20&ndash;25 m OK</td></tr>
+      <tr><td>GPL tank &rarr; Building wall (SE)</td><td>&ge; 7.5 m</td><td>R: Art. 97</td><td class="cell-bad">~2.5 m max &mdash; NON CONFORME</td></tr>
+      <tr><td>GPL tank &rarr; Property line (S/E)</td><td>&ge; 7.5 m</td><td>R: Art. 97</td><td class="cell-bad">~2.5 m max &mdash; NON CONFORME</td></tr>
+      <tr><td>GPL tank &rarr; Chaufferie</td><td>&ge; 15 m</td><td>R: Art. 97 (flame source)</td><td class="cell-warn">Depends on tank relocation</td></tr>
+      <tr><td>GPL tank &rarr; Poste Transfo</td><td>&ge; 7.5 m</td><td>R: Art. 101 (ATEX)</td><td class="cell-warn">Depends on tank relocation</td></tr>
       <tr><td>GPL tank &rarr; Generator</td><td>&ge; 7.5 m</td><td>R: Art. 97 (ignition)</td><td class="cell-warn">Verify</td></tr>
       <tr><td>Chaufferie &rarr; Water Park</td><td>&le; 15 m</td><td>E: Minimize feed pipe</td><td class="cell-ok">~10 m OK</td></tr>
       <tr><td>Chaufferie &rarr; Dry line</td><td>&le; 30 m</td><td>E: Steam heat loss</td><td class="cell-ok">~20 m OK</td></tr>
@@ -988,31 +996,36 @@
 <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
   <div class="risk-item risk-high" style="border-left: 3px solid var(--red);">
     <span class="icon">1</span>
-    <div><strong>No STEP planned.</strong> Industrial wastewater treatment is a legal requirement (Loi 36-15). Reserve 150&ndash;200 m&sup2; at the south boundary now. Commission a BOD/COD characterization study based on the production recipes.</div>
+    <div><strong>GPL tank NON CONFORME at SE corner.</strong> PNV blueprint confirms building walls are ~10 m from property lines at the SE corner (B39). Art. 97 requires 7.5 m from both building and property = 15 m, but only 10 m available. <strong>The tank position must be redesigned.</strong> Contact AFRIQUIAGAZ to reconcile their implantation plan (R&eacute;f. 01) with the actual PNV footprint. Evaluate: shortening the east block, relocating to the central south area, or switching to an underground tank.</div>
   </div>
   <div class="risk-item risk-high" style="border-left: 3px solid var(--red);">
     <span class="icon">2</span>
-    <div><strong>Fire water reserve insufficient.</strong> 35 m&sup3; provides ~35 min. Protection Civile likely requires 120 m&sup3;. Either upsize the bâche or designate the 250 m&sup3; raw water tank as a dual-purpose fire reserve with a dedicated fire suction pipe.</div>
+    <div><strong>No STEP planned.</strong> Industrial wastewater treatment is a legal requirement (Loi 36-15). Reserve 150&ndash;200 m&sup2; at the south boundary now. Commission a BOD/COD characterization study based on the production recipes.</div>
   </div>
   <div class="risk-item risk-high" style="border-left: 3px solid var(--red);">
     <span class="icon">3</span>
+    <div><strong>Fire water reserve insufficient.</strong> 35 m&sup3; provides ~35 min. Protection Civile likely requires 120 m&sup3;. Either upsize the b&acirc;che or designate the 250 m&sup3; raw water tank as a dual-purpose fire reserve with a dedicated fire suction pipe.</div>
+  </div>
+  <div class="risk-item risk-high" style="border-left: 3px solid var(--red);">
+    <span class="icon">4</span>
     <div><strong>No emergency generator.</strong> ONEE outages during retort cycles = batch loss. During cold room operation = spoilage. Size for critical loads (cold rooms + retort + fire pump + lighting), place adjacent to Transfo, verify ATEX clearance from GPL.</div>
   </div>
   <div class="risk-item risk-med" style="border-left: 3px solid var(--orange);">
-    <span class="icon">4</span>
+    <span class="icon">5</span>
     <div><strong>Chaufferie setback not surveyed.</strong> The lean-to south extension may encroach into the 10 m urbanistic setback. Commission a surveyor to confirm clearance before submitting the PNV modification.</div>
   </div>
   <div class="risk-item risk-med" style="border-left: 3px solid var(--orange);">
-    <span class="icon">5</span>
+    <span class="icon">6</span>
     <div><strong>Compressed air not allocated.</strong> Reserve space in the freed interior zone (ex-TGBT/Chaufferie) for 2&ndash;3 compressors, dryer, receiver, and adequate ventilation. Size the electrical feed at TGBT 1 now.</div>
   </div>
 </div>
 
 <h2>Recommended Utility Zoning</h2>
 <div class="summary-box">
-  <p><strong>South Utility Corridor (the winning strategy):</strong> Cluster all major utilities along the south boundary of the lot, between the building south wall and the 10 m setback. This zone is ~101 m wide &times; ~15 m deep (~1,500 m&sup2;) and should contain, from west to east:</p>
+  <p><strong>South Utility Corridor:</strong> Cluster utilities along the south boundary, between the building south wall and the 10 m setback. This zone is ~101 m wide &times; ~10 m deep (~1,000 m&sup2;). <span style="color: var(--red); font-weight: 600;">&#9888; The 10 m depth is insufficient for the GPL tank (Art. 97 requires 7.5 m from building + 7.5 m from property = 15 m). The GPL must be relocated or the east block shortened.</span></p>
+  <p>Revised corridor layout, <em>excluding</em> GPL (which requires a separate solution):</p>
   <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 2; margin-top: 8px;">
-    [Well] &rarr; [Water Park 250+30+25 m&sup3;] &rarr; [Chaufferie 12&times;8m] &rarr; [Transfo+TGBT2+PLG] &rarr; [Generator] &rarr; [STEP 150 m&sup2;] &rarr; [GPL 22 m&sup3; + safety zone]
+    [Well] &rarr; [Water Park 250+30+25 m&sup3;] &rarr; [Chaufferie 12&times;8m] &rarr; [Transfo+TGBT2+PLG] &rarr; [Generator] &rarr; [STEP 150 m&sup2;]
   </p>
   <p style="margin-top: 10px;"><strong>Benefits:</strong> All utilities accessible from the south for maintenance without entering production. All hazardous systems (GPL, boiler, generator) at maximum distance from occupied buildings. All piping runs between utilities are short (&le;25 m). Truck access for GPL delivery, sludge removal, and diesel refill from the south entries. Single cable trench from Transfo to all motor loads.</p>
   <p><strong>Interior (freed zone):</strong> Compressed air + maintenance shop + fire pump room. Central to production, no regulatory distance requirements.</p>
@@ -1020,7 +1033,7 @@
 </div>
 
 <footer>
-  PetFactory Maroc &mdash; Utility Premortem &mdash; Benguerir (Sidi Bouatmane) &mdash; Lot 23 ZI, TF 976/72 &mdash; Rev. 1, 25 Sept 2026
+  PetFactory Maroc &mdash; Utility Premortem &mdash; Benguerir (Sidi Bouatmane) &mdash; Lot 23 ZI, TF 976/72 &mdash; Rev. 2, 25 Sept 2026
 </footer>
 
 <script>

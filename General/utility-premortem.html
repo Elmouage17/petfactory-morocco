@@ -440,7 +440,6 @@
     <rect x="110" y="100" width="230" height="460" fill="#E8ECF0" stroke="var(--navy)" stroke-width="1.5" rx="2"/>
     <text x="225" y="130" font-size="12" font-weight="700" fill="var(--navy)" font-family="DM Sans, sans-serif" text-anchor="middle">WEST BLOCK</text>
     <text x="225" y="145" font-size="9" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Dry Production</text>
-    <!-- Sub areas -->
     <rect x="115" y="155" width="220" height="60" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
     <text x="225" y="190" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Magasin Produit Fini (HSP 12m)</text>
     <rect x="115" y="220" width="220" height="100" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
@@ -453,11 +452,16 @@
     <rect x="115" y="460" width="220" height="95" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
     <text x="225" y="512" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Magasin R&eacute;ception (HSP 8m)</text>
 
+    <!-- INTERIOR: Compressed Air + Fire Pump -->
+    <rect x="115" y="370" width="100" height="50" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1" rx="2"/>
+    <text x="165" y="393" font-size="7" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">Air Compr.</text>
+    <text x="165" y="405" font-size="6" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">+ Fire Pump</text>
+
     <!-- CENTRAL COURT -->
     <rect x="345" y="100" width="120" height="460" fill="#FAFAF8" stroke="var(--border)" stroke-width="1" rx="1"/>
     <text x="405" y="290" font-size="9" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle" transform="rotate(-90 405 290)">TRUCK COURT</text>
 
-    <!-- EAST BLOCK (Wet + Cold rooms — extends to 10m setback south) -->
+    <!-- EAST BLOCK (Wet + Cold rooms) -->
     <rect x="470" y="100" width="150" height="460" fill="#E0E8F0" stroke="var(--navy)" stroke-width="1.5" rx="2"/>
     <text x="545" y="130" font-size="11" font-weight="700" fill="var(--navy)" font-family="DM Sans, sans-serif" text-anchor="middle">EAST BLOCK</text>
     <text x="545" y="145" font-size="9" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Wet Production</text>
@@ -466,74 +470,93 @@
     <rect x="475" y="525" width="140" height="35" fill="none" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3 2"/>
     <text x="545" y="547" font-size="7" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Quais chargement</text>
 
-    <!-- UTILITY ZONE SOUTH -->
-    <!-- Chaufferie -->
-    <rect x="140" y="565" width="120" height="60" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" rx="3"/>
-    <text x="200" y="593" font-size="10" font-weight="700" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">CHAUFFERIE</text>
-    <text x="200" y="607" font-size="7" fill="var(--red)" font-family="JetBrains Mono, monospace" text-anchor="middle">2&times;4t/h 12m&times;8m</text>
+    <!-- ========== ZONE EST — GPL + Electrical ========== -->
+    <rect x="622" y="200" width="88" height="280" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="1" rx="3" opacity="0.3"/>
+    <text x="666" y="218" font-size="8" font-weight="700" fill="var(--orange)" font-family="DM Sans, sans-serif" text-anchor="middle">ZONE EST</text>
 
-    <!-- Poste Transfo -->
-    <rect x="140" y="632" width="55" height="35" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.2" rx="2"/>
-    <text x="167" y="651" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">Transfo</text>
-    <text x="167" y="662" font-size="6" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">HTA/BT</text>
-
-    <!-- TGBT 2 -->
-    <rect x="200" y="632" width="40" height="35" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1" rx="2"/>
-    <text x="220" y="651" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">TGBT2</text>
+    <!-- GPL Tank (AFRIQUIAGAZ mid-east) -->
+    <rect x="632" y="290" width="68" height="28" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" rx="12"/>
+    <text x="666" y="308" font-size="8" font-weight="700" fill="var(--orange)" font-family="DM Sans, sans-serif" text-anchor="middle">GPL 22m&sup3;</text>
+    <circle cx="666" cy="304" r="45" fill="none" stroke="var(--orange)" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.35"/>
+    <text x="666" y="258" font-size="6" font-weight="600" fill="var(--green)" font-family="JetBrains Mono, monospace" text-anchor="middle">7.5m CONFORME</text>
 
     <!-- LOCAL PLG -->
-    <rect x="245" y="632" width="40" height="35" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="1" rx="2"/>
-    <text x="265" y="651" font-size="7" font-weight="600" fill="var(--orange)" font-family="DM Sans, sans-serif" text-anchor="middle">PLG</text>
+    <rect x="636" y="325" width="56" height="22" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="1" rx="2"/>
+    <text x="664" y="340" font-size="7" font-weight="600" fill="var(--orange)" font-family="DM Sans, sans-serif" text-anchor="middle">PLG</text>
 
-    <!-- WATER PARK -->
-    <rect x="100" y="676" width="210" height="60" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1.5" rx="3"/>
-    <text x="205" y="698" font-size="10" font-weight="700" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">PARC D'EAU</text>
-    <text x="205" y="714" font-size="7" fill="var(--steel)" font-family="JetBrains Mono, monospace" text-anchor="middle">250m&sup3; brut + 30m&sup3; proc + 25m&sup3; retort + WTP</text>
-
-    <!-- Well -->
-    <circle cx="80" cy="706" r="10" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1.5"/>
-    <text x="80" y="710" font-size="7" font-weight="700" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">W</text>
-
-    <!-- GPL Tank — Mid-East (AFRIQUIAGAZ CONFORME) -->
-    <rect x="635" y="320" width="80" height="30" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" rx="12"/>
-    <text x="675" y="339" font-size="8" font-weight="700" fill="var(--orange)" font-family="DM Sans, sans-serif" text-anchor="middle">GPL 22m&sup3;</text>
-    <!-- Safety circle — fits between building and property line -->
-    <circle cx="675" cy="335" r="50" fill="none" stroke="var(--orange)" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
-    <text x="675" y="295" font-size="7" font-weight="600" fill="var(--orange)" font-family="JetBrains Mono, monospace" text-anchor="middle">7.5m all sides</text>
-    <text x="675" y="370" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">CONFORME</text>
-
-    <!-- Cooling Tower -->
-    <rect x="510" y="560" width="50" height="30" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1" rx="2"/>
-    <text x="535" y="579" font-size="7" font-weight="600" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">Cooling</text>
-
-    <!-- Fire -->
-    <rect x="115" y="395" width="100" height="30" fill="var(--red-bg)" stroke="var(--red)" stroke-width="0.8" rx="2"/>
-    <text x="165" y="414" font-size="7" font-weight="600" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">B&acirc;che+Surpr. 35m&sup3;</text>
-
-    <!-- NOT YET PLACED markers -->
-    <!-- Compressed Air -->
-    <rect x="295" y="570" width="70" height="25" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.2" rx="2" stroke-dasharray="4 2"/>
-    <text x="330" y="587" font-size="7" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">Air Compr.?</text>
-
-    <!-- STEP -->
-    <rect x="380" y="682" width="75" height="35" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.2" rx="2" stroke-dasharray="4 2"/>
-    <text x="417" y="700" font-size="7" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">STEP?</text>
-    <text x="417" y="712" font-size="6" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">Wastewater</text>
+    <!-- Poste Transfo -->
+    <rect x="632" y="360" width="55" height="30" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.2" rx="2"/>
+    <text x="659" y="377" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">Transfo</text>
+    <text x="659" y="387" font-size="6" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">5&times;4m</text>
 
     <!-- Generator -->
-    <rect x="295" y="635" width="65" height="25" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.2" rx="2" stroke-dasharray="4 2"/>
-    <text x="327" y="652" font-size="7" font-weight="600" fill="var(--purple)" font-family="DM Sans, sans-serif" text-anchor="middle">G&eacute;n&eacute;ratrice?</text>
+    <rect x="632" y="395" width="55" height="25" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1" rx="2"/>
+    <text x="659" y="412" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">G&eacute;n&eacute;ratrice</text>
+
+    <!-- Cooling Tower -->
+    <rect x="632" y="435" width="55" height="30" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1" rx="2"/>
+    <text x="659" y="454" font-size="7" font-weight="600" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">Cooling</text>
+    <text x="659" y="463" font-size="6" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">Tower</text>
+
+    <!-- ========== ZONE SUD-CENTRE — Chaufferie ========== -->
+    <rect x="345" y="565" width="120" height="65" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1" rx="3" opacity="0.3"/>
+    <text x="405" y="580" font-size="7" font-weight="700" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">ZONE SUD-CENTRE</text>
+
+    <rect x="355" y="585" width="100" height="40" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" rx="3"/>
+    <text x="405" y="604" font-size="9" font-weight="700" fill="var(--red)" font-family="DM Sans, sans-serif" text-anchor="middle">CHAUFFERIE</text>
+    <text x="405" y="618" font-size="7" fill="var(--red)" font-family="JetBrains Mono, monospace" text-anchor="middle">2&times;4t/h 12&times;8m</text>
+
+    <!-- TGBT 2 adjacent to chaufferie -->
+    <rect x="460" y="585" width="40" height="40" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1" rx="2"/>
+    <text x="480" y="604" font-size="7" font-weight="600" fill="var(--green)" font-family="DM Sans, sans-serif" text-anchor="middle">TGBT2</text>
+
+    <!-- ========== ZONE SUD-OUEST — Water ========== -->
+    <rect x="68" y="640" width="260" height="100" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1" rx="3" opacity="0.3"/>
+    <text x="198" y="656" font-size="7" font-weight="700" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">ZONE SUD-OUEST</text>
+
+    <!-- Water Park -->
+    <rect x="110" y="665" width="200" height="50" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1.5" rx="3"/>
+    <text x="210" y="685" font-size="9" font-weight="700" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">PARC D'EAU + FIRE</text>
+    <text x="210" y="700" font-size="7" fill="var(--steel)" font-family="JetBrains Mono, monospace" text-anchor="middle">250m&sup3; dual + 30m&sup3; + 25m&sup3; + WTP</text>
+
+    <!-- Well -->
+    <circle cx="80" cy="690" r="10" fill="var(--steel-bg)" stroke="var(--steel)" stroke-width="1.5"/>
+    <text x="80" y="694" font-size="7" font-weight="700" fill="var(--steel)" font-family="DM Sans, sans-serif" text-anchor="middle">W</text>
+
+    <!-- ========== ZONE SUD — Wastewater ========== -->
+    <rect x="380" y="680" width="100" height="40" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="1" rx="3" opacity="0.3"/>
+    <text x="430" y="694" font-size="7" font-weight="700" fill="var(--amber)" font-family="DM Sans, sans-serif" text-anchor="middle">ZONE SUD</text>
+    <text x="430" y="706" font-size="7" fill="var(--amber)" font-family="DM Sans, sans-serif" text-anchor="middle">STEP 150m&sup2;</text>
 
     <!-- Fosse Septique -->
-    <rect x="345" y="520" width="55" height="25" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="0.8" rx="2"/>
-    <text x="372" y="536" font-size="6" font-weight="600" fill="var(--amber)" font-family="DM Sans, sans-serif" text-anchor="middle">Fosse Sept.</text>
+    <rect x="345" y="530" width="55" height="22" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="0.8" rx="2"/>
+    <text x="372" y="544" font-size="6" font-weight="600" fill="var(--amber)" font-family="DM Sans, sans-serif" text-anchor="middle">Fosse Sept.</text>
 
     <!-- Parking -->
-    <rect x="470" y="695" width="140" height="30" fill="var(--card)" stroke="var(--border)" stroke-width="0.8" rx="2"/>
-    <text x="540" y="714" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Parking (54 places)</text>
+    <rect x="500" y="695" width="110" height="28" fill="var(--card)" stroke="var(--border)" stroke-width="0.8" rx="2"/>
+    <text x="555" y="713" font-size="7" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">Parking (54 places)</text>
 
-    <!-- Entry arrows -->
+    <!-- ========== PIPING RUNS (dashed) ========== -->
+    <!-- GPL → Chaufferie gas pipe ~25-30m -->
+    <line x1="632" y1="335" x2="455" y2="600" stroke="var(--orange)" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
+    <text x="540" y="472" font-size="6" fill="var(--orange)" font-family="JetBrains Mono, monospace" transform="rotate(-40 540 472)">gas ~25-30m</text>
+
+    <!-- Water Park → Chaufferie feed water ~20m -->
+    <line x1="310" y1="690" x2="355" y2="610" stroke="var(--steel)" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
+    <text x="315" y="650" font-size="6" fill="var(--steel)" font-family="JetBrains Mono, monospace">feed ~20m</text>
+
+    <!-- Chaufferie → West Block steam ~20-25m -->
+    <line x1="355" y1="600" x2="280" y2="500" stroke="var(--red)" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
+    <text x="290" y="558" font-size="6" fill="var(--red)" font-family="JetBrains Mono, monospace">steam ~20m</text>
+
+    <!-- Chaufferie → East Block steam ~20-25m -->
+    <line x1="455" y1="600" x2="520" y2="500" stroke="var(--red)" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
+    <text x="480" y="558" font-size="6" fill="var(--red)" font-family="JetBrains Mono, monospace">steam ~20m</text>
+
+    <!-- Labels -->
     <text x="300" y="752" font-size="9" font-weight="600" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">SOUTH ENTRIES</text>
+    <text x="666" y="498" font-size="8" font-weight="600" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">EAST</text>
+    <text x="666" y="508" font-size="8" font-weight="600" fill="var(--text-muted)" font-family="DM Sans, sans-serif" text-anchor="middle">ACCESS</text>
 
     <!-- Legend -->
     <rect x="40" y="750" width="8" height="8" fill="var(--red-bg)" stroke="var(--red)" stroke-width="0.8" rx="1"/>
@@ -544,8 +567,8 @@
     <text x="177" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">Electrical</text>
     <rect x="240" y="750" width="8" height="8" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="0.8" rx="1"/>
     <text x="252" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">GPL/Gas</text>
-    <rect x="310" y="750" width="8" height="8" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="0.8" rx="2" stroke-dasharray="2 1"/>
-    <text x="322" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">Not yet placed</text>
+    <rect x="310" y="750" width="8" height="8" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="0.8" rx="1"/>
+    <text x="322" y="758" font-size="8" fill="var(--text-muted)" font-family="DM Sans, sans-serif">Wastewater</text>
   </svg>
 </div>
 
@@ -609,12 +632,14 @@
   <div class="utility-body">
     <div class="loc-grid">
       <div class="loc-box loc-optimal">
-        <h4>Optimal: South Wall Lean-to (SW)</h4>
+        <h4>Optimal: South-Central (South of Truck Court)</h4>
         <ul>
           <li>12 m &times; 8 m concrete slab &mdash; 96 m&sup2;</li>
-          <li>Lean-to against south face of west block</li>
-          <li>~25 m from GPL, ~10 m from Water Park</li>
-          <li>Chimney 20 m pointed north (away from GPL)</li>
+          <li>Lean-to against south face, centered between blocks</li>
+          <li>~20&ndash;25 m steam to dry line (west) AND wet line (east)</li>
+          <li>~25&ndash;30 m gas piping from GPL (east side)</li>
+          <li>~20 m feed water from Water Park (SW)</li>
+          <li>Chimney 20 m pointed south (away from production)</li>
           <li>Natural ventilation via south fa&ccedil;ade</li>
           <li>Frees ~100 m&sup2; interior (old TGBT/Chaufferie zone)</li>
         </ul>
@@ -633,10 +658,10 @@
     </div>
     <h4 style="margin-top:14px; font-size:13px; color:var(--text)">Premortem Risks</h4>
     <ul class="risk-list">
-      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Setback violation:</strong> The south wall lean-to adds ~8 m beyond the building footprint. If the existing building is already at ~12 m from the south property line (B40), the chaufferie extension could encroach into the 10 m urbanistic setback. A surveyor must confirm before permit.</li>
+      <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>Setback violation:</strong> The south-central lean-to adds ~8 m beyond the building footprint. If the truck court south wall is already at ~12 m from the south property line, the chaufferie could encroach into the 10 m urbanistic setback. A surveyor must confirm before permit.</li>
       <li class="risk-item risk-high"><span class="icon">&#9888;</span> <strong>PNV modification required:</strong> Moving the chaufferie from its PNV-approved internal position requires a formal modification request to the Prefecture. This could delay construction by 2&ndash;4 months if contested.</li>
-      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Steam pipe length to wet line:</strong> From the SW position, steam must travel ~40 m to the east block (wet production). Heat loss, condensate accumulation, and water hammer risk increase with distance. Insulation and steam traps are critical.</li>
-      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Chimney orientation:</strong> 20 m chimney pointing north sits above the production building. Prevailing winds from the Atlantic (W/NW) could push exhaust toward the east block or parking. Need wind rose analysis for Benguerir.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Gas piping run from GPL:</strong> South-central chaufferie is ~25&ndash;30 m from the GPL tank on the east side. Acceptable for a 2&quot; steel line but requires intermediate shut-off valves and proper cathodic protection if buried.</li>
+      <li class="risk-item risk-med"><span class="icon">&#9888;</span> <strong>Chimney orientation:</strong> 20 m chimney pointing south, away from production. Prevailing W/NW winds push exhaust south and east &mdash; favorable for south-central position. Verify with Benguerir wind rose.</li>
       <li class="risk-item risk-low"><span class="icon">&#9679;</span> <strong>Foundation loads:</strong> Each boiler is 21.6 tonnes in service. The lean-to slab must be designed for this concentrated load &mdash; not a standard floor slab.</li>
       <li class="risk-item risk-ok"><span class="icon">&#10003;</span> <strong>Gas piping halved:</strong> SW position cuts GPL piping from ~50 m to ~25 m &mdash; reducing cost, leak points, and pressure drop.</li>
     </ul>
@@ -968,12 +993,12 @@
     <tbody>
       <tr><td>GPL tank &rarr; Building wall (east)</td><td>&ge; 7.5 m</td><td>R: Art. 97</td><td class="cell-ok">7.5 m &mdash; CONFORME (AFRIQUIAGAZ)</td></tr>
       <tr><td>GPL tank &rarr; Property line (east)</td><td>&ge; 7.5 m</td><td>R: Art. 97</td><td class="cell-ok">7.5 m &mdash; CONFORME (AFRIQUIAGAZ)</td></tr>
-      <tr><td>GPL tank &rarr; Chaufferie</td><td>&ge; 15 m</td><td>R: Art. 97 (flame source)</td><td class="cell-warn">~35&ndash;40 m &mdash; OK but long piping</td></tr>
-      <tr><td>GPL tank &rarr; Poste Transfo</td><td>&ge; 7.5 m</td><td>R: Art. 101 (ATEX)</td><td class="cell-ok">Adjacent east side &mdash; verify</td></tr>
-      <tr><td>GPL tank &rarr; Generator</td><td>&ge; 7.5 m</td><td>R: Art. 97 (ignition)</td><td class="cell-warn">Verify</td></tr>
-      <tr><td>Chaufferie &rarr; Water Park</td><td>&le; 15 m</td><td>E: Minimize feed pipe</td><td class="cell-ok">~10 m OK</td></tr>
-      <tr><td>Chaufferie &rarr; Dry line</td><td>&le; 30 m</td><td>E: Steam heat loss</td><td class="cell-ok">~20 m OK</td></tr>
-      <tr><td>Chaufferie &rarr; Wet line</td><td>&le; 50 m</td><td>E: Steam heat loss</td><td class="cell-warn">~40 m &mdash; insulate well</td></tr>
+      <tr><td>GPL tank &rarr; Chaufferie</td><td>&ge; 15 m</td><td>R: Art. 97 (flame source)</td><td class="cell-ok">~25&ndash;30 m OK (gas pipe east&rarr;centre)</td></tr>
+      <tr><td>GPL tank &rarr; Poste Transfo</td><td>&ge; 7.5 m</td><td>R: Art. 101 (ATEX)</td><td class="cell-ok">Adjacent east zone &mdash; OK</td></tr>
+      <tr><td>GPL tank &rarr; Generator</td><td>&ge; 7.5 m</td><td>R: Art. 97 (ignition)</td><td class="cell-ok">Adjacent east zone &mdash; OK</td></tr>
+      <tr><td>Chaufferie &rarr; Water Park</td><td>&le; 15 m</td><td>E: Minimize feed pipe</td><td class="cell-ok">~20 m OK (centre&rarr;SW)</td></tr>
+      <tr><td>Chaufferie &rarr; Dry line</td><td>&le; 30 m</td><td>E: Steam heat loss</td><td class="cell-ok">~20&ndash;25 m OK</td></tr>
+      <tr><td>Chaufferie &rarr; Wet line</td><td>&le; 50 m</td><td>E: Steam heat loss</td><td class="cell-ok">~20&ndash;25 m OK</td></tr>
       <tr><td>Chaufferie &rarr; S. boundary</td><td>&ge; 10 m</td><td>R: Urbanistic setback</td><td class="cell-warn">~12&ndash;15 m &mdash; verify surveyor</td></tr>
       <tr><td>Cooling tower &rarr; Retorts</td><td>&le; 20 m</td><td>E: Cooling response</td><td class="cell-ok">Adjacent OK</td></tr>
       <tr><td>Cooling tower &rarr; Admin HVAC</td><td>&ge; 30 m</td><td>S: Legionella drift</td><td class="cell-warn">~25 m &mdash; check wind</td></tr>
@@ -1014,18 +1039,31 @@
 
 <h2>Recommended Utility Zoning</h2>
 <div class="summary-box">
-  <p><strong>South Utility Corridor:</strong> Cluster most utilities along the south boundary, between the building south wall and the 10 m setback. This zone is ~101 m wide &times; ~10&ndash;15 m deep and should contain, from west to east:</p>
-  <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 2; margin-top: 8px;">
-    [Well] &rarr; [Water Park 250+30+25 m&sup3;] &rarr; [Chaufferie 12&times;8m] &rarr; [Transfo+TGBT2+PLG] &rarr; [Generator] &rarr; [STEP 150 m&sup2;]
+  <p><strong>4-Zone Distributed Layout</strong> &mdash; Utilities placed by functional proximity rather than crammed into one corridor. The south setback corridor (10 m deep) cannot physically hold all utility footprints (~700+ m&sup2;) plus access roads. Distributing across 4 zones minimizes the most expensive runs (steam, power cables) while keeping each utility closest to its primary user.</p>
+  <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 2.2; margin-top: 12px; background: var(--surface); padding: 12px 14px; border-radius: 6px; border: 1px solid var(--border);">
+    <strong style="font-family: DM Sans, sans-serif; font-size: 13px;">Zone Est</strong> (Hazardous Gas + Electrical):<br/>
+    &nbsp;&nbsp;GPL 22m&sup3; &rarr; PLG &rarr; Transfo 5&times;4m &rarr; G&eacute;n&eacute;ratrice &rarr; Cooling Tower<br/>
+    <strong style="font-family: DM Sans, sans-serif; font-size: 13px;">Zone Sud-Centre</strong> (Thermal):<br/>
+    &nbsp;&nbsp;Chaufferie 12&times;8m + TGBT2<br/>
+    <strong style="font-family: DM Sans, sans-serif; font-size: 13px;">Zone Sud-Ouest</strong> (Water):<br/>
+    &nbsp;&nbsp;Well &rarr; Water Park 250+30+25m&sup3; + WTP + Fire reserve (dual-purpose)<br/>
+    <strong style="font-family: DM Sans, sans-serif; font-size: 13px;">Zone Sud</strong> (Wastewater):<br/>
+    &nbsp;&nbsp;STEP 150&ndash;200m&sup2; + Fosse Septique<br/>
+    <strong style="font-family: DM Sans, sans-serif; font-size: 13px;">Int&eacute;rieur</strong> (No regulatory distance):<br/>
+    &nbsp;&nbsp;Compressed Air + Fire Pump Room
   </p>
-  <p style="margin-top: 10px;"><strong>East Utility Zone (GPL):</strong> The GPL 22 m&sup3; tank is placed on the <strong>east side</strong> of the lot (mid-east, adjacent to the Quai de D&eacute;chargement) per the AFRIQUIAGAZ implantation plan, where the building-to-property distance is ~17+ m &mdash; sufficient for the 7.5 m + tank + 7.5 m requirement. Poste Transfo also on this side.</p>
-  <p style="margin-top: 10px;"><strong>Benefits:</strong> All south corridor utilities accessible from the south for maintenance without entering production. GPL on the east side keeps it separated from the chaufferie by distance (~35&ndash;40 m), with the LOCAL PLG as an intermediate regulation point. Truck access for GPL delivery from the east, other deliveries from south entries.</p>
-  <p><strong>Interior (freed zone):</strong> Compressed air + maintenance shop + fire pump room. Central to production, no regulatory distance requirements.</p>
-  <p><strong>East side:</strong> GPL tank + Cooling tower &mdash; cooling tower must be close to retorts, positioned so drift blows away from admin building (prevailing W/NW wind pushes drift east, away from factory).</p>
+  <p style="margin-top: 12px;"><strong>Key design decisions:</strong></p>
+  <ul style="margin-top: 4px; font-size: 13px; line-height: 1.7;">
+    <li><strong>Chaufferie south-central</strong> (not east, not SW): Equalizes steam piping to both production lines (~20&ndash;25 m each). Placing it east near GPL would cut gas piping but push steam to the dry line to ~50 m &mdash; expensive heat loss and condensate problems.</li>
+    <li><strong>GPL east side</strong> (AFRIQUIAGAZ confirmed): Mid-east position where building setback is ~17+ m. Separated from chaufferie by ~25&ndash;30 m of gas piping &mdash; acceptable for a 2&quot; steel line.</li>
+    <li><strong>Transfo + Generator east</strong>: Generator adjacent to Transfo = short ATS cable. ONEE HTA feed enters from the east/south. ATEX-rated equipment co-located with the GPL zone.</li>
+    <li><strong>Water park SW</strong>: Direct connection to well (west boundary) and ONEE DN100 (south). Dual-purpose the 250 m&sup3; raw water tank as fire reserve (dedicated suction + diesel fire pump) &mdash; solves the 120 m&sup3; fire water deficit.</li>
+    <li><strong>STEP south</strong>: Gravity drainage from both production blocks. Separated from water park to avoid cross-contamination.</li>
+  </ul>
 </div>
 
 <footer>
-  PetFactory Maroc &mdash; Utility Premortem &mdash; Benguerir (Sidi Bouatmane) &mdash; Lot 23 ZI, TF 976/72 &mdash; Rev. 3, 25 Sept 2026
+  PetFactory Maroc &mdash; Utility Premortem &mdash; Benguerir (Sidi Bouatmane) &mdash; Lot 23 ZI, TF 976/72 &mdash; Rev. 4, 25 Sept 2026
 </footer>
 
 <script>

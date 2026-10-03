@@ -63,9 +63,21 @@ SCENARIOS = {
                                    "rice":0.18,"fat":0.05,"vitamins_minerals":0.10}),
         "color":       "#2ECC71",
     },
+    "sku_cat": {
+        "label":       "SKU: Cat Kibble Ø4 mm",
+        "description": "Cat recipe · FAMSUN guarantee 4.5 t/h · finer grind",
+        "weather":     WeatherState(dry_bulb_c=25, relative_humidity=45),
+        "sku":         SKU(name="Cat Kibble",
+                           species="cat",
+                           moisture_target_pct=9.0,
+                           design_throughput_kgph=4500.0,
+                           recipe={"chicken_meal":0.21,"corn":0.12,"wheat":0.41,
+                                   "rice":0.12,"fat":0.05,"vitamins_minerals":0.09}),
+        "color":       "#1ABC9C",
+    },
 }
 
 SCENARIO_GROUPS = {
     "Seasonal Weather":  ["summer_peak", "winter_cold", "spring_mild", "humid_storm"],
-    "SKU Comparison":    ["sku_standard", "sku_high_protein", "sku_senior"],
+    "SKU Comparison":    ["sku_standard", "sku_high_protein", "sku_senior", "sku_cat"],
 }

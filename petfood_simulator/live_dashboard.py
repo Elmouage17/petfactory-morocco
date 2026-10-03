@@ -99,7 +99,7 @@ def build_frame(t):
     sme   = (203 * load - 18) / max(0.1, 5.0 * ramp) if ramp > 0.1 else 0.0
     dp    = _drift(_n(30.5, 0.05), t, 18, 0.08)
     ex_al = []
-    if sme > 130: ex_al.append(f"HIGH SME {sme:.0f} kWh/t")
+    if sme > 40:  ex_al.append(f"HIGH SME {sme:.0f} kWh/t")
     if dp  > 42:  ex_al.append(f"HIGH die pressure {dp:.1f} bar")
     out["Extruder"] = {
         "status": "ALARM" if ex_al else ("RUNNING" if ramp > 0 else "IDLE"),

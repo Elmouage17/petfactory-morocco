@@ -3,9 +3,10 @@ Stage 7 — Packaging & Finished Goods
 Room climate control, seal quality, throughput bottleneck.
 """
 from .core import ProcessState, PlantContext, WeatherState
+from .extruder import GUARANTEED_CAPACITY_KGPH
 
 STAGE_CAPACITIES_KGPH = {
-    "extruder":   5_000,
+    "extruder":   GUARANTEED_CAPACITY_KGPH["dog"],
     "dryer":      5_500,
     "cooler":     6_500,
     "coater":     4_800,

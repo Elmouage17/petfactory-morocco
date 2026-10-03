@@ -41,6 +41,7 @@ class WeatherState:
 @dataclass
 class SKU:
     name: str = "Standard Dry Kibble"
+    species: str = "dog"               # "dog" or "cat" — sets extruder capacity
     recipe: Dict[str, float] = field(default_factory=lambda: {
         "chicken_meal": 0.30,
         "corn": 0.25,

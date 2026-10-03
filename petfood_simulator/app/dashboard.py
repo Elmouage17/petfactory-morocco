@@ -572,7 +572,7 @@ def compare_scenarios(n, selected_keys):
     moist_score = [1 - abs(r["final_moisture_pct"] - 9.0) / 3.0 for r in results]
     aw_safety   = normalise([r["final_aw"] for r in results], 0, 0.6, invert=True)
     low_risk    = normalise([r["quality_risk"] for r in results], 0, 1, invert=True)
-    sme_eff     = normalise([r["sme_kwh_t"] for r in results], 20, 130, invert=True)
+    sme_eff     = normalise([r["sme_kwh_t"] for r in results], 15, 50, invert=True)
 
     fig_radar = go.Figure()
     for i, r in enumerate(results):

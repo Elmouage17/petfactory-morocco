@@ -16,6 +16,7 @@ import numpy as np
 
 from simulator import run_simulation
 from scenarios import SCENARIOS, SCENARIO_GROUPS
+from models import SME_TARGET_LOW, SME_TARGET_HIGH
 
 BG      = "#0D1B2A"
 CARD    = "#1B3A5C"
@@ -72,7 +73,7 @@ def plot_comparison(results: dict, save_path: str | None = None):
         (axes[0,0], "Throughput (t/h)",     [s["throughput_tph"]      for s in scenarios], None,     None),
         (axes[0,1], "Final Moisture (%)",    [s["final_moisture_pct"]  for s in scenarios], (7.5,10.5),"#F0A500"),
         (axes[0,2], "Water Activity aₓ",    [s["final_aw"]            for s in scenarios], (0,0.60), "#E74C3C"),
-        (axes[1,0], "SME (kWh/t)",          [s["sme_kwh_t"]           for s in scenarios], (80,120), "#9B59B6"),
+        (axes[1,0], "SME (kWh/t)",          [s["sme_kwh_t"]           for s in scenarios], (SME_TARGET_LOW,SME_TARGET_HIGH), "#9B59B6"),
         (axes[1,1], "Quality Risk Score",   [s["quality_risk"]        for s in scenarios], (0,0.35), "#E74C3C"),
         (axes[1,2], "Release Status",       [1 if s["release_status"]=="PASS" else 0
                                              for s in scenarios],       None,     None),

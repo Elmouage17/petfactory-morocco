@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0f2a3d;--terra:#c8553d;--sand:#f3e6d0;--gold:#e0a84f}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1350px;overflow:hidden;background:var(--navy)}
+  body{font-family:Inter,"DejaVu Sans",sans-serif;color:var(--sand);position:relative}
+  .top{position:absolute;inset:0 0 auto 0;height:360px;padding:56px 64px 0;
+       background:var(--navy);z-index:2}
+  .eyebrow{font-size:22px;letter-spacing:.18em;font-weight:700;color:var(--gold);text-transform:uppercase}
+  h1{font-family:Fraunces,"DejaVu Serif",serif;font-weight:700;font-size:66px;line-height:1.06;margin-top:22px;color:#fff}
+  h1 em{font-style:normal;color:var(--terra)}
+  .band{position:absolute;left:0;right:0;top:350px;height:20px;z-index:3;
+    background:
+      repeating-linear-gradient(45deg,var(--terra) 0 10px,transparent 10px 20px),
+      repeating-linear-gradient(-45deg,var(--gold) 0 10px,var(--navy) 10px 20px);}
+  .photo{position:absolute;left:0;right:0;top:370px;height:760px;overflow:hidden}
+  .photo img{position:absolute;left:0;top:-300px;width:1080px;height:1440px}
+  .photo::after{content:"";position:absolute;inset:auto 0 0 0;height:90px;
+    background:linear-gradient(to top,var(--navy),rgba(15,42,61,0))}
+  .name{position:absolute;left:64px;top:1112px;z-index:2}
+  .name b{font-size:36px;color:#fff;margin-right:14px}
+  .name span{font-size:24px;color:var(--sand);opacity:.9}
+  .stats{position:absolute;left:64px;right:64px;top:1190px;z-index:2;display:flex;gap:20px}
+  .stat{flex:1;border-top:4px solid var(--terra);padding-top:14px}
+  .stat b{display:block;font-family:Fraunces,"DejaVu Serif",serif;font-size:38px;color:#fff}
+  .stat span{display:block;font-size:20px;line-height:1.3;color:var(--sand)}
+</style></head><body>
+  <div class="top">
+    <div class="eyebrow">PetFactory Maroc · Sidi Bouathmane</div>
+    <h1>Building Morocco’s next&#8209;generation <em>pet food</em> plant.</h1>
+  </div>
+  <div class="band"></div>
+  <div class="photo"><img src="sam.jpg" alt=""></div>
+  <div class="name"><b>Sam Aribi</b><span>Project Manager, PetFactory Maroc</span></div>
+  <div class="stats">
+    <div class="stat"><b>5 t/h</b><span>premium dry kibble extrusion</span></div>
+    <div class="stat"><b>FAMSUN</b><span>turnkey production line</span></div>
+    <div class="stat"><b>Duty&#8209;free</b><span>to the U.S. (U.S.–Morocco FTA)</span></div>
+  </div>
+</body></html>

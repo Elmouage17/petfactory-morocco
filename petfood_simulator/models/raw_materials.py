@@ -4,6 +4,7 @@ Initialises ProcessState from ambient conditions and SKU recipe.
 """
 import math
 from .core import ProcessState, PlantContext, WeatherState, SKU
+from .extruder import extruder_capacity_kgph
 
 
 def _ingredient_moisture(recipe: dict, weather: WeatherState) -> float:
@@ -36,7 +37,9 @@ class RawMaterials:
         state.moisture_pct   = _ingredient_moisture(sku.recipe, weather)
         state.temperature_c  = weather.dry_bulb_c   # stored at ambient
         state.fat_pct        = sku.recipe.get("fat", 0.08) * 100
+        # Feed rate is capped by the extruder's guaranteed capacity for the SKU
         state.mass_flow_kgph = min(sku.design_throughput_kgph,
-                                   self.throughput_limit_kgph)
+                                   self.throughput_limit_kgph,
+                                   extruder_capacity_kgph(sku.species))
         state.log("1_raw_materials")
         return state

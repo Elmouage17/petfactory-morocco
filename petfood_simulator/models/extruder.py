@@ -6,8 +6,20 @@ from .core import ProcessState, PlantContext, WeatherState
 
 MOTOR_RATED_KW  = 203.0
 MOTOR_IDLE_KW   = 18.0     # baseline mechanical loss at no load
-SME_TARGET_LOW  = 80.0     # kWh/t minimum for standard kibble
-SME_TARGET_HIGH = 120.0    # kWh/t maximum
+SME_TARGET_LOW  = 25.0     # kWh/t — steam-preconditioned dry pet food
+SME_TARGET_HIGH = 40.0     # kWh/t — above this the 203 kW drive cannot hold 5 t/h
+
+# FAMSUN guaranteed capacity, dry feed flow from the certified dosing-screw
+# scale (Annexe Chiffres de Performance Garantie, SJPS165).
+GUARANTEED_CAPACITY_KGPH = {
+    "dog": 5_000.0,   # Ø8.0 mm kibble · 1.2 mm mill screen · D90 < 800 µm
+    "cat": 4_500.0,   # Ø4.0 mm kibble · 1.0 mm mill screen · D90 < 500 µm
+}
+
+
+def extruder_capacity_kgph(species: str) -> float:
+    """Guaranteed SJPS165 feed capacity for a dog or cat SKU."""
+    return GUARANTEED_CAPACITY_KGPH[species]
 
 
 class Extruder:

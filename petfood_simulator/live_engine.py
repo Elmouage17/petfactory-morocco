@@ -14,7 +14,7 @@ random.seed(42)
 # ── Machine alarm thresholds ──────────────────────────────────────────────────
 ALARMS = {
     "hammermill_motor_kw":   {"lo": 140, "hi": 195, "unit": "kW"},
-    "extruder_sme":          {"lo": 60,  "hi": 130, "unit": "kWh/t"},
+    "extruder_sme":          {"lo": 20,  "hi": 45,  "unit": "kWh/t"},
     "extruder_die_pressure": {"lo": 15,  "hi": 42,  "unit": "bar"},
     "dryer_moisture_out":    {"lo": 7.0, "hi": 11.5,"unit": "%"},
     "dryer_zone1_temp":      {"lo": 110, "hi": 165, "unit": "°C"},
